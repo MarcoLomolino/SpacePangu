@@ -45,6 +45,7 @@
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:onClick="PlayGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Versus"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,4 +65,21 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Versus"
         app:srcCompat="@drawable/editor_selector" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/electrolize"
+        android:text="Play"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/DodgerBlue"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/Play"
+        app:layout_constraintStart_toStartOf="@+id/Play"
+        app:layout_constraintTop_toTopOf="@+id/Play" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
