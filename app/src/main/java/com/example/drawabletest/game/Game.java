@@ -160,8 +160,6 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             CustomerModel customerModel = new CustomerModel(-1,score);
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
             boolean success = databaseHelper.addOne(customerModel);
-            List<CustomerModel> records = databaseHelper.getRecord();
-            Toast.makeText(context, records.toString(), Toast.LENGTH_SHORT).show();
             gameOver = true;
             start = false;
             invalidate();
