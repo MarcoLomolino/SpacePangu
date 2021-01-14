@@ -251,6 +251,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     public boolean onTouch(View v, MotionEvent event) {
         start = true;
         if (gameOver && start) {
+            //prova committ
             if (difficulty == "difficult") {
                 statistic = new Statistic(1,0,1);
             } else {
