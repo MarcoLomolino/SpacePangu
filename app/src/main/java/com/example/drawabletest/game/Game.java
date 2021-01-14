@@ -109,15 +109,18 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private void setBricks(Context context) {
         for (int i = 3; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
+
+                Position position = new Position(j * 150, i * 100);
+
                 int a = (int) (Math.random() * 100);
                 if(a >= 20)
-                    wall.add(new SampleBrick(context, new Position(j * 150, i * 100)));
+                    wall.add(new SampleBrick(context, position));
                 else if(a >= 10 && a < 20)
-                    wall.add(new LifeBrick(context, new Position(j * 150, i * 100)));
+                    wall.add(new LifeBrick(context, position));
                 else if(a >= 5 && a < 10)
-                    wall.add(new ResistantBrick(context, new Position(j * 150, i * 100)));
-                else if(a > 0 && a < 5)
-                    wall.add(new ScoreBrick(context, new Position(j * 150, i * 100)));
+                    wall.add(new ResistantBrick(context, position));
+                else if(a >= 0 && a < 5)
+                    wall.add(new ScoreBrick(context, position));
             }
         }
     }
