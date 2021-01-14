@@ -5,7 +5,7 @@
 
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
     <application
-
+        android:name=".MyApplication"
         android:icon="@mipmap/spacepang"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/spacepang_round"

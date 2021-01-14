@@ -16,6 +16,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private Game game;
     private Handler updateHandler;
+    private String difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,8 @@ public class PlayActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // vytvori novu hru
-        game = new Game(this);
+        difficulty = ((MyApplication) this.getApplication()).getDifficolta();
+        game = new Game(this, difficulty);
         setContentView(game);
 
         // vytvori handler a thread

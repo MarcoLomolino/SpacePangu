@@ -2,11 +2,39 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app ="http://schemas.android.com/apk/res-auto" >
 
+    <!--
     <item
         android:id="@+id/action2"
         android:icon="@drawable/setting"
         android:title="Settings"
         app:showAsAction="always" />
+    -->
+
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_icon"
+        android:title="Settings"
+        app:showAsAction="ifRoom">
+
+        <item
+            android:id="@+id/difficulty"
+            android:title="Difficulty"
+            app:showAsAction="never">
+
+            <menu>
+
+                <item android:id="@+id/classic"
+                    android:title="Classic" />
+
+                <item android:id="@+id/difficult"
+                    android:title="Hard" />
+
+            </menu>
+        </item>
+
+    </item>
+
 
 
 </menu>

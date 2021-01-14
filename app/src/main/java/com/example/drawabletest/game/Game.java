@@ -19,6 +19,7 @@ import android.view.WindowManager;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
+import com.example.drawabletest.MyApplication;
 import com.example.drawabletest.R;
 import com.example.drawabletest.brick.Brick;
 import com.example.drawabletest.ball.Ball;
@@ -47,16 +48,22 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private final Sensor accelerometer;
 
     private Statistic statistic;
+    private String difficulty;
 
     private boolean start;
     private boolean gameOver;
     private final Context context;
 
-    public Game(Context context) {
+    public Game(Context context, String difficolta) {
         super(context);
         paint = new Paint();
+        difficulty = difficolta;
 
-        this.statistic = new Statistic(3, 0, 1);
+        if (difficulty == "difficult") {
+            this.statistic = new Statistic(1,0,1);
+        } else {
+            this.statistic = new Statistic(3, 0, 1);
+        }
         // nastavi context, zivoty, skore a level
         this.context = context;
 
@@ -103,14 +110,23 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                 Position position = new Position(j * 150, i * 100);
 
                 int a = (int) (Math.random() * 100);
-                if(a >= 20)
-                    wall.add(new SampleBrick(context, position));
-                else if(a >= 10 && a < 20)
-                    wall.add(new LifeBrick(context, position));
-                else if(a >= 5 && a < 10)
-                    wall.add(new ResistantBrick(context, position));
-                else if(a >= 0 && a < 5)
-                    wall.add(new ScoreBrick(context, position));
+                if(difficulty == "difficult") {
+                    if(a >= 15)
+                        wall.add(new SampleBrick(context, position));
+                    else if(a >= 5 && a < 15)
+                        wall.add(new ResistantBrick(context, position));
+                    else if(a >= 0 && a < 5)
+                        wall.add(new ScoreBrick(context, position));
+                } else {
+                    if (a >= 20)
+                        wall.add(new SampleBrick(context, position));
+                    else if (a >= 10 && a < 20)
+                        wall.add(new LifeBrick(context, position));
+                    else if (a >= 5 && a < 10)
+                        wall.add(new ResistantBrick(context, position));
+                    else if (a >= 0 && a < 5)
+                        wall.add(new ScoreBrick(context, position));
+                }
             }
         }
     }
