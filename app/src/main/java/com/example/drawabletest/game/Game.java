@@ -67,7 +67,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
         // accelerometer SensorManager
         sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ALL);
+        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         setBackground();//set background image
         getSize();//get screen size
@@ -248,7 +248,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ALL) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             paddle.setXPosition((int) (paddle.getXPosition() - event.values[0] - event.values[0]));
 
             if (paddle.getXPosition() + event.values[0] > size.x - 240) {
