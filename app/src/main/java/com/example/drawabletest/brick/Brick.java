@@ -2,19 +2,18 @@ package com.example.drawabletest.brick;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.view.View;
 
-import com.example.drawabletest.R;
+import com.example.drawabletest.game.Game;
 import com.example.drawabletest.position.Position;
 
-public class Brick extends View {
+public abstract class Brick extends View {
 
     private Bitmap graphic_brick;
     private Position position;
     private float x;
     private float y;
+    private int score;
 
     public Brick(Context context, Position position)
     {
@@ -41,6 +40,18 @@ public class Brick extends View {
         return this.position.getY();
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setGraphic_brick(Bitmap graphic_brick) {
+        this.graphic_brick = graphic_brick;
+    }
+
     public Bitmap getGraphic_brick() {
         return graphic_brick;
     }
@@ -64,8 +75,12 @@ public class Brick extends View {
                 '}';
     }
 
+    public abstract void setGraphic_brick();
+
+    public abstract void setEffect(Game game);
+
     //assegna un'immagine casuale al mattone
-    private void setGraphic_brick() {
+  /*  private void setGraphic_brick() {
         int a = (int) (Math.random() * 8);
         switch (a) {
             case 0:
@@ -93,7 +108,7 @@ public class Brick extends View {
                 graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_yellow);
                 break;
         }
-    }
+    }*/
 
 
 }

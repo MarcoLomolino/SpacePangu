@@ -16,7 +16,6 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
@@ -24,10 +23,13 @@ import com.example.drawabletest.PlayActivity;
 import com.example.drawabletest.R;
 import com.example.drawabletest.brick.Brick;
 import com.example.drawabletest.ball.Ball;
+import com.example.drawabletest.brick.bonus_brick.BonusBrick;
+import com.example.drawabletest.brick.bonus_brick.LifeBrick;
+import com.example.drawabletest.brick.bonus_brick.ScoreBrick;
+import com.example.drawabletest.brick.sample_brick.SampleBrick;
 import com.example.drawabletest.paddle.Paddle;
 import com.example.drawabletest.position.Position;
 
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Game extends View implements View.OnTouchListener, SensorEventListener {
@@ -45,22 +47,20 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private final SensorManager sManager;
     private final Sensor accelerometer;
 
-    private int life;
-    private int score;
-    private int level;
+    private Statistic statistic;
+
     private boolean start;
     private boolean gameOver;
     private final Context context;
 
-    public Game(Context context, int life, int score) {
+    public Game(Context context) {
         super(context);
         paint = new Paint();
 
+        this.statistic = new Statistic(3, 0, 1);
         // nastavi context, zivoty, skore a level
         this.context = context;
-        this.life = life;
-        this.score = score;
-        level = 0;
+
 
         //flag vars to start the game or to check a game over
         start = false;
@@ -82,6 +82,17 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         this.setOnTouchListener(this);
     }
 
+    public Game(PlayActivity playActivity, int a)
+    {
+        super(playActivity);
+        this.context = playActivity;
+        paint = new Paint();
+        sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+
+
+
     private void setBackground() {
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
     }
@@ -97,7 +108,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private void setBricks(Context context) {
         for (int i = 3; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
-                wall.add(new Brick(context, new Position(j * 150, i * 100)));
+                int a = (int) (Math.random() * 100);
+                if(a >= 10)
+                    wall.add(new SampleBrick(context, new Position(j * 150, i * 100)));
+                else if(a >= 5 && a < 10)
+                    wall.add(new LifeBrick(context, new Position(j * 150, i * 100)));
+                else if(a > 0 && a < 5)
+                    wall.add(new ScoreBrick(context, new Position(j * 150, i * 100)));
             }
         }
     }
@@ -130,8 +147,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         //draw info text
         paint.setColor(Color.WHITE);
         paint.setTextSize(50);
-        canvas.drawText("" + life, 400, 100, paint);
-        canvas.drawText("" + score, 700, 100, paint);
+        canvas.drawText("" + statistic.getLife(), 400, 100, paint);
+        canvas.drawText("" + statistic.getScore(), 700, 100, paint);
 
         //draw game over text
         if (gameOver) {
@@ -156,15 +173,15 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     // skontroluje stav hry. či ma životy alebo či hra konči
     private void checkLives() {
-        if (life == 1) {
-            CustomerModel customerModel = new CustomerModel(-1,score);
+        if (statistic.getLife() == 1) {
+            CustomerModel customerModel = new CustomerModel(-1, statistic.getScore());
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
             boolean success = databaseHelper.addOne(customerModel);
             gameOver = true;
             start = false;
             invalidate();
         } else {
-            life--;
+            statistic.setLife(statistic.getLife() - 1);
             ball = new Ball(context, (float)size.x / 2, size.y - 480);
             start = false;
         }
@@ -179,7 +196,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             for (Brick b : wall) {
                 if (ball.isCollisionBrick(b.getPosition())) {
                     wall.remove(b);
-                    score = score + 80;
+                    b.setEffect(this);
+                    statistic.setScore(statistic.getScore() + b.getScore());
                 }
             }
             ball.move();
@@ -190,9 +208,9 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     // zisti ci hrac vyhral alebo nie
     private void victory() {
         if (wall.isEmpty()) {
-            ++level;
+            statistic.setLevel(statistic.getLevel() + 1);
             resetLevel();
-            ball.increaseSpeed(level);
+            ball.increaseSpeed(statistic.getLevel());
             start = false;
         }
     }
@@ -219,8 +237,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     public boolean onTouch(View v, MotionEvent event) {
         start = true;
         if (gameOver && start) {
-            score = 0;
-            life = 3;
+            statistic = new Statistic(3, 0, 1);
             resetLevel();
             gameOver = false;
 
@@ -247,4 +264,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
+    public Statistic getStatistic() {
+        return statistic;
+    }
+
+    public void setStatistic(Statistic statistic) {
+        this.statistic = statistic;
+    }
+
 }

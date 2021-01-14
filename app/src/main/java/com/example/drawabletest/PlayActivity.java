@@ -25,7 +25,7 @@ public class PlayActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // vytvori novu hru
-        game = new Game(this, 3, 0);
+        game = new Game(this);
         setContentView(game);
 
         // vytvori handler a thread
