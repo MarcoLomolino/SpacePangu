@@ -14,12 +14,15 @@ public abstract class Brick extends View {
     private float x;
     private float y;
     private int score;
+    private int lives;
 
-    public Brick(Context context, Position position)
+    public Brick(Context context, Position position, int score, int lives)
     {
         super(context);
         this.position = position;
         this.setGraphic_brick();
+        this.score = score;
+        this.lives = lives;
     }
 
     public Brick(Context context, float x, float y)
@@ -60,7 +63,15 @@ public abstract class Brick extends View {
         return position;
     }
 
-   /* public void setPosition(Position position) {
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    /* public void setPosition(Position position) {
         this.position = position;
     }*/
 

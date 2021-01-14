@@ -11,14 +11,13 @@ import com.example.drawabletest.position.Position;
 public class SampleBrick extends Brick {
 
     public SampleBrick(Context context, Position position) {
-        super(context, position);
-        super.setScore(80);
+        super(context, position, 80, 1);
     }
 
 
     @Override
     public void setGraphic_brick() {
-        int a = (int) (Math.random() * 5);
+        int a = (int) (Math.random() * 4);
         switch (a) {
             case 0:
                 super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_aqua));
@@ -31,9 +30,6 @@ public class SampleBrick extends Brick {
                 break;
             case 3:
                 super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_pink));
-                break;
-            case 4:
-                super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_red));
                 break;
         }
     }

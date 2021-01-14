@@ -8,9 +8,8 @@ import com.example.drawabletest.position.Position;
 public abstract class BonusBrick extends Brick {
 
 
-    public BonusBrick(Context context, Position position) {
-        super(context, position);
-        super.setScore(20);
+    public BonusBrick(Context context, Position position, int score, int lives) {
+        super(context, position, score, lives);
     }
 
 

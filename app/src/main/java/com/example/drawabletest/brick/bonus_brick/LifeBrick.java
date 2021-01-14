@@ -12,7 +12,7 @@ import com.example.drawabletest.position.Position;
 public class LifeBrick extends BonusBrick {
 
     public LifeBrick(Context context, Position position) {
-        super(context, position);
+        super(context, position, 20, 1);
     }
 
 
@@ -30,6 +30,5 @@ public class LifeBrick extends BonusBrick {
         int score = game.getStatistic().getScore();
         int level = game.getStatistic().getLevel();
         game.setStatistic(new Statistic(life + 1, score, level));
-
     }
 }

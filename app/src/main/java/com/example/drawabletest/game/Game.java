@@ -25,6 +25,7 @@ import com.example.drawabletest.brick.Brick;
 import com.example.drawabletest.ball.Ball;
 import com.example.drawabletest.brick.bonus_brick.BonusBrick;
 import com.example.drawabletest.brick.bonus_brick.LifeBrick;
+import com.example.drawabletest.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.brick.bonus_brick.ScoreBrick;
 import com.example.drawabletest.brick.sample_brick.SampleBrick;
 import com.example.drawabletest.paddle.Paddle;
@@ -109,10 +110,12 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         for (int i = 3; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
                 int a = (int) (Math.random() * 100);
-                if(a >= 10)
+                if(a >= 20)
                     wall.add(new SampleBrick(context, new Position(j * 150, i * 100)));
-                else if(a >= 5 && a < 10)
+                else if(a >= 10 && a < 20)
                     wall.add(new LifeBrick(context, new Position(j * 150, i * 100)));
+                else if(a >= 5 && a < 10)
+                    wall.add(new ResistantBrick(context, new Position(j * 150, i * 100)));
                 else if(a > 0 && a < 5)
                     wall.add(new ScoreBrick(context, new Position(j * 150, i * 100)));
             }
@@ -195,7 +198,9 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             ball.nearPaddle(paddle.getXPosition(), paddle.getYPosition());
             for (Brick b : wall) {
                 if (ball.isCollisionBrick(b.getPosition())) {
-                    wall.remove(b);
+                    if(b.getLives() == 1)
+                        wall.remove(b);
+
                     b.setEffect(this);
                     statistic.setScore(statistic.getScore() + b.getScore());
                 }
