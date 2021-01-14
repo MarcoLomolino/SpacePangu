@@ -4,10 +4,11 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 
 import com.example.drawabletest.R;
+import com.example.drawabletest.brick.Brick;
 import com.example.drawabletest.game.Game;
 import com.example.drawabletest.position.Position;
 
-public class ResistantBrick extends BonusBrick{
+public class ResistantBrick extends Brick {
 
     public ResistantBrick(Context context, Position position) {
         super(context, position, 40, 4);

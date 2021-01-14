@@ -19,11 +19,9 @@ import android.view.WindowManager;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
-import com.example.drawabletest.PlayActivity;
 import com.example.drawabletest.R;
 import com.example.drawabletest.brick.Brick;
 import com.example.drawabletest.ball.Ball;
-import com.example.drawabletest.brick.bonus_brick.BonusBrick;
 import com.example.drawabletest.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.brick.bonus_brick.ScoreBrick;
@@ -69,7 +67,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
         // accelerometer SensorManager
         sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ALL);
 
         setBackground();//set background image
         getSize();//get screen size
@@ -83,14 +81,6 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         this.setOnTouchListener(this);
     }
 
-    public Game(PlayActivity playActivity, int a)
-    {
-        super(playActivity);
-        this.context = playActivity;
-        paint = new Paint();
-        sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    }
 
 
 
@@ -258,7 +248,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+        if (event.sensor.getType() == Sensor.TYPE_ALL) {
             paddle.setXPosition((int) (paddle.getXPosition() - event.values[0] - event.values[0]));
 
             if (paddle.getXPosition() + event.values[0] > size.x - 240) {

@@ -5,11 +5,12 @@ import android.graphics.BitmapFactory;
 
 import com.example.drawabletest.R;
 
+import com.example.drawabletest.brick.Brick;
 import com.example.drawabletest.game.Game;
 import com.example.drawabletest.game.Statistic;
 import com.example.drawabletest.position.Position;
 
-public class LifeBrick extends BonusBrick {
+public class LifeBrick extends Brick {
 
     public LifeBrick(Context context, Position position) {
         super(context, position, 20, 1);
