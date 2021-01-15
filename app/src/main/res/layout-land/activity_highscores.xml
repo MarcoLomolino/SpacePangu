@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/score5"
         app:layout_constraintTop_toBottomOf="@+id/globalScore4" />
 
     <TextView
@@ -24,18 +24,8 @@
         app:layout_constraintBottom_toTopOf="@+id/globalScore5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/score4"
         app:layout_constraintTop_toBottomOf="@+id/globalScore3" />
-
-    <TextView
-        android:id="@+id/globalScore3"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/globalScore4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/globalScore2" />
 
     <TextView
         android:id="@+id/globalScore2"
@@ -44,42 +34,65 @@
         app:layout_constraintBottom_toTopOf="@+id/globalScore3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/score2"
         app:layout_constraintTop_toBottomOf="@+id/globalScore1" />
+
+    <TextView
+        android:id="@+id/globalScore3"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/globalScore4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/score3"
+        app:layout_constraintTop_toBottomOf="@+id/globalScore2" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="168dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         android:foregroundTint="#FFFFFF"
         android:text="Highscores"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/score1"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Scores"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/score3"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/score1"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/score2"
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Global Scores"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/globalScore1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/score5"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:foregroundTint="#FFFFFF"
@@ -87,8 +100,23 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/score4"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/globalScore5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score4" />
+
+    <TextView
+        android:id="@+id/score4"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:foregroundTint="#FFFFFF"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/score5"
+        app:layout_constraintEnd_toStartOf="@+id/globalScore4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score3" />
@@ -102,29 +130,14 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/score2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score1" />
-
-    <TextView
-        android:id="@+id/score4"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/score5"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/score4"
+        app:layout_constraintEnd_toStartOf="@+id/globalScore3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score2" />
 
     <TextView
-        android:id="@+id/score5"
+        android:id="@+id/score2"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:foregroundTint="#FFFFFF"
@@ -132,45 +145,32 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/score3"
+        app:layout_constraintEnd_toStartOf="@+id/globalScore2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score4" />
+        app:layout_constraintTop_toBottomOf="@+id/score1" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Scores"
-        android:textColor="@color/white"
-        android:textSize="24sp"
+        android:id="@+id/score1"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:foregroundTint="#FFFFFF"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/score1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/score2"
+        app:layout_constraintEnd_toStartOf="@+id/globalScore1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Global Scores"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/globalScore1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="57dp"
         android:layout_height="59dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +181,7 @@
         android:id="@+id/imageView2"
         android:layout_width="63dp"
         android:layout_height="59dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView"
@@ -195,6 +195,6 @@
         app:layout_constraintBottom_toTopOf="@+id/globalScore2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/score1"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,12 +23,9 @@ public class HomeActivity extends AppCompatActivity {
         //www.pornhub.com
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
 
+
+    /*
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -43,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    } */
 
     public void ShowHighscore(View view){
         Intent intent = new Intent(this, Highscores.class);
@@ -51,8 +48,21 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void PlayGame(View view){
-        Intent intent2 = new Intent(this, PlayActivity.class);
-        startActivity(intent2);
+    public void Option(MenuItem item) {
+        Intent intent = new Intent(this,Options.class);
+        startActivity(intent);
     }
+
+    public void PlayGame(View view){
+        Intent intent = new Intent(this, PlayActivity.class);
+        startActivity(intent);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
 }

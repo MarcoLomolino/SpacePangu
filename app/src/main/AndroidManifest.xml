@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.drawabletest">
-   <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
     <application
         android:name=".MyApplication"
         android:icon="@mipmap/spacepang"
@@ -11,11 +13,13 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-
-        <activity android:name=".Highscores"/>
-        <activity android:name=".HomeActivity"/>
-        <activity android:name=".PlayActivity"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Options"></activity>
+        <activity android:name=".Highscores" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".PlayActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +27,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>

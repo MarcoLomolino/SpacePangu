@@ -2,15 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app ="http://schemas.android.com/apk/res-auto" >
 
-    <!--
+
     <item
         android:id="@+id/action2"
         android:icon="@drawable/setting"
+        android:onClick="Option"
         android:title="Settings"
         app:showAsAction="always" />
-    -->
 
 
+    <!--
     <item
         android:id="@+id/setting"
         android:icon="@drawable/setting"
@@ -34,7 +35,7 @@
         </item>
 
     </item>
-
+    -->
 
 
 </menu>
