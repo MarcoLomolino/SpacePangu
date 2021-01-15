@@ -9,12 +9,12 @@ import com.example.drawabletest.position.Position;
 
 public abstract class Brick extends View {
 
-    private Bitmap graphic_brick;
-    private Position position;
+    private Bitmap graphic_brick;//brick texture
+    private Position position;//x and y coordinates of the brick
     private float x;
     private float y;
-    private int score;
-    private int lives;
+    private int score;//the score of a single brick
+    private int lives;//how many hit are needed to destroy a brick
 
     public Brick(Context context, Position position, int score, int lives)
     {
@@ -86,40 +86,12 @@ public abstract class Brick extends View {
                 '}';
     }
 
+	//a texture is assigned to the brick
     public abstract void setGraphic_brick();
 
+	//the brick produce an effect 
     public abstract void setEffect(Game game);
 
-    //assegna un'immagine casuale al mattone
-  /*  private void setGraphic_brick() {
-        int a = (int) (Math.random() * 8);
-        switch (a) {
-            case 0:
-                graphic_brick =  BitmapFactory.decodeResource(getResources(), R.drawable.brick_aqua);
-                break;
-            case 1:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_blue);
-                break;
-            case 2:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_green);
-                break;
-            case 3:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_orange);
-                break;
-            case 4:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_pink);
-                break;
-            case 5:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_purple);
-                break;
-            case 6:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_red);
-                break;
-            case 7:
-                graphic_brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_yellow);
-                break;
-        }
-    }*/
 
 
 }

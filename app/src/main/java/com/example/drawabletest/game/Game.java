@@ -56,16 +56,17 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     public Game(Context context, String difficolta) {
         super(context);
-        paint = new Paint();
         difficulty = difficolta;
 
-        if (difficulty == "difficult") {
-            this.statistic = new Statistic(1,0,1);
+        if (difficulty == "difficult") {//id hard mode has been set
+            this.statistic = new Statistic(1,0,1); //only a life is setted, 0 actual score and start from level 1
         } else {
-            this.statistic = new Statistic(3, 0, 1);
+		//if standard mode has been set
+            this.statistic = new Statistic(3, 0, 1); //3 lives, 0 actual score, start from level 1
         }
-        // nastavi context, zivoty, skore a level
+        //set playActivity context
         this.context = context;
+        paint = new Paint();
 
 
         //flag vars to start the game or to check a game over
@@ -79,7 +80,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         setBackground();//set background image
         getSize();//get screen size
 
-        // vytvorí novú lopticku, pádlo, a zoznam tehliciek
+        //initialize ball, paddle and bricks
         ball = new Ball(context, (float)size.x / 2, size.y - 480);
         paddle = new Paddle(context, (float)size.x / 2, size.y - 400);
         wall = new CopyOnWriteArrayList<>();
@@ -89,12 +90,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
 
-
-
     private void setBackground() {
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
     }
 
+	//get display size (it's not hardware size but the size of the interagible activity)
     private void getSize()
     {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -107,17 +107,19 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         for (int i = 3; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
 
+		//coordinates of each brick
                 Position position = new Position(j * 150, i * 100);
-
+		
+		//set percentage spawn for bricks type
                 int a = (int) (Math.random() * 100);
-                if(difficulty == "difficult") {
+                if(difficulty == "difficult") { //if difficult is hard there is no life brick
                     if(a >= 15)
                         wall.add(new SampleBrick(context, position));
                     else if(a >= 5 && a < 15)
                         wall.add(new ResistantBrick(context, position));
                     else if(a >= 0 && a < 5)
                         wall.add(new ScoreBrick(context, position));
-                } else {
+                } else { //if difficult is standard there are all types of bricks
                     if (a >= 20)
                         wall.add(new SampleBrick(context, position));
                     else if (a >= 10 && a < 20)
@@ -170,7 +172,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         }
     }
 
-    // skontroluje či sa ball nedotkla okraju
+    //check if the ball hit a wall
     private void checkWalls() {
         if (ball.getXPosition() + ball.getDirection().getX() >= size.x - 60) {
             ball.changeDirection("prava");
@@ -183,53 +185,53 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         }
     }
 
-    // skontroluje stav hry. či ma životy alebo či hra konči
-    private void checkLives() {
-        if (statistic.getLife() == 1) {
+
+        private void checkLives() {
+        if (statistic.getLife() == 1) {//if the player lose
             CustomerModel customerModel = new CustomerModel(-1, statistic.getScore());
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
-            boolean success = databaseHelper.addOne(customerModel);
-            gameOver = true;
-            start = false;
+            boolean success = databaseHelper.addOne(customerModel); //set point in DB to show in top ten leaderboard
+            gameOver = true; //set game over as true
+            start = false; 
             invalidate();
-        } else {
-            statistic.setLife(statistic.getLife() - 1);
-            ball = new Ball(context, (float)size.x / 2, size.y - 480);
+        } else { //if the player can still play this match 
+            statistic.setLife(statistic.getLife() - 1);//decrease the life
+            ball = new Ball(context, (float)size.x / 2, size.y - 480);//set ball in the start
             start = false;
         }
     }
 
-    // kazdy krok kontroluje ci nedoslo ku kolizii, k prehre alebo k vyhre atd
+    //main method call by PlayActivity. It manage game status
     public void update() {
-        if (start) {
-            victory();
-            checkWalls();
-            ball.nearPaddle(paddle.getXPosition(), paddle.getYPosition());
-            for (Brick b : wall) {
-                if (ball.isCollisionBrick(b.getPosition())) {
-                    if(b.getLives() == 1)
-                        wall.remove(b);
+        if (start) {//if the player touch the screen the first time
+            victory(); //check if the player has won
+            checkWalls(); //check if the ball hits a wall
+            ball.nearPaddle(paddle.getXPosition(), paddle.getYPosition()); //check if the ball hits the paddle
+            for (Brick b : wall) { //for each brick
+                if (ball.isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
+                    if(b.getLives() == 1) //if the hitted brick has only a life
+                        wall.remove(b);	//then remove it
 
-                    b.setEffect(this);
-                    statistic.setScore(statistic.getScore() + b.getScore());
+                    b.setEffect(this); //set the brick effect
+                    statistic.setScore(statistic.getScore() + b.getScore()); //add brick score to the match general score
                 }
             }
-            ball.move();
+            ball.move(); //move the ball
         }
     }
 
 
-    // zisti ci hrac vyhral alebo nie
+    //check if the player has won
     private void victory() {
-        if (wall.isEmpty()) {
-            statistic.setLevel(statistic.getLevel() + 1);
+        if (wall.isEmpty()) { //if there are no bricks
+            statistic.setLevel(statistic.getLevel() + 1); //increase the level
             resetLevel();
-            ball.increaseSpeed(statistic.getLevel());
-            start = false;
+            ball.increaseSpeed(statistic.getLevel()); //increase ball speed direction
+            start = false; //wait to move the ball until the first touch of the player
         }
     }
 
-    // nastavi hru na zaciatok
+    //set tha ball, the wall and the bricks
     private void resetLevel() {
         ball = new Ball(context, (float)size.x / 2, size.y - 480);
         wall = new CopyOnWriteArrayList<>();
@@ -246,11 +248,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
 
-    // sluzi na pozastavenie hry v pripade novej hry
+    //the first touch 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        start = true;
-        if (gameOver && start) {
+        start = true; //used in other methods to check if the ball can move itself
+        if (gameOver && start) {//if the player has lost and touches the screen
             //prova committ
             if (difficulty == "difficult") {
                 statistic = new Statistic(1,0,1);
@@ -260,9 +262,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             resetLevel();
             gameOver = false;
 
-        } /*else
-            start = true;
-            */
+        }
         return false;
     }
 

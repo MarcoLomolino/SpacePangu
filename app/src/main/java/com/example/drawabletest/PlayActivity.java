@@ -22,15 +22,14 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // nastavi orientaciu obrazovky
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // vytvori novu hru
+        //get difficulty string TO CHANGE: TAKE IT FROM FILE
         difficulty = ((MyApplication) this.getApplication()).getDifficolta();
         game = new Game(this, difficulty);
         setContentView(game);
 
-        // vytvori handler a thread
+        
         VytvorHandler();
         UpdateThread myThread = new UpdateThread(updateHandler);
         myThread.start();

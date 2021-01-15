@@ -13,17 +13,18 @@ import com.example.drawabletest.position.Position;
 public class LifeBrick extends Brick {
 
     public LifeBrick(Context context, Position position) {
-        super(context, position, 20, 1);
+        super(context, position, 20, 1);//assign a position, a score of 20 and only a life
     }
 
 
-
+	
     @Override
     public void setGraphic_brick()
     {
-        super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_green));
+        super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_healthup));
     }
-
+	
+	//player's life is increased by one
     @Override
     public void setEffect(Game game)
     {

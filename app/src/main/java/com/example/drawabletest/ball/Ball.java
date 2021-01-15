@@ -10,14 +10,15 @@ import com.example.drawabletest.position.Position;
 
 @SuppressLint("ViewConstructor")
 public class Ball extends View {
-    Position position;
-    Position direction;
-    Bitmap graphic_ball;
+    Position position; //x and y position of the ball
+    Position direction; //x and y position where the ball goes
+    Bitmap graphic_ball; //ball texture
 
     public Ball(Context context, float x, float y) {
         super(context);
 
         this.position = new Position(x, y);
+	//direction is get randomly in a range of values TO CHANGE IN A BASIC START DIRECTION
         this.direction = new Position(generateXDirection(), generateYDirection());
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
     }
@@ -72,9 +73,9 @@ public class Ball extends View {
 
     public float getYPosition(){ return position.getY();}
 
-
-    // zmeni smer podla rychlosti
-    protected void changeDirection() {
+	
+	//change direction after an hit
+       protected void changeDirection() {
         if (direction.getX() > 0 && direction.getY() < 0) {
             changeXDirection();
         } else if (direction.getX() < 0 && direction.getY() < 0) {
@@ -86,7 +87,7 @@ public class Ball extends View {
         }
     }
 
-    // zvyši rychlost na zaklade levelu
+    //the speed is increased by the level TO CHANGE BY EACH PADDLE HIT
     public void increaseSpeed(float level) {
         direction.setX(direction.getX() + level);
         direction.setY(direction.getY() - level);
@@ -102,7 +103,7 @@ public class Ball extends View {
                 '}';
     }
 
-    // zmeni smer podla toho akej steny sa dotkla a rychlosti
+    //change direction after an hit of a wall
     public void changeDirection(String wall) {
         if (direction.getX() > 0 && direction.getY() < 0 && wall.equals("prava")) {
             changeXDirection();
@@ -121,29 +122,39 @@ public class Ball extends View {
         }
     }
 
-    // ak sa zrazila lopta s padlom tak zmeni smer
+    //check if the ball is near the paddle
     public void nearPaddle(float xPaddle, float yPaddle) {
         if (isNear(xPaddle, yPaddle, getXPosition(), getYPosition())) changeDirection();
     }
 
-    // ak sa zrazila lopta s tehlou tak zmeni smer
+    //check if the ball has a brick collision
     public boolean isCollisionBrick(Position position) {
         if (isNearBrick(position.getX(), position.getY(), getXPosition(), getYPosition())) {
-            changeDirection();
+            changeDirection();//if the ball is near a brick then change ball direction to simulate an hit
             return true;
         } else return false;
     }
 
-    // zisti či je lopticka blizko tehly
+    //check if the ball is near a brick
     private boolean isNearBrick(float ax, float ay, float bx, float by) {
+	//ball position points are increased in bx and by.
+	//ball position is a point inside the ball, bx and by are coordinates of the position
+	//external to the ball, in this way the graphical hit of the ball happens to the border of the ball
+	//and there is no compenetration with the brick
         bx += 12;
         by += 11;
         double d = Math.sqrt(Math.pow((ax + 50) - bx, 2) + Math.pow((ay + 40) - by, 2));
         return d < 80;
     }
 
-    // zisti ci je lopticka blizko
+    
+     //check if the ball is near something
     private boolean isNear(float ax, float ay, float bx, float by) {
+
+	//ball position points are increased in bx and by.
+	//ball position is a point inside the ball, bx and by are coordinates of the position
+	//external to the ball, in this way the graphical hit of the ball happens to the border of the ball
+	//and there is no compenetration with the brick or the paddle
         bx += 12;
         by += 11;
         if ((Math.sqrt(Math.pow((ax + 50) - bx, 2) + Math.pow(ay - by, 2))) < 80) {
@@ -153,11 +164,12 @@ public class Ball extends View {
         } else return (Math.sqrt(Math.pow((ax + 150) - bx, 2) + Math.pow(ay - by, 2))) < 60;
     }
 
-    // pohne sa o zadanu rychlost
+    //increase position of the ball whit its direction, the ball position is a new point
     public void move() {
         position.setX(this.position.getX() + this.direction.getX());
         position.setY(this.position.getY() + this.direction.getY());
     }
+
 
     public void changeXDirection() {
         direction.setX( - this.direction.getX());
