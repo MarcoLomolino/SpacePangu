@@ -1,17 +1,19 @@
 package com.example.drawabletest.play;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.drawabletest.MyApplication;
 import com.example.drawabletest.UpdateThread;
 import com.example.drawabletest.play.game.Game;
 
@@ -20,6 +22,7 @@ public class PlayActivity extends AppCompatActivity {
     private Game game;
     private Handler updateHandler;
     private String difficulty;
+    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,9 @@ public class PlayActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //get difficulty string TO CHANGE: TAKE IT FROM FILE
-        difficulty = ((MyApplication) this.getApplication()).getDifficolta();
+        mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
+        difficulty = mPreferences.getString("difficulty", "classic");
+
         game = new Game(this, difficulty);
         setContentView(game);
 

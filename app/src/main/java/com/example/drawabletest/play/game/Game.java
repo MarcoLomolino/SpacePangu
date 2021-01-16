@@ -57,10 +57,10 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         super(context);
         difficulty = difficolta;
 
-        if (difficulty == "difficult") {//id hard mode has been set
+        if (difficulty.equals("difficult")) {//if hard mode has been set
             this.statistic = new Statistic(1,0,1); //only a life is setted, 0 actual score and start from level 1
         } else {
-		//if standard mode has been set
+            //if standard mode has been set
             this.statistic = new Statistic(3, 0, 1); //3 lives, 0 actual score, start from level 1
         }
         //set playActivity context
@@ -111,7 +111,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 		
 		//set percentage spawn for bricks type
                 int a = (int) (Math.random() * 100);
-                if(difficulty == "difficult") { //if difficult is hard there is no life brick
+                if(difficulty.equals("difficult")) { //if difficult is hard there is no life brick
                     if(a >= 15)
                         wall.add(new SampleBrick(context, position));
                     else if(a >= 5 && a < 15)
@@ -253,7 +253,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         start = true; //used in other methods to check if the ball can move itself
         if (gameOver && start) {//if the player has lost and touches the screen
             //prova committ
-            if (difficulty == "difficult") {
+            if (difficulty.equals("difficult")) {
                 statistic = new Statistic(1,0,1);
             } else {
                 statistic = new Statistic(3, 0, 1);
