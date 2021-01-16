@@ -1,11 +1,11 @@
-package com.example.drawabletest.brick;
+package com.example.drawabletest.play.brick;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 
-import com.example.drawabletest.game.Game;
-import com.example.drawabletest.position.Position;
+import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.position.Position;
 
 public abstract class Brick extends View {
 

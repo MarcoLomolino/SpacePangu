@@ -1,4 +1,4 @@
-package com.example.drawabletest.position;
+package com.example.drawabletest.play.position;
 
 public class Position {
     float x;

@@ -1,4 +1,4 @@
-package com.example.drawabletest.game;
+package com.example.drawabletest.play.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,16 +19,15 @@ import android.view.WindowManager;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
-import com.example.drawabletest.MyApplication;
 import com.example.drawabletest.R;
-import com.example.drawabletest.brick.Brick;
-import com.example.drawabletest.ball.Ball;
-import com.example.drawabletest.brick.bonus_brick.LifeBrick;
-import com.example.drawabletest.brick.bonus_brick.ResistantBrick;
-import com.example.drawabletest.brick.bonus_brick.ScoreBrick;
-import com.example.drawabletest.brick.sample_brick.SampleBrick;
-import com.example.drawabletest.paddle.Paddle;
-import com.example.drawabletest.position.Position;
+import com.example.drawabletest.play.brick.Brick;
+import com.example.drawabletest.play.ball.Ball;
+import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;
+import com.example.drawabletest.play.brick.bonus_brick.ResistantBrick;
+import com.example.drawabletest.play.brick.bonus_brick.ScoreBrick;
+import com.example.drawabletest.play.brick.sample_brick.SampleBrick;
+import com.example.drawabletest.play.paddle.Paddle;
+import com.example.drawabletest.play.position.Position;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 

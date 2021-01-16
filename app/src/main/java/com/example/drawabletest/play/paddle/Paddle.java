@@ -1,4 +1,4 @@
-package com.example.drawabletest.paddle;
+package com.example.drawabletest.play.paddle;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import android.view.View;
 
 import com.example.drawabletest.R;
-import com.example.drawabletest.position.Position;
+import com.example.drawabletest.play.position.Position;
 
 @SuppressLint("ViewConstructor")
 public class Paddle extends View {

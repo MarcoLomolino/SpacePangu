@@ -1,12 +1,12 @@
-package com.example.drawabletest.brick.sample_brick;
+package com.example.drawabletest.play.brick.sample_brick;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
 import com.example.drawabletest.R;
-import com.example.drawabletest.brick.Brick;
-import com.example.drawabletest.game.Game;
-import com.example.drawabletest.position.Position;
+import com.example.drawabletest.play.brick.Brick;
+import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.position.Position;
 
 public class SampleBrick extends Brick {
 

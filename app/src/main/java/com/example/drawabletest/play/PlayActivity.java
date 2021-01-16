@@ -1,4 +1,4 @@
-package com.example.drawabletest;
+package com.example.drawabletest.play;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.drawabletest.game.Game;
+
+import com.example.drawabletest.MyApplication;
+import com.example.drawabletest.UpdateThread;
+import com.example.drawabletest.play.game.Game;
 
 public class PlayActivity extends AppCompatActivity {
 

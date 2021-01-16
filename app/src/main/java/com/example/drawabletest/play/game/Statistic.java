@@ -1,4 +1,4 @@
-package com.example.drawabletest.game;
+package com.example.drawabletest.play.game;
 
 public class Statistic {
 
