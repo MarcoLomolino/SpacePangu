@@ -1,4 +1,4 @@
-package com.example.drawabletest.ball;
+package com.example.drawabletest.play.ball;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import com.example.drawabletest.R;
-import com.example.drawabletest.position.Position;
+import com.example.drawabletest.play.position.Position;
 
 @SuppressLint("ViewConstructor")
 public class Ball extends View {

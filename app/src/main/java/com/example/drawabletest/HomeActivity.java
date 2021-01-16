@@ -1,6 +1,5 @@
 package com.example.drawabletest;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,10 +8,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.drawabletest.game.Game;
+import com.example.drawabletest.play.PlayActivity;
 
 public class HomeActivity extends AppCompatActivity {
 

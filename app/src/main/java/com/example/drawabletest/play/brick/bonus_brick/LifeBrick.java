@@ -1,14 +1,14 @@
-package com.example.drawabletest.brick.bonus_brick;
+package com.example.drawabletest.play.brick.bonus_brick;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
 import com.example.drawabletest.R;
 
-import com.example.drawabletest.brick.Brick;
-import com.example.drawabletest.game.Game;
-import com.example.drawabletest.game.Statistic;
-import com.example.drawabletest.position.Position;
+import com.example.drawabletest.play.brick.Brick;
+import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.game.Statistic;
+import com.example.drawabletest.play.position.Position;
 
 public class LifeBrick extends Brick {
 

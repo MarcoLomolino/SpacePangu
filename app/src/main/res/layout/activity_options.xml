@@ -42,7 +42,7 @@
         android:background="#808A8A8A"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Username"
+        android:hint="Username"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/ConfirmButton"

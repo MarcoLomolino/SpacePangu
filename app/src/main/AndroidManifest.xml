@@ -16,7 +16,7 @@
         <activity android:name=".Options"/>
         <activity android:name=".Highscores" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".PlayActivity" />
+        <activity android:name=".play.PlayActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
