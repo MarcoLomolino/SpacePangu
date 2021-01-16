@@ -57,10 +57,10 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         super(context);
         difficulty = difficolta;
 
-        if (difficulty == "difficult") {//id hard mode has been set
+        if (difficulty.equals("difficult")) {//if hard mode has been set
             this.statistic = new Statistic(1,0,1); //only a life is setted, 0 actual score and start from level 1
         } else {
-		//if standard mode has been set
+            //if standard mode has been set
             this.statistic = new Statistic(3, 0, 1); //3 lives, 0 actual score, start from level 1
         }
         //set playActivity context
@@ -80,7 +80,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         getSize();//get screen size
 
         //initialize ball, paddle and bricks
-        ball = new Ball(context, (float)size.x / 2, size.y - 480);
+        ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);
         paddle = new Paddle(context, (float)size.x / 2, size.y - 400);
         wall = new CopyOnWriteArrayList<>();
 
@@ -111,22 +111,22 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 		
 		//set percentage spawn for bricks type
                 int a = (int) (Math.random() * 100);
-                if(difficulty == "difficult") { //if difficult is hard there is no life brick
-                    if(a >= 15)
+                if(difficulty.equals("difficult")) { //if difficult is hard there is no life brick
+                    if(a >= 20)
                         wall.add(new SampleBrick(context, position));
-                    else if(a >= 5 && a < 15)
+                    else if(a >= 10 && a < 20)
                         wall.add(new ResistantBrick(context, position));
-                    else if(a >= 0 && a < 5)
+                    else if(a >= 0 && a < 10)
                         wall.add(new ScoreBrick(context, position));
                 } else { //if difficult is standard there are all types of bricks
                     if (a >= 20)
                         wall.add(new SampleBrick(context, position));
                     else if (a >= 10 && a < 20)
-                        wall.add(new LifeBrick(context, position));
-                    else if (a >= 5 && a < 10)
-                        wall.add(new ResistantBrick(context, position));
-                    else if (a >= 0 && a < 5)
                         wall.add(new ScoreBrick(context, position));
+                    else if (a >= 3 && a < 10)
+                        wall.add(new ResistantBrick(context, position));
+                    else if (a >= 0 && a < 3)
+                        wall.add(new LifeBrick(context, position));
                 }
             }
         }
@@ -195,7 +195,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             invalidate();
         } else { //if the player can still play this match 
             statistic.setLife(statistic.getLife() - 1);//decrease the life
-            ball = new Ball(context, (float)size.x / 2, size.y - 480);//set ball in the start
+            ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);//set ball in the start
             start = false;
         }
     }
@@ -232,7 +232,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     //set tha ball, the wall and the bricks
     private void resetLevel() {
-        ball = new Ball(context, (float)size.x / 2, size.y - 480);
+        ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);
         wall = new CopyOnWriteArrayList<>();
         setBricks(context);
     }
@@ -253,7 +253,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         start = true; //used in other methods to check if the ball can move itself
         if (gameOver && start) {//if the player has lost and touches the screen
             //prova committ
-            if (difficulty == "difficult") {
+            if (difficulty.equals("difficult")) {
                 statistic = new Statistic(1,0,1);
             } else {
                 statistic = new Statistic(3, 0, 1);

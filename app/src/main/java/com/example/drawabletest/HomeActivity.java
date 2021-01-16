@@ -17,27 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //www.pornhub.com
     }
-
-
-
-    /*
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.classic:
-                Toast.makeText(this, "Classic Difficulty selected", Toast.LENGTH_SHORT).show();
-                ((MyApplication) this.getApplication()).setDifficolta("classic");
-                return true;
-            case R.id.difficult:
-                Toast.makeText(this, "Hard Difficulty selected", Toast.LENGTH_SHORT).show();
-                ((MyApplication) this.getApplication()).setDifficolta("difficult");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    } */
 
     public void ShowHighscore(View view){
         Intent intent = new Intent(this, Highscores.class);

@@ -18,7 +18,7 @@ public class SampleBrick extends Brick {
 	//set a random image of the brick
     @Override
     public void setGraphic_brick() {
-        int a = (int) (Math.random() * 3);
+        int a = (int) (Math.random() * 7);
 
         switch (a) {
             case 0:
@@ -30,9 +30,18 @@ public class SampleBrick extends Brick {
             case 2:
                 super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_orange));
                 break;
-            /*case 3:
+            case 3:
                 super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_pink));
-                break;*/
+                break;
+            case 4:
+                super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_purple));
+                break;
+            case 5:
+                super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_red));
+                break;
+            case 6:
+                super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_yellow));
+                break;
         }
     }
 	
