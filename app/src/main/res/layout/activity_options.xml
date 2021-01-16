@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="168dp"
-        android:layout_height="40dp"
+        android:layout_width="177dp"
+        android:layout_height="54dp"
         android:layout_marginTop="40dp"
         android:text="Options"
         android:textAlignment="center"
@@ -21,44 +21,73 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Insert your username"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
     <Button
         android:id="@+id/ConfirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
         android:text="Confirm"
         android:textColor="@color/white"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#808A8A8A"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Username"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ConfirmButton"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/Difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="100dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="76dp"
         android:text="Difficulty"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:textSize="18sp"
         android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Hard"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/Difficulty" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:checked="true"
+        android:text="Classic"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Difficulty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

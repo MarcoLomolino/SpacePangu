@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".Options"></activity>
+        <activity android:name=".Options"/>
         <activity android:name=".Highscores" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".PlayActivity" />

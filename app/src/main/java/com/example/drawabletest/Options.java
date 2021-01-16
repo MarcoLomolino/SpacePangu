@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class Options extends AppCompatActivity {
 
