@@ -80,7 +80,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         getSize();//get screen size
 
         //initialize ball, paddle and bricks
-        ball = new Ball(context, (float)size.x / 2, size.y - 480);
+        ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);
         paddle = new Paddle(context, (float)size.x / 2, size.y - 400);
         wall = new CopyOnWriteArrayList<>();
 
@@ -195,7 +195,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             invalidate();
         } else { //if the player can still play this match 
             statistic.setLife(statistic.getLife() - 1);//decrease the life
-            ball = new Ball(context, (float)size.x / 2, size.y - 480);//set ball in the start
+            ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);//set ball in the start
             start = false;
         }
     }
@@ -232,7 +232,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     //set tha ball, the wall and the bricks
     private void resetLevel() {
-        ball = new Ball(context, (float)size.x / 2, size.y - 480);
+        ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);
         wall = new CopyOnWriteArrayList<>();
         setBricks(context);
     }

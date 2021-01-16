@@ -39,18 +39,30 @@ public class Options extends AppCompatActivity {
         mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
 
+        mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
+        String difficulty = mPreferences.getString("difficulty", "classic");
+        if (difficulty.equals("classic")) {
+            difficulty_classic.setChecked(true);
+            difficulty_classic.setClickable(false);
+        } else {
+            difficulty_Hard.setChecked(true);
+            difficulty_Hard.setClickable(false);
+        }
+
        difficulty_Hard.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (group, checkedId) -> {
-           if(difficulty_Hard.isChecked())
-                difficulty_classic.setChecked(false);
-           else
-                difficulty_classic.setChecked(true);
+           if(difficulty_Hard.isChecked()) {
+               difficulty_classic.setChecked(false);
+               difficulty_Hard.setClickable(false);
+               difficulty_classic.setClickable(true);
+           }
        });
 
         difficulty_classic.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (group, checkedId) -> {
-            if(difficulty_classic.isChecked())
+            if(difficulty_classic.isChecked()) {
                 difficulty_Hard.setChecked(false);
-            else
-                difficulty_Hard.setChecked(true);
+                difficulty_classic.setClickable(false);
+                difficulty_Hard.setClickable(true);
+            }
         });
     }
 

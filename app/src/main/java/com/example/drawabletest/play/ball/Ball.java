@@ -12,14 +12,21 @@ import com.example.drawabletest.play.position.Position;
 public class Ball extends View {
     Position position; //x and y position of the ball
     Position direction; //x and y position where the ball goes
+    String difficulty;
     Bitmap graphic_ball; //ball texture
+    private float paddlehit;
 
-    public Ball(Context context, float x, float y) {
+    public Ball(Context context, float x, float y, String difficulty) {
         super(context);
 
         this.position = new Position(x, y);
-	//direction is get randomly in a range of values TO CHANGE IN A BASIC START DIRECTION
-        this.direction = new Position(generateXDirection(), generateYDirection());
+        this.difficulty=difficulty;
+	    //direction is get randomly in a range of values TO CHANGE IN A BASIC START DIRECTION
+        if(difficulty.equals("difficult")) {
+            this.direction = new Position(getMIN_X() + 2, getMAX_Y() - 2);
+        } else {
+            this.direction = new Position(getMIN_X(), getMAX_Y());
+        }
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
     }
 
@@ -88,9 +95,11 @@ public class Ball extends View {
     }
 
     //the speed is increased by the level TO CHANGE BY EACH PADDLE HIT
-    public void increaseSpeed(float level) {
-        direction.setX(direction.getX() + level);
-        direction.setY(direction.getY() - level);
+    public void increaseSpeed(float phit) {
+        if (direction.getX() <= this.getMAX_X() && direction.getY() >= this.getMIN_Y()) {
+            direction.setX((float) (direction.getX() + (phit * 0.025)));
+            direction.setY((float) (direction.getY() - (phit * 0.025)));
+        }
     }
 
     @SuppressWarnings("NullableProblems")
@@ -124,7 +133,12 @@ public class Ball extends View {
 
     //check if the ball is near the paddle
     public void nearPaddle(float xPaddle, float yPaddle) {
-        if (isNear(xPaddle, yPaddle, getXPosition(), getYPosition())) changeDirection();
+        if (isNear(xPaddle, yPaddle, getXPosition(), getYPosition())) {
+            changeDirection();
+            paddlehit++;
+            System.out.println("CULOOOOOO: " + paddlehit);
+            increaseSpeed(paddlehit);
+        }
     }
 
     //check if the ball has a brick collision
