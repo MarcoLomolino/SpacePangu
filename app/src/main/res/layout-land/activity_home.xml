@@ -60,6 +60,7 @@
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:onClick="showEditor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/HighScore"
         app:layout_constraintHorizontal_bias="0.5"

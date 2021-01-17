@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showEditor(View view){
-        Intent intent = new Intent(this,Editor.class);
+        Intent intent = new Intent(this, Editor.class);
         startActivity(intent);
     }
 
