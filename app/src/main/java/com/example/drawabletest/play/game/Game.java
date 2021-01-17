@@ -25,6 +25,7 @@ import com.example.drawabletest.play.ball.Ball;
 import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ScoreBrick;
+import com.example.drawabletest.play.brick.bonus_brick.SlowDownBrick;
 import com.example.drawabletest.play.brick.sample_brick.SampleBrick;
 import com.example.drawabletest.play.paddle.Paddle;
 import com.example.drawabletest.play.position.Position;
@@ -337,6 +338,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     public void setStatistic(Statistic statistic) {
         this.statistic = statistic;
+    }
+
+    public Ball getBall() {return ball; }
+
+    public void setBallDirection(/*Position position,*/ Position direction) {
+        //ball.setPosition(position);
+        ball.setDirection(direction);
     }
 
 }

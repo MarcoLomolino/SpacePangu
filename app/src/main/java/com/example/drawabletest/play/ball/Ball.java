@@ -24,9 +24,9 @@ public class Ball extends View {
         this.paddlehit = 0;
 	    //direction is get randomly in a range of values
         if(difficulty.equals("difficult")) {
-            this.direction = new Position(getMIN_X() + 2, getMAX_Y() - 2);
+            this.direction = new Position(getMIN_X() + 3, getMAX_Y() - 3);
         } else {
-            this.direction = new Position(getMIN_X(), getMAX_Y());
+            this.direction = new Position(getMIN_X() + 1, getMAX_Y() - 1);
         }
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
     }
@@ -81,9 +81,15 @@ public class Ball extends View {
 
     public float getYPosition(){ return position.getY();}
 
+    public Position getPosition () {return position; }
+
+    public void setPosition (Position position) {this.position=position; }
+
+    public void setDirection (Position direction) {this.direction=direction; }
+
 	
 	//change direction after an hit
-       protected void changeDirection() {
+    public void changeDirection() {
         if (direction.getX() > 0 && direction.getY() < 0) {
             changeXDirection();
         } else if (direction.getX() < 0 && direction.getY() < 0) {
