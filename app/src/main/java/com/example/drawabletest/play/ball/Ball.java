@@ -10,18 +10,19 @@ import com.example.drawabletest.play.position.Position;
 
 @SuppressLint("ViewConstructor")
 public class Ball extends View {
-    Position position; //x and y position of the ball
-    Position direction; //x and y position where the ball goes
-    String difficulty;
-    Bitmap graphic_ball; //ball texture
-    private float paddlehit;
+    private Position position; //x and y position of the ball
+    private Position direction; //x and y position where the ball goes
+    private String difficulty;
+    private Bitmap graphic_ball; //ball texture
+    private int paddlehit;
 
     public Ball(Context context, float x, float y, String difficulty) {
         super(context);
 
         this.position = new Position(x, y);
         this.difficulty=difficulty;
-	    //direction is get randomly in a range of values TO CHANGE IN A BASIC START DIRECTION
+        this.paddlehit = 0;
+	    //direction is get randomly in a range of values
         if(difficulty.equals("difficult")) {
             this.direction = new Position(getMIN_X() + 2, getMAX_Y() - 2);
         } else {
@@ -136,7 +137,6 @@ public class Ball extends View {
         if (isNear(xPaddle, yPaddle, getXPosition(), getYPosition())) {
             changeDirection();
             paddlehit++;
-            System.out.println("CULOOOOOO: " + paddlehit);
             increaseSpeed(paddlehit);
         }
     }

@@ -76,24 +76,24 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        setBackground();//set background image
-        getSize();//get screen size
-
-        //initialize ball, paddle and bricks
-        ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);
-        paddle = new Paddle(context, (float)size.x / 2, size.y - 400);
-        wall = new CopyOnWriteArrayList<>();
+        this.setBackground();//set background image
+        this.getSize();//get screen size
+        this.resetLevel();//initialize ball, paddle and bricks
 
         setBricks(context);//set bricks coordinates position
         this.setOnTouchListener(this);
     }
 
+    /*
+        GRAPHIC METHOD
+     */
 
+    //get a Bitmap object from drawable resources and set it to background field
     private void setBackground() {
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
     }
 
-	//get display size (it's not hardware size but the size of the interagible activity)
+	//get display size (it's not hardware size but the size of the interactable activity)
     private void getSize()
     {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -102,14 +102,75 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         display.getSize(size);
     }
 
+    //main method of drawing elements
+    protected void onDraw(Canvas canvas) {
+
+        this.drawBackground(canvas);
+
+        this.drawBall(canvas);
+
+        this.drawPaddle(canvas);
+
+        this.drawBricks(canvas);
+
+        this.drawInfoText(canvas);
+
+        this.drawGameOver(canvas);
+    }
+
+
+    private void drawBackground(Canvas canvas) {
+        if (roztiahnuty == null) { //create background only once
+            roztiahnuty = Bitmap.createScaledBitmap(background, size.x, size.y, false);
+        }
+        canvas.drawBitmap(roztiahnuty, 0, 0, paint);
+
+    }
+
+    private void drawGameOver(Canvas canvas) {
+        if (gameOver) {
+            paint.setColor(Color.RED);
+            paint.setTextSize(100);
+            canvas.drawText("Game over!", (float)size.x / 4, (float)size.y / 2, paint);
+        }
+    }
+
+    private void drawInfoText(Canvas canvas) {
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(50);
+        canvas.drawText("" + statistic.getLife(), 400, 100, paint);
+        canvas.drawText("" + statistic.getScore(), 700, 100, paint);
+    }
+
+    private void drawBricks(Canvas canvas) {
+        RectF r;
+        for (Brick b : wall)
+        {
+            r = new RectF(b.getXPosition(), b.getYPosition(), b.getXPosition() + 100, b.getYPosition() + 80);
+            canvas.drawBitmap(b.getGraphic_brick(), null, r, paint);
+        }
+
+    }
+
+    private void drawPaddle(Canvas canvas) {
+        paint.setColor(Color.WHITE);
+        RectF r = new RectF(paddle.getXPosition(), paddle.getYPosition(), paddle.getXPosition() + 200, paddle.getYPosition() + 40);
+        canvas.drawBitmap(paddle.getGraphic_paddle(), null, r, paint);
+    }
+
+    private void drawBall(Canvas canvas) {
+        paint.setColor(Color.RED);
+        canvas.drawBitmap(ball.getGraphic_ball(), ball.getXPosition(), ball.getYPosition(), paint);
+    }
+
     private void setBricks(Context context) {
         for (int i = 3; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
 
-		//coordinates of each brick
+                //coordinates of each brick
                 Position position = new Position(j * 150, i * 100);
-		
-		//set percentage spawn for bricks type
+
+                //set percentage spawn for bricks type
                 int a = (int) (Math.random() * 100);
                 if(difficulty.equals("difficult")) { //if difficult is hard there is no life brick
                     if(a >= 20)
@@ -129,45 +190,6 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                         wall.add(new LifeBrick(context, position));
                 }
             }
-        }
-    }
-
-    protected void onDraw(Canvas canvas) {
-        //create background only once
-        RectF r;
-        if (roztiahnuty == null) {
-            roztiahnuty = Bitmap.createScaledBitmap(background, size.x, size.y, false);
-        }
-        canvas.drawBitmap(roztiahnuty, 0, 0, paint);
-
-        //draw ball
-        paint.setColor(Color.RED);
-        canvas.drawBitmap(ball.getGraphic_ball(), ball.getXPosition(), ball.getYPosition(), paint);
-
-        //draw paddle
-        paint.setColor(Color.WHITE);
-        r = new RectF(paddle.getXPosition(), paddle.getYPosition(), paddle.getXPosition() + 200, paddle.getYPosition() + 40);
-        canvas.drawBitmap(paddle.getGraphic_paddle(), null, r, paint);
-
-        //draw bricks
-        paint.setColor(Color.GREEN);
-        for (Brick b : wall)
-        {
-            r = new RectF(b.getXPosition(), b.getYPosition(), b.getXPosition() + 100, b.getYPosition() + 80);
-            canvas.drawBitmap(b.getGraphic_brick(), null, r, paint);
-        }
-
-        //draw info text
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(50);
-        canvas.drawText("" + statistic.getLife(), 400, 100, paint);
-        canvas.drawText("" + statistic.getScore(), 700, 100, paint);
-
-        //draw game over text
-        if (gameOver) {
-            paint.setColor(Color.RED);
-            paint.setTextSize(100);
-            canvas.drawText("Game over!", (float)size.x / 4, (float)size.y / 2, paint);
         }
     }
 
@@ -225,7 +247,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         if (wall.isEmpty()) { //if there are no bricks
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
             resetLevel();
-            ball.increaseSpeed(statistic.getLevel()); //increase ball speed direction
+            setBricks(context);
             start = false; //wait to move the ball until the first touch of the player
         }
     }
@@ -233,8 +255,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     //set tha ball, the wall and the bricks
     private void resetLevel() {
         ball = new Ball(context, (float)size.x / 2, size.y - 480, difficulty);
+        paddle = new Paddle(context, (float)size.x / 2, size.y - 400);
         wall = new CopyOnWriteArrayList<>();
-        setBricks(context);
     }
 
 
@@ -250,18 +272,44 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     //the first touch 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        start = true; //used in other methods to check if the ball can move itself
-        if (gameOver && start) {//if the player has lost and touches the screen
-            //prova committ
-            if (difficulty.equals("difficult")) {
-                statistic = new Statistic(1,0,1);
-            } else {
-                statistic = new Statistic(3, 0, 1);
-            }
-            resetLevel();
-            gameOver = false;
 
+        if(start && event.getAction()==MotionEvent.ACTION_DOWN)
+        {
+            int x=(int)event.getX();
+
+            int move;
+
+            if(x > size.x / 2)
+                move = - 80;
+            else
+                move = + 80;
+
+            paddle.setXPosition((int) (paddle.getXPosition() - move));
+
+            if (paddle.getXPosition() + move > size.x - 240) {
+                paddle.setXPosition(size.x - 240);
+            } else if (paddle.getXPosition() - move <= 20) {
+                paddle.setXPosition(20);
+            }
         }
+        else
+        {
+            start = true; //used in other methods to check if the ball can move itself
+            if (gameOver && start) {//if the player has lost and touches the screen
+                //prova committ
+                if (difficulty.equals("difficult")) {
+                    statistic = new Statistic(1,0,1);
+                } else {
+                    statistic = new Statistic(3, 0, 1);
+                }
+                resetLevel();
+                setBricks(context);
+                gameOver = false;
+
+            }
+        }
+
+
         return false;
     }
 
