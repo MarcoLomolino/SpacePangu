@@ -13,9 +13,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String CUSTOMER_TABLE = "CUSTOMER_TABLE";
-    public static final String SCORE_COLUMN = "SCORE";
-    public static final String ID_COLUMN = "ID";
+    private static final String CUSTOMER_TABLE = "CUSTOMER_TABLE";
+    private static final String SCORE_COLUMN = "SCORE";
+    private static final String ID_COLUMN = "ID";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "customer.db", null, 1);
@@ -24,7 +24,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + CUSTOMER_TABLE + " (" + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SCORE_COLUMN + " INT)";
+
         db.execSQL(createTableStatement);
+        String createTableStatement2 = "CREATE TABLE EDITOR (LIVELLO INT,  X  INT, Y INT, ATTIVO INT, PRIMARY KEY(LIVELLO,X,Y))";
+        db.execSQL(createTableStatement2);
         db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(0,0)");
     }
 
