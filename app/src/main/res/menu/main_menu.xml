@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action2"
         android:icon="@drawable/setting"
-        android:onClick="Option"
+        android:onClick="showOption"
         android:title="Settings"
         app:showAsAction="always" />
 

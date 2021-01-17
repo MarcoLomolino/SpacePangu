@@ -25,13 +25,18 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void Option(MenuItem item) {
+    public void showOption(MenuItem item) {
         Intent intent = new Intent(this,Options.class);
         startActivity(intent);
     }
 
-    public void PlayGame(View view){
+    public void showPlayGame(View view){
         Intent intent = new Intent(this, PlayActivity.class);
+        startActivity(intent);
+    }
+
+    public void showEditor(View view){
+        Intent intent = new Intent(this,Editor.class);
         startActivity(intent);
     }
 

@@ -45,7 +45,7 @@
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
         android:contentDescription="@string/button"
-        android:onClick="PlayGame"
+        android:onClick="showPlayGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Versus"
         app:layout_constraintHorizontal_bias="0.5"
