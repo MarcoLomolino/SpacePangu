@@ -1,10 +1,18 @@
 package com.example.drawabletest.play.game;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 public class Statistic {
 
     private int life;
     private int score;
     private int level;
+    private int difficulty;
+    private int controller;
+
+
+
 
     public Statistic(int life, int score, int level) {
         this.life = life;

@@ -32,7 +32,7 @@ import com.example.drawabletest.play.position.Position;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Game extends View implements View.OnTouchListener, SensorEventListener {
+public class Game extends View implements View.OnTouchListener/*, SensorEventListener*/ {
 
     private Bitmap background;
     private Bitmap roztiahnuty;
@@ -44,8 +44,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private Point size;
     private final Paint paint;
 
-    private final SensorManager sManager;
-    private final Sensor accelerometer;
+   /* private final SensorManager sManager;
+    private final Sensor accelerometer;*/
 
     private Statistic statistic;
     private String difficulty;
@@ -74,8 +74,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         gameOver = false;
 
         // accelerometer SensorManager
-        sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        /*sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);*/
 
         this.setBackground();//set background image
         this.getSize();//get screen size
@@ -262,11 +262,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
 
     public void stopScanning() {
-        sManager.unregisterListener(this);
+      //  sManager.unregisterListener(this);
     }
 
     public void runScanning() {
-        sManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+        //sManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
 
@@ -274,29 +274,23 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if(start && event.getAction()==MotionEvent.ACTION_DOWN)
+        if(start && event.getAction()==MotionEvent.ACTION_MOVE)
         {
-            int x=(int)event.getX();
+            float x= event.getX();
+            
+            paddle.setXPosition((int) x);
 
-            int move;
-
-            if(x > size.x / 2)
-                move = - 80;
-            else
-                move = + 80;
-
-            paddle.setXPosition((int) (paddle.getXPosition() - move));
-
-            if (paddle.getXPosition() + move > size.x - 240) {
+            if (paddle.getXPosition()> size.x - 240) {
                 paddle.setXPosition(size.x - 240);
-            } else if (paddle.getXPosition() - move <= 20) {
+            } else if (paddle.getXPosition() <= 20) {
                 paddle.setXPosition(20);
             }
+
         }
         else
         {
             start = true; //used in other methods to check if the ball can move itself
-            if (gameOver && start) {//if the player has lost and touches the screen
+            if (gameOver) {//if the player has lost and touches the screen
                 //prova committ
                 if (difficulty.equals("difficult")) {
                     statistic = new Statistic(1,0,1);
@@ -311,11 +305,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         }
 
 
-        return false;
+        return true;
     }
 
 
-    @Override
+    /*@Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             paddle.setXPosition((int) (paddle.getXPosition() - event.values[0] - event.values[0]));
@@ -330,7 +324,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    }*/
 
     public Statistic getStatistic() {
         return statistic;
