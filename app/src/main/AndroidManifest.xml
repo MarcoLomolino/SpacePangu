@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.drawabletest">
-    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" /> -->
-
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    -->
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
@@ -17,7 +18,8 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".Options"/>
+        <activity android:name=".Editor"></activity>
+        <activity android:name=".Options" />
         <activity android:name=".Highscores" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".play.PlayActivity" />

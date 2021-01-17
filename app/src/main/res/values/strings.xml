@@ -5,4 +5,9 @@
         <item>Classic</item>
         <item>Hard Mode</item>
     </string-array>
+    <string name="editor_guide_line1">Here you can create your own levels</string>
+    <string name="editor_guide_line2">There are 4 slot availables and the location of the bricks will be always autosaved</string>
+    <string name="editor_guide_line3">You can change the type of the brick by touching it</string>
+    <string name="editor_guide_line4">The trasparent one mean that will be no brick in that spot in game</string>
+    <string name="editor_guide_line5">The red one represents a simple brick, so it\'s color will change in game</string>
 </resources>
