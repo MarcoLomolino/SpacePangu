@@ -20,6 +20,9 @@ public class Editor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
         database = new DatabaseEditor(Editor.this);
 
         ImageButton btn[][] = {{(ImageButton) findViewById(R.id.btn1_1),(ImageButton) findViewById(R.id.btn1_2),(ImageButton) findViewById(R.id.btn1_3),(ImageButton) findViewById(R.id.btn1_4),(ImageButton) findViewById(R.id.btn1_5)},
@@ -36,9 +39,6 @@ public class Editor extends AppCompatActivity {
         salvaEditor(save2,btn,2);
         salvaEditor(save3,btn,3);
         salvaEditor(save4,btn,4);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
