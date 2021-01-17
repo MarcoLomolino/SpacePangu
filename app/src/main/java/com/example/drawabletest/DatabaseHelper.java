@@ -13,6 +13,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String EDITOR_TABLE = "EDITOR";
+    private static final String X_COLUMN = "X";
+    private static final String Y_COLUMN = "Y";
+    private static final String ATTIVO_COLUMN = "ATTIVO";
     private static final String CUSTOMER_TABLE = "CUSTOMER_TABLE";
     private static final String SCORE_COLUMN = "SCORE";
     private static final String ID_COLUMN = "ID";
@@ -24,11 +28,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + CUSTOMER_TABLE + " (" + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SCORE_COLUMN + " INT)";
-
         db.execSQL(createTableStatement);
-        String createTableStatement2 = "CREATE TABLE EDITOR (LIVELLO INT,  X  INT, Y INT, ATTIVO INT, PRIMARY KEY(LIVELLO,X,Y))";
+        String createTableStatement2 = "CREATE TABLE " + EDITOR_TABLE + " (LIVELLO INT, " + X_COLUMN + " INT, " + Y_COLUMN + " INT, " + ATTIVO_COLUMN+ " INT, PRIMARY KEY(LIVELLO,X,Y))";
         db.execSQL(createTableStatement2);
         db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(0,0)");
+        for(int z=1;z<5;z++){
+            for(int x=0;x<5;x++){
+                for(int y=0;y<4;y++){
+                    db.execSQL("INSERT INTO "+ EDITOR_TABLE+ " VALUES("+z+","+x+","+y+",0)");
+                }
+            }
+        }
     }
 
     @Override
@@ -100,5 +110,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return false;
+    }
+
+    public void modificaBlocchi(int x, int y, int attivo, int livello){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE EDITOR SET ATTIVO="+attivo +" WHERE X="+x+" AND Y="+y+" AND LIVELLO="+livello);
+    }
+
+    public List<ModelEditor> getEditorFile(int livello){
+        List<ModelEditor> list = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + EDITOR_TABLE+ " WHERE LIVELLO="+livello;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            do{
+                int customerX = cursor.getInt(1);
+                int customerY = cursor.getInt(2);
+                int customerA = cursor.getInt(3);
+
+                ModelEditor me = new ModelEditor(customerX,customerY,customerA);
+                list.add(me);
+            }while(cursor.moveToNext());
+        }
+        else{
+            cursor.close();
+            db.close();
+            return list;
+        }
+        return list;
     }
 }
