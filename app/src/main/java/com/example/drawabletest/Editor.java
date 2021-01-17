@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import java.util.List;
 
 public class Editor extends AppCompatActivity {
-    DatabaseEditor database;
+    DatabaseHelper database;
     int isClicked[][] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
 
     @Override
@@ -23,7 +23,7 @@ public class Editor extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        database = new DatabaseEditor(Editor.this);
+        database = new DatabaseHelper(Editor.this);
 
         ImageButton btn[][] = {{(ImageButton) findViewById(R.id.btn1_1),(ImageButton) findViewById(R.id.btn1_2),(ImageButton) findViewById(R.id.btn1_3),(ImageButton) findViewById(R.id.btn1_4),(ImageButton) findViewById(R.id.btn1_5)},
                 {(ImageButton) findViewById(R.id.btn2_1),(ImageButton) findViewById(R.id.btn2_2),(ImageButton) findViewById(R.id.btn2_3),(ImageButton) findViewById(R.id.btn2_4),(ImageButton) findViewById(R.id.btn2_5)},
@@ -93,7 +93,7 @@ public class Editor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pulisci(btn);
-                List<ModelEditor> records = database.getRecord(livello);
+                List<ModelEditor> records = database.getEditorFile(livello);
                 for(ModelEditor cm: records){
                     switch(cm.getAttivo()){
                         case 0:
