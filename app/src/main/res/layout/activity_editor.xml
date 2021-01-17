@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/darkgalaxy"
+    android:theme="@style/Theme.DrawableTest"
     tools:context=".MainActivity">
 
     <ImageButton
@@ -62,6 +63,8 @@
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_marginTop="64dp"
+        android:forceDarkAllowed="true"
+        android:theme="@style/Theme.DrawableTest"
         app:layout_constraintEnd_toStartOf="@+id/btn1_2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
