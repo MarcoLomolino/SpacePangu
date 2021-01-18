@@ -2,9 +2,12 @@ package com.example.drawabletest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +16,19 @@ import android.widget.ImageButton;
 import java.util.List;
 
 public class Editor extends AppCompatActivity {
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private Button confirm;
     DatabaseHelper database;
     int isClicked[][] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -39,6 +48,12 @@ public class Editor extends AppCompatActivity {
         salvaEditor(save2,btn,2);
         salvaEditor(save3,btn,3);
         salvaEditor(save4,btn,4);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.info_menu, menu);
+        return true;
     }
 
     @Override
@@ -136,5 +151,17 @@ public class Editor extends AppCompatActivity {
                 btn[i][j].setImageResource(R.drawable.brick_empty);
             }
         }
+    }
+
+    public void createInfoDialog(MenuItem item){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View infoPopupView = getLayoutInflater().inflate(R.layout.popup, null);
+        confirm = (Button) infoPopupView.findViewById(R.id.confirm_button);
+
+        dialogBuilder.setView(infoPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        confirm.setOnClickListener(v -> dialog.dismiss());
     }
 }
