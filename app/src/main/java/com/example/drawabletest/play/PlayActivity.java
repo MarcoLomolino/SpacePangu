@@ -21,8 +21,6 @@ public class PlayActivity extends AppCompatActivity {
 
     private Game game;
     private Handler updateHandler;
-    private String difficulty;
-    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +28,8 @@ public class PlayActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        //get difficulty string TO CHANGE: TAKE IT FROM FILE
-        mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
-        difficulty = mPreferences.getString("difficulty", "classic");
 
-        game = new Game(this, difficulty);
+        game = new Game(this);
         setContentView(game);
 
         

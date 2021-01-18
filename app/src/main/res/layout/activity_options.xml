@@ -107,28 +107,29 @@
         app:layout_constraintTop_toBottomOf="@+id/Difficulty" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/accelerometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:checked="true"
-        android:text="Accelerometer"
+        android:text="Tilt"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+        android:onClick="onDifficultyClicked"
+        app:layout_constraintEnd_toStartOf="@+id/drag"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Controller" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/drag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Touch"
         android:textColor="@color/white"
+        android:onClick="onDifficultyClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintStart_toEndOf="@+id/accelerometer"
         app:layout_constraintTop_toBottomOf="@+id/Controller" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
