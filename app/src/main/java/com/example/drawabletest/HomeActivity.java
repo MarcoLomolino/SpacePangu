@@ -3,6 +3,7 @@ package com.example.drawabletest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,22 +23,25 @@ public class HomeActivity extends AppCompatActivity {
     public void ShowHighscore(View view){
         Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
-
+        playbuttonsound(R.raw.menubutton);
     }
 
     public void showOption(MenuItem item) {
         Intent intent = new Intent(this,Options.class);
         startActivity(intent);
+        playbuttonsound(R.raw.menubutton);
     }
 
     public void showPlayGame(View view){
         Intent intent = new Intent(this, PlayActivity.class);
         startActivity(intent);
+        playbuttonsound(R.raw.menubutton);
     }
 
     public void showEditor(View view){
         Intent intent = new Intent(this, Editor.class);
         startActivity(intent);
+        playbuttonsound(R.raw.menubutton);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -46,5 +50,18 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
+    private void playbuttonsound(int resource) {
+        final MediaPlayer beepMP = MediaPlayer.create(this, resource);
+        beepMP.start();
+        mprelease(beepMP);
+    }
+
+    private void mprelease(MediaPlayer soundmp) {
+        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            };
+        });
+    }
 
 }

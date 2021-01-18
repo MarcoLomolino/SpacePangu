@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.drawabletest.R;
 import com.example.drawabletest.UpdateThread;
 import com.example.drawabletest.play.game.Game;
 
@@ -67,9 +69,24 @@ public class PlayActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
+                playbuttonsound(R.raw.menubutton);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void playbuttonsound(int resource) {
+        final MediaPlayer beepMP = MediaPlayer.create(this, resource);
+        beepMP.start();
+        mprelease(beepMP);
+    }
+
+    private void mprelease(MediaPlayer soundmp) {
+        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            };
+        });
     }
 }
 

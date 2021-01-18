@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.view.View;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.position.Position;
@@ -14,9 +15,11 @@ public class Ball extends View {
     private Position direction; //x and y position where the ball goes
     private Bitmap graphic_ball; //ball texture
     private int paddlehit;
+    Context context1;
 
     public Ball(Context context, float x, float y, String difficulty) {
         super(context);
+        context1 = context;
 
         this.position = new Position(x, y);
         this.paddlehit = 0;
@@ -143,6 +146,7 @@ public class Ball extends View {
             changeDirection();
             paddlehit++;
             increaseSpeed(paddlehit);
+            playbuttonsound(R.raw.paddle);
         }
     }
 
@@ -196,6 +200,20 @@ public class Ball extends View {
 
     public void changeYDirection() {
         direction.setY( - this.direction.getY());
+    }
+
+    private void playbuttonsound(int resource) {
+        final MediaPlayer beepMP = MediaPlayer.create(context1, resource);
+        beepMP.start();
+        mprelease(beepMP);
+    }
+
+    private void mprelease(MediaPlayer soundmp) {
+        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            };
+        });
     }
 
 }

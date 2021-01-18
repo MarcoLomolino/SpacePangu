@@ -13,6 +13,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -192,10 +193,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private void checkWalls() {
         if (ball.getXPosition() + ball.getDirection().getX() >= size.x - 60) {
             ball.changeDirection("prava");
+            playbuttonsound(R.raw.paddle);
         } else if (ball.getXPosition() + ball.getDirection().getX() <= 0) {
             ball.changeDirection("lava");
+            playbuttonsound(R.raw.paddle);
         } else if (ball.getYPosition() + ball.getDirection().getX() <= 150) {
             ball.changeDirection("hore");
+            playbuttonsound(R.raw.paddle);
         } else if (ball.getYPosition() + ball.getDirection().getX() >= size.y - 200) {
             checkLives();
         }
@@ -208,10 +212,12 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
             boolean success = databaseHelper.addOne(customerModel); //set point in DB to show in top ten leaderboard
             gameOver = true; //set game over as true
-            start = false; 
+            start = false;
+            playbuttonsound(R.raw.death2);
             invalidate();
         } else { //if the player can still play this match 
             statistic.setLife(statistic.getLife() - 1);//decrease the life
+            playbuttonsound(R.raw.death);
             ball = new Ball(context, (float)size.x / 2, size.y - 480, statistic.getDifficulty());//set ball in the start
             start = false;
         }
@@ -228,6 +234,12 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                     if(b.getLives() == 1) //if the hitted brick has only a life
                         wall.remove(b);	//then remove it
 
+                    LifeBrick temp = new LifeBrick(context, b.getPosition());
+                    if(b.getClass()==temp.getClass()) {
+                        playbuttonsound(R.raw.refill);
+                    } else {
+                        playbuttonsound(R.raw.paddle);
+                    }
                     b.setEffect(this); //set the brick effect
                     statistic.setScore(statistic.getScore() + b.getScore()); //add brick score to the match general score
                 }
@@ -329,6 +341,20 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     public void setBallDirection(/*Position position,*/ Position direction) {
         //ball.setPosition(position);
         ball.setDirection(direction);
+    }
+
+    private void playbuttonsound(int resource) {
+        final MediaPlayer beepMP = MediaPlayer.create(context, resource);
+        beepMP.start();
+        mprelease(beepMP);
+    }
+
+    private void mprelease(MediaPlayer soundmp) {
+        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            };
+        });
     }
 
 }
