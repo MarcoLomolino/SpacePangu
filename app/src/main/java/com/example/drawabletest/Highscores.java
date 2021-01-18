@@ -20,7 +20,10 @@ public class Highscores extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        highscoreGenerator();
+        TextView score[] = {findViewById(R.id.score1),findViewById(R.id.score2),findViewById(R.id.score3),findViewById(R.id.score4),findViewById(R.id.score5)};
+        highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
+        TextView hard[] = {findViewById(R.id.globalScore1),findViewById(R.id.globalScore2),findViewById(R.id.globalScore3),findViewById(R.id.globalScore4),findViewById(R.id.globalScore5)};
+        highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
     }
 
     @Override
@@ -33,16 +36,9 @@ public class Highscores extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void highscoreGenerator(){
-        TextView score1, score2, score3, score4, score5;
-        score1 = findViewById(R.id.score1);
-        score2 = findViewById(R.id.score2);
-        score3 = findViewById(R.id.score3);
-        score4 = findViewById(R.id.score4);
-        score5 = findViewById(R.id.score5);
-
+    private void highscoreGenerator(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5, int difficulty){
         DatabaseHelper databaseHelper = new DatabaseHelper(Highscores.this);
-        List<CustomerModel> records = databaseHelper.getScore(0);
+        List<CustomerModel> records = databaseHelper.getScore(difficulty);
         if(records.size()>0 && records.get(0).getScore()!=0){
             score1.setText("1) "+records.get(0).getScore().toString());
         }
