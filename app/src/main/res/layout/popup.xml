@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_on_background_emphasis_medium"
+    android:background="#2C2C2C"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/line1"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:text="@string/editor_guide_line1"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/line2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +24,6 @@
         android:id="@+id/line2"
         android:layout_width="300dp"
         android:layout_height="65dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:text="@string/editor_guide_line2"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -40,13 +37,12 @@
         android:id="@+id/line3"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:text="@string/editor_guide_line3"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/line4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line2" />
 
@@ -54,13 +50,12 @@
         android:id="@+id/line4"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:text="@string/editor_guide_line4"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/line5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line3" />
 
@@ -68,28 +63,14 @@
         android:id="@+id/line5"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:text="@string/editor_guide_line5"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/confirm_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line4" />
-
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@android:string/ok"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line5" />
+        app:layout_constraintTop_toBottomOf="@+id/line4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

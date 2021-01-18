@@ -5,6 +5,7 @@
         <item>Classic</item>
         <item>Hard Mode</item>
     </string-array>
+    <string name="confirm">OK</string>
     <string name="editor_guide_line1">Here you can create your own levels</string>
     <string name="editor_guide_line2">There are 4 slot availables and the location of the bricks will be always autosaved</string>
     <string name="editor_guide_line3">You can change the type of the brick by touching it</string>

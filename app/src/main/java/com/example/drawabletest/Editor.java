@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -159,9 +160,14 @@ public class Editor extends AppCompatActivity {
         confirm = (Button) infoPopupView.findViewById(R.id.confirm_button);
 
         dialogBuilder.setView(infoPopupView);
+        dialogBuilder.setTitle("Guide");
+        dialogBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         dialog = dialogBuilder.create();
         dialog.show();
-
-        confirm.setOnClickListener(v -> dialog.dismiss());
     }
 }
