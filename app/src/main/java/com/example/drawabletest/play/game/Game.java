@@ -18,6 +18,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
@@ -210,7 +211,12 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         if (statistic.getLife() == 1) {//if the player lose
             CustomerModel customerModel = new CustomerModel(-1, statistic.getScore());
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
-            boolean success = databaseHelper.addOne(customerModel); //set point in DB to show in top ten leaderboard
+            if(statistic.getDifficulty().equals("classic")){
+                boolean success = databaseHelper.addOne(customerModel,0); //set point in DB to show in top ten leaderboard
+            }
+            else{
+                boolean success = databaseHelper.addOne(customerModel,1); //set point in DB to show in top ten leaderboard
+            }
             gameOver = true; //set game over as true
             start = false;
             playbuttonsound(R.raw.death2);

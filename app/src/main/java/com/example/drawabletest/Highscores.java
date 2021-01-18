@@ -42,8 +42,7 @@ public class Highscores extends AppCompatActivity {
         score5 = findViewById(R.id.score5);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(Highscores.this);
-        List<CustomerModel> records = databaseHelper.getRecord();
-
+        List<CustomerModel> records = databaseHelper.getScore(0);
         if(records.size()>0 && records.get(0).getScore()!=0){
             score1.setText("1) "+records.get(0).getScore().toString());
         }
