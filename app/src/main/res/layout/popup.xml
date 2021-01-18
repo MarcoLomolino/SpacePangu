@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C2C2C"
+    android:background="#494949"
     android:orientation="vertical">
 
     <TextView
@@ -54,10 +54,8 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/line5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line3" />
+        app:layout_constraintTop_toBottomOf="@+id/line3"
+        tools:layout_editor_absoluteX="55dp" />
 
     <TextView
         android:id="@+id/line5"

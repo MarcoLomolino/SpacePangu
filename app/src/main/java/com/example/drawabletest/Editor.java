@@ -6,13 +6,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -157,10 +162,17 @@ public class Editor extends AppCompatActivity {
     public void createInfoDialog(MenuItem item){
         dialogBuilder = new AlertDialog.Builder(this);
         final View infoPopupView = getLayoutInflater().inflate(R.layout.popup, null);
-        confirm = (Button) infoPopupView.findViewById(R.id.confirm_button);
+        //confirm = (Button) infoPopupView.findViewById(R.id.confirm_button);
+
+        TextView customTitle = new TextView(this);
+        customTitle.setText("Guide");
+        customTitle.setBackgroundColor(Color.DKGRAY);
+        customTitle.setGravity(Gravity.CENTER);
+        customTitle.setTextSize(24);
+        customTitle.setTextColor(Color.WHITE);
 
         dialogBuilder.setView(infoPopupView);
-        dialogBuilder.setTitle("Guide");
+        dialogBuilder.setCustomTitle(customTitle);
         dialogBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -169,5 +181,12 @@ public class Editor extends AppCompatActivity {
         });
         dialog = dialogBuilder.create();
         dialog.show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        LinearLayout.LayoutParams positiveButtonLL = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
+        positiveButtonLL.gravity = Gravity.CENTER;
+        positiveButton.setGravity(Gravity.CENTER);
+        positiveButton.setBackgroundColor(Color.DKGRAY);
+        positiveButton.setTextColor(Color.WHITE);
     }
 }
