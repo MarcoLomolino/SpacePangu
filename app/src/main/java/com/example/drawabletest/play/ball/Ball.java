@@ -12,7 +12,6 @@ import com.example.drawabletest.play.position.Position;
 public class Ball extends View {
     private Position position; //x and y position of the ball
     private Position direction; //x and y position where the ball goes
-    private String difficulty;
     private Bitmap graphic_ball; //ball texture
     private int paddlehit;
 
@@ -20,14 +19,14 @@ public class Ball extends View {
         super(context);
 
         this.position = new Position(x, y);
-        this.difficulty=difficulty;
         this.paddlehit = 0;
+
 	    //direction is get randomly in a range of values
-        if(difficulty.equals("difficult")) {
+        if(difficulty.equals("hard"))
             this.direction = new Position(getMIN_X() + 3, getMAX_Y() - 3);
-        } else {
+         else
             this.direction = new Position(getMIN_X() + 1, getMAX_Y() - 1);
-        }
+
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
     }
 

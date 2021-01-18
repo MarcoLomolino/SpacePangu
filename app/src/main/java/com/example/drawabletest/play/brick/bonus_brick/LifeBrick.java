@@ -29,8 +29,7 @@ public class LifeBrick extends Brick {
     public void setEffect(Game game)
     {
         int life = game.getStatistic().getLife();
-        int score = game.getStatistic().getScore();
-        int level = game.getStatistic().getLevel();
-        game.setStatistic(new Statistic(life + 1, score, level));
+
+        game.getStatistic().setLife(life + 1);
     }
 }

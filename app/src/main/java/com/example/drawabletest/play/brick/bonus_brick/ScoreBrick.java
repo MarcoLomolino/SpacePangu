@@ -24,10 +24,9 @@ public class ScoreBrick extends Brick {
     @Override
     public void setEffect(Game game) {
 
-        int life = game.getStatistic().getLife();
         int score = game.getStatistic().getScore();
-        int level = game.getStatistic().getLevel();
-        game.setStatistic(new Statistic(life, score + 200, level));
+
+        game.getStatistic().setScore(score + 200);
 
     }
 }
