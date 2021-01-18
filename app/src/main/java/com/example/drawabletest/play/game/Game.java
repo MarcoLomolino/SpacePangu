@@ -193,13 +193,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private void checkWalls() {
         if (ball.getXPosition() + ball.getDirection().getX() >= size.x - 60) {
             ball.changeDirection("prava");
-            playbuttonsound(R.raw.paddle);
+            playbuttonsound(R.raw.drum_low_28);
         } else if (ball.getXPosition() + ball.getDirection().getX() <= 0) {
             ball.changeDirection("lava");
-            playbuttonsound(R.raw.paddle);
+            playbuttonsound(R.raw.drum_low_28);
         } else if (ball.getYPosition() + ball.getDirection().getX() <= 150) {
             ball.changeDirection("hore");
-            playbuttonsound(R.raw.paddle);
+            playbuttonsound(R.raw.drum_low_28);
         } else if (ball.getYPosition() + ball.getDirection().getX() >= size.y - 200) {
             checkLives();
         }
@@ -234,12 +234,16 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                     if(b.getLives() == 1) //if the hitted brick has only a life
                         wall.remove(b);	//then remove it
 
-                    LifeBrick temp = new LifeBrick(context, b.getPosition());
-                    if(b.getClass()==temp.getClass()) {
+                    LifeBrick temp1 = new LifeBrick(context, b.getPosition());
+                    ScoreBrick temp2 = new ScoreBrick(context, b.getPosition());
+                    if(b.getClass()==temp1.getClass()) {
                         playbuttonsound(R.raw.refill);
+                    } else if (b.getClass()==temp2.getClass()) {
+                        playbuttonsound(R.raw.pp_24);
                     } else {
-                        playbuttonsound(R.raw.paddle);
+                        playbuttonsound(R.raw.drum_low_03);
                     }
+
                     b.setEffect(this); //set the brick effect
                     statistic.setScore(statistic.getScore() + b.getScore()); //add brick score to the match general score
                 }
@@ -252,6 +256,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     //check if the player has won
     private void victory() {
         if (wall.isEmpty()) { //if there are no bricks
+            playbuttonsound(R.raw.pp_05);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
             resetLevel();
             setBricks(context);

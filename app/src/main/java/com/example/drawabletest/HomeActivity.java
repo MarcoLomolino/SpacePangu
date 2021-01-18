@@ -23,25 +23,24 @@ public class HomeActivity extends AppCompatActivity {
     public void ShowHighscore(View view){
         Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
-        playbuttonsound(R.raw.menubutton);
+        playbuttonsound(R.raw.menu_101);
     }
 
     public void showOption(MenuItem item) {
         Intent intent = new Intent(this,Options.class);
         startActivity(intent);
-        playbuttonsound(R.raw.menubutton);
     }
 
     public void showPlayGame(View view){
         Intent intent = new Intent(this, PlayActivity.class);
         startActivity(intent);
-        playbuttonsound(R.raw.menubutton);
+        playbuttonsound(R.raw.menu_101);
     }
 
     public void showEditor(View view){
         Intent intent = new Intent(this, Editor.class);
         startActivity(intent);
-        playbuttonsound(R.raw.menubutton);
+        playbuttonsound(R.raw.menu_101);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

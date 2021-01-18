@@ -146,7 +146,7 @@ public class Ball extends View {
             changeDirection();
             paddlehit++;
             increaseSpeed(paddlehit);
-            playbuttonsound(R.raw.paddle);
+            playbuttonsound(R.raw.drum_low_04);
         }
     }
 

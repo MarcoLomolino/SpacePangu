@@ -69,7 +69,6 @@ public class PlayActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
-                playbuttonsound(R.raw.menubutton);
                 return true;
         }
         return super.onOptionsItemSelected(item);
