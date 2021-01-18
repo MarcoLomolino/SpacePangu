@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Layout;
@@ -28,7 +29,8 @@ public class Editor extends AppCompatActivity {
     private Button confirm;
     DatabaseHelper database;
     int isClicked[][] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
-
+    private SharedPreferences mPrefs;
+    private int mCur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class Editor extends AppCompatActivity {
                 {(ImageButton) findViewById(R.id.btn3_1),(ImageButton) findViewById(R.id.btn3_2),(ImageButton) findViewById(R.id.btn3_3),(ImageButton) findViewById(R.id.btn3_4),(ImageButton) findViewById(R.id.btn3_5)},
                 {(ImageButton) findViewById(R.id.btn4_1),(ImageButton) findViewById(R.id.btn4_2),(ImageButton) findViewById(R.id.btn4_3),(ImageButton) findViewById(R.id.btn4_4),(ImageButton) findViewById(R.id.btn4_5)}};
 
+        //imposto il valore dei bottoni con i valori passati
+        mPrefs = getSharedPreferences("salva_map",MODE_PRIVATE);
+        mCur = mPrefs.getInt("view_mode",1);
+
         Button save1 = (Button) findViewById(R.id.btnSave1);
         Button save2 = (Button) findViewById(R.id.btnSave2);
         Button save3 = (Button) findViewById(R.id.btnSave3);
@@ -54,6 +60,34 @@ public class Editor extends AppCompatActivity {
         salvaEditor(save2,btn,2);
         salvaEditor(save3,btn,3);
         salvaEditor(save4,btn,4);
+
+        switch (mCur){
+            case 1:
+                save1.callOnClick();
+                break;
+            case 2:
+                save2.callOnClick();
+                break;
+            case 3:
+                save3.callOnClick();
+                break;
+            case 4:
+                save4.callOnClick();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //apro l'editor di preferenze
+        SharedPreferences.Editor ed = mPrefs.edit();
+        //metto il valore dentro l'editor di preferenze
+        ed.putInt("view_mode",mCur);
+        //salva il valore
+        ed.commit();
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -114,6 +148,24 @@ public class Editor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pulisci(btn);
+                mCur = livello;
+                switch (livello){
+                    case 1:
+                        cambiaColoreMap((Button) findViewById(R.id.btnSave2),(Button) findViewById(R.id.btnSave3),(Button) findViewById(R.id.btnSave4));
+                        break;
+                    case 2:
+                        cambiaColoreMap((Button) findViewById(R.id.btnSave1),(Button) findViewById(R.id.btnSave3),(Button) findViewById(R.id.btnSave4));
+                        break;
+                    case 3:
+                        cambiaColoreMap((Button) findViewById(R.id.btnSave2),(Button) findViewById(R.id.btnSave1),(Button) findViewById(R.id.btnSave4));
+                        break;
+                    case 4:
+                        cambiaColoreMap((Button) findViewById(R.id.btnSave2),(Button) findViewById(R.id.btnSave3),(Button) findViewById(R.id.btnSave1));
+                        break;
+                    default:
+                        break;
+                }
+                save.setBackgroundColor(Color.GRAY);
                 List<ModelEditor> records = database.getEditorFile(livello);
                 for(ModelEditor cm: records){
                     switch(cm.getAttivo()){
@@ -188,5 +240,11 @@ public class Editor extends AppCompatActivity {
         positiveButton.setGravity(Gravity.CENTER);
         positiveButton.setBackgroundColor(Color.DKGRAY);
         positiveButton.setTextColor(Color.WHITE);
+    }
+
+    public void cambiaColoreMap(Button a, Button b, Button c){
+        a.setBackgroundColor(Color.rgb(25,25,112));
+        b.setBackgroundColor(Color.rgb(25,25,112));
+        c.setBackgroundColor(Color.rgb(25,25,112));
     }
 }
