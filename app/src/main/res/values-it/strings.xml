@@ -8,9 +8,10 @@
     <string name="tilt">Inclinazione</string>
     <string name="touch">Touch</string>
     <string name="confirm">Conferma</string>
-    <string name="classic_score">Punteggio Classico</string>
-    <string name="hard_score">Punteggio Hard</string>
+    <string name="classic_score">Classica</string>
+    <string name="hard_score">Difficile</string>
     <string name="guide">Guida</string>
+    <string name="highscores">Classifica</string>
     <string name="editor_guide_line1">Qui puoi creare i tuoi livelli</string>
     <string name="editor_guide_line2">Ci sono 4 slot disponibili e la posizione dei blocchi è sempre salvata</string>
     <string name="editor_guide_line3">Puoi cambiare il tipo di blocco, toccandolo</string>

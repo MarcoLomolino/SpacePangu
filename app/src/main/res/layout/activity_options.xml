@@ -24,23 +24,24 @@
 
     <Button
         android:id="@+id/ConfirmButton"
-        android:layout_width="116dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="166dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/confirm"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="327dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
         android:background="#808A8A8A"
         android:ems="10"
         android:fontFamily="@font/electrolize"
@@ -48,17 +49,15 @@
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ConfirmButton"
-        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/Difficulty"
         android:layout_width="100dp"
         android:layout_height="29dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/difficulty"
         android:textAlignment="center"
@@ -68,27 +67,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
-
-    <CheckBox
-        android:id="@+id/checkBox_hard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/electrolize"
-        android:onClick="onDifficultyClicked"
-        android:text="@string/hard"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/checkBox_classic"
-        app:layout_constraintTop_toBottomOf="@+id/Difficulty" />
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmButton" />
 
     <CheckBox
         android:id="@+id/checkBox_classic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/electrolize"
         android:onClick="onDifficultyClicked"
         android:text="@string/classic"
@@ -102,7 +87,7 @@
         android:id="@+id/Controller"
         android:layout_width="100dp"
         android:layout_height="29dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="128dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/controller"
         android:textAlignment="center"
@@ -110,7 +95,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Difficulty" />
 
@@ -118,7 +103,7 @@
         android:id="@+id/accelerometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/electrolize"
         android:onClick="onDifficultyClicked"
         android:text="@string/tilt"
@@ -132,7 +117,7 @@
         android:id="@+id/drag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/electrolize"
         android:onClick="onDifficultyClicked"
         android:text="@string/touch"
@@ -141,5 +126,19 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/accelerometer"
         app:layout_constraintTop_toBottomOf="@+id/Controller" />
+
+    <CheckBox
+        android:id="@+id/checkBox_hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/electrolize"
+        android:onClick="onDifficultyClicked"
+        android:text="@string/hard"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/checkBox_classic"
+        app:layout_constraintTop_toBottomOf="@+id/Difficulty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
