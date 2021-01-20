@@ -76,7 +76,12 @@ public class PlayActivity extends AppCompatActivity {
 
     private void playbuttonsound(int resource) {
         final MediaPlayer beepMP = MediaPlayer.create(this, resource);
-        beepMP.start();
+        beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.start();
+            }
+        });
         mprelease(beepMP);
     }
 
