@@ -11,17 +11,22 @@ import android.os.Looper;
 public class MainActivity extends AppCompatActivity {
     //tempo durata del mio splashscreen in ms
     private static int SPLASH_TIME_OUT = 1700;
+    SoundPlayer sp;
+    int startSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sp = new SoundPlayer(this);
+        sp.createSP();
+        startSound = sp.loadSound(R.raw.splash2);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        playbuttonsound(R.raw.splash2);
 
         getSupportActionBar().hide();
         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
+                sp.playSound(startSound, 0.50f);
                 Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(homeIntent);
                 finish();
@@ -29,9 +34,15 @@ public class MainActivity extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
     }
 
-    private void playbuttonsound(int resource) {
-        final MediaPlayer beepMP = MediaPlayer.create(this, resource);
-        beepMP.start();
+    //LO LASCIO QUI PER OGNI EVENZIENZA
+    /*private void playbuttonsound(int resource) {
+        final MediaPlayer beepMP = MediaPlayer.create(context, resource);
+        beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.start();
+            }
+        });
         mprelease(beepMP);
     }
 
@@ -41,5 +52,5 @@ public class MainActivity extends AppCompatActivity {
                 mp.release();
             };
         });
-    }
+    }*/
 }

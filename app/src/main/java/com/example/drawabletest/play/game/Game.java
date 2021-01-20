@@ -1,7 +1,6 @@
 package com.example.drawabletest.play.game;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,22 +12,20 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
 import com.example.drawabletest.R;
+import com.example.drawabletest.SoundPlayer;
 import com.example.drawabletest.play.brick.Brick;
 import com.example.drawabletest.play.ball.Ball;
 import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ScoreBrick;
-import com.example.drawabletest.play.brick.bonus_brick.SlowDownBrick;
 import com.example.drawabletest.play.brick.sample_brick.SampleBrick;
 import com.example.drawabletest.play.paddle.Paddle;
 import com.example.drawabletest.play.position.Position;
@@ -55,15 +52,26 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private boolean start;
     private boolean gameOver;
     private final Context context;
+    SoundPlayer sp;
+    int wallSound, brickSound, scorebrickSound, lifebrickSound;
+    int victorySound, deathSound, gameoverSound;
 
     public Game(Context context) {
         super(context);
 
         this.context = context;
         this.statistic = new Statistic(context);
-
         this.paint = new Paint();
 
+        sp = new SoundPlayer(this.context);
+        sp.createSP();
+        wallSound = sp.loadSound(R.raw.drum_low_28);
+        brickSound = sp.loadSound(R.raw.drum_low_03);
+        scorebrickSound = sp.loadSound(R.raw.pp_24);
+        lifebrickSound = sp.loadSound(R.raw.refill);
+        victorySound = sp.loadSound(R.raw.pp_05);
+        deathSound = sp.loadSound(R.raw.death);
+        gameoverSound = sp.loadSound(R.raw.death2);
 
         //flag vars to start the game or to check a game over
         this.start = false;
@@ -79,6 +87,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
         setBricks(context);//set bricks coordinates position
         this.setOnTouchListener(this);
+
     }
 
     /*
@@ -194,13 +203,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private void checkWalls() {
         if (ball.getXPosition() + ball.getDirection().getX() >= size.x - 60) {
             ball.changeDirection("prava");
-            playbuttonsound(R.raw.drum_low_28);
+            sp.playSound(wallSound, 0.99f);
         } else if (ball.getXPosition() + ball.getDirection().getX() <= 0) {
             ball.changeDirection("lava");
-            playbuttonsound(R.raw.drum_low_28);
+            sp.playSound(wallSound, 0.99f);
         } else if (ball.getYPosition() + ball.getDirection().getX() <= 150) {
             ball.changeDirection("hore");
-            playbuttonsound(R.raw.drum_low_28);
+            sp.playSound(wallSound, 0.99f);
         } else if (ball.getYPosition() + ball.getDirection().getX() >= size.y - 200) {
             checkLives();
         }
@@ -219,11 +228,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             }
             gameOver = true; //set game over as true
             start = false;
-            playbuttonsound(R.raw.death2);
+            sp.playSound(gameoverSound, 0.90f);
             invalidate();
         } else { //if the player can still play this match 
             statistic.setLife(statistic.getLife() - 1);//decrease the life
-            playbuttonsound(R.raw.death);
+            sp.playSound(deathSound, 0.90f);
             ball = new Ball(context, (float)size.x / 2, size.y - 480, statistic.getDifficulty());//set ball in the start
             start = false;
         }
@@ -243,11 +252,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                     LifeBrick temp1 = new LifeBrick(context, b.getPosition());
                     ScoreBrick temp2 = new ScoreBrick(context, b.getPosition());
                     if(b.getClass()==temp1.getClass()) {
-                        playbuttonsound(R.raw.refill);
+                        sp.playSound(lifebrickSound, 0.90f);
                     } else if (b.getClass()==temp2.getClass()) {
-                        playbuttonsound(R.raw.pp_24);
+                        sp.playSound(scorebrickSound, 0.75f);
                     } else {
-                        playbuttonsound(R.raw.drum_low_03);
+                        sp.playSound(brickSound, 0.99f);
                     }
 
                     b.setEffect(this); //set the brick effect
@@ -262,7 +271,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     //check if the player has won
     private void victory() {
         if (wall.isEmpty()) { //if there are no bricks
-            playbuttonsound(R.raw.pp_05);
+            sp.playSound(victorySound, 0.75f);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
             resetLevel();
             setBricks(context);
@@ -354,23 +363,15 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         ball.setDirection(direction);
     }
 
-    private void playbuttonsound(int resource) {
-        final MediaPlayer beepMP = MediaPlayer.create(context, resource);
-        beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
-        mprelease(beepMP);
-    }
-
-    private void mprelease(MediaPlayer soundmp) {
-        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            };
-        });
-    }
+    /*public void libera() {
+        sp.releaseSP();
+        wallSound = sp.loadSound(R.raw.drum_low_28);
+        brickSound = sp.loadSound(R.raw.drum_low_03);
+        scorebrickSound = sp.loadSound(R.raw.pp_24);
+        lifebrickSound = sp.loadSound(R.raw.refill);
+        victorySound = sp.loadSound(R.raw.pp_05);
+        deathSound = sp.loadSound(R.raw.death);
+        gameoverSound = sp.loadSound(R.raw.death2);
+    }*/
 
 }

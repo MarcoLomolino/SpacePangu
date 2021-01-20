@@ -4,9 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.view.View;
 import com.example.drawabletest.R;
+import com.example.drawabletest.SoundPlayer;
 import com.example.drawabletest.play.position.Position;
 
 @SuppressLint("ViewConstructor")
@@ -17,9 +21,15 @@ public class Ball extends View {
     private int paddlehit;
     Context context1;
 
+    SoundPlayer sp;
+    int paddleSound;
+
     public Ball(Context context, float x, float y, String difficulty) {
         super(context);
         context1 = context;
+        sp = new SoundPlayer(context1);
+        sp.createSP();
+        paddleSound = sp.loadSound(R.raw.drum_low_04);
 
         this.position = new Position(x, y);
         this.paddlehit = 0;
@@ -31,6 +41,7 @@ public class Ball extends View {
             this.direction = new Position(getMIN_X() + 1, getMAX_Y() - 1);
 
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
+
     }
 
     private float generateXDirection() {
@@ -146,7 +157,7 @@ public class Ball extends View {
             changeDirection();
             paddlehit++;
             increaseSpeed(paddlehit);
-            playbuttonsound(R.raw.drum_low_04);
+            sp.playSound(paddleSound, 0.99f);
         }
     }
 
@@ -200,25 +211,6 @@ public class Ball extends View {
 
     public void changeYDirection() {
         direction.setY( - this.direction.getY());
-    }
-
-    private void playbuttonsound(int resource) {
-        final MediaPlayer beepMP = MediaPlayer.create(context1, resource);
-        beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
-        mprelease(beepMP);
-    }
-
-    private void mprelease(MediaPlayer soundmp) {
-        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            };
-        });
     }
 
 }
