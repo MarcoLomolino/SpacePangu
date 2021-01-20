@@ -13,6 +13,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn2_1"
         app:layout_constraintTop_toBottomOf="@+id/btn1_2" />
 
@@ -22,6 +23,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn4_1"
         app:layout_constraintTop_toBottomOf="@+id/btn3_2" />
 
@@ -31,6 +33,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn2_4"
         app:layout_constraintTop_toBottomOf="@+id/btn1_5" />
 
@@ -40,6 +43,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn4_4"
         app:layout_constraintTop_toBottomOf="@+id/btn3_5" />
 
@@ -49,6 +53,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn3_1"
         app:layout_constraintTop_toBottomOf="@+id/btn2_2" />
 
@@ -58,6 +63,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn3_2"
         app:layout_constraintTop_toBottomOf="@+id/btn2_3" />
 
@@ -67,6 +73,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn2_1" />
 
@@ -76,6 +83,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn1_1"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
 
@@ -85,6 +93,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn3_4"
         app:layout_constraintTop_toBottomOf="@+id/btn2_5" />
 
@@ -94,6 +103,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn1_2"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
 
@@ -103,6 +113,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn1_4"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
 
@@ -112,6 +123,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn2_3"
         app:layout_constraintTop_toBottomOf="@+id/btn1_4" />
 
@@ -121,6 +133,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn1_3"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
 
@@ -130,6 +143,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn3_1" />
 
@@ -139,6 +153,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn4_3"
         app:layout_constraintTop_toBottomOf="@+id/btn3_4" />
 
@@ -148,6 +163,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn3_3"
         app:layout_constraintTop_toBottomOf="@+id/btn2_4" />
 
@@ -157,6 +173,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
 
@@ -166,6 +183,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn2_2"
         app:layout_constraintTop_toBottomOf="@+id/btn1_3" />
 
@@ -175,6 +193,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toEndOf="@+id/btn4_2"
         app:layout_constraintTop_toBottomOf="@+id/btn3_3" />
 
@@ -184,6 +203,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn1_1" />
 
@@ -193,7 +213,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="MAP 4"
+        android:fontFamily="@font/electrolize"
+        android:text="@string/slot4"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/btnSave3"
         app:layout_constraintTop_toBottomOf="@+id/btnSave2" />
@@ -204,7 +225,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="60dp"
-        android:text="MAP 2"
+        android:fontFamily="@font/electrolize"
+        android:text="@string/slot2"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/btnSave1"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
@@ -215,7 +237,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="MAP 3"
+        android:fontFamily="@font/electrolize"
+        android:text="@string/slot3"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/btn3_5"
         app:layout_constraintTop_toBottomOf="@+id/btnSave1" />
@@ -226,7 +249,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="60dp"
-        android:text="MAP 1"
+        android:fontFamily="@font/electrolize"
+        android:text="@string/slot1"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/btn2_5"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
@@ -236,7 +260,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Editor"
+        android:fontFamily="@font/electrolize"
+        android:text="@string/editor"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="italic"

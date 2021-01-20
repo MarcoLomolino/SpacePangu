@@ -1,14 +1,29 @@
 <resources>
-    <string name="app_name">SpacePang</string>
-    <string name="button"></string>
-    <string-array name="difficulty">
-        <item>Classic</item>
-        <item>Hard Mode</item>
-    </string-array>
-    <string name="confirm">OK</string>
+    <string name="app_name" translatable="false">SpacePang</string>
+    <string name="button" translatable="false"></string>
+    <string name="options">Options</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="classic">Classic</string>
+    <string name="hard">Hard</string>
+    <string name="controller">Controller</string>
+    <string name="tilt">Tilt</string>
+    <string name="touch">Touch</string>
+    <string name="confirm">Confirm</string>
+    <string name="classic_score">Classic Score</string>
+    <string name="hard_score">Hard Score</string>
+    <string name="guide">Guide</string>
+    <string name="image" translatable="false">image</string>
+    <string name="slot1" translatable="false">slot1</string>
+    <string name="slot2" translatable="false">slot2</string>
+    <string name="slot3" translatable="false">slot3</string>
+    <string name="slot4" translatable="false">slot4</string>
+    <string name="highscores" translatable="false">Highscores</string>
+    <string name="editor" translatable="false">Editor</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="editor_guide_line1">Here you can create your own levels</string>
-    <string name="editor_guide_line2">There are 4 slot availables and the location of the bricks will be always autosaved</string>
+    <string name="editor_guide_line2">There are 4 slot available and the location of the bricks will be always auto-saved</string>
     <string name="editor_guide_line3">You can change the type of the brick by touching it</string>
-    <string name="editor_guide_line4">The trasparent one mean that will be no brick in that spot in game</string>
+    <string name="editor_guide_line4">The transparent one mean that will be no brick in that spot in game</string>
     <string name="editor_guide_line5">The red one represents a simple brick, so it\'s color will change in game</string>
 </resources>

@@ -217,7 +217,7 @@ public class Editor extends AppCompatActivity {
         //confirm = (Button) infoPopupView.findViewById(R.id.confirm_button);
 
         TextView customTitle = new TextView(this);
-        customTitle.setText("Guide");
+        customTitle.setText(R.string.guide);
         customTitle.setBackgroundColor(Color.DKGRAY);
         customTitle.setGravity(Gravity.CENTER);
         customTitle.setTextSize(24);
@@ -225,7 +225,7 @@ public class Editor extends AppCompatActivity {
 
         dialogBuilder.setView(infoPopupView);
         dialogBuilder.setCustomTitle(customTitle);
-        dialogBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

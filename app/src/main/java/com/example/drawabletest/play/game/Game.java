@@ -170,18 +170,18 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                 //set percentage spawn for bricks type
                 int a = (int) (Math.random() * 100);
                 if(statistic.getDifficulty().equals("hard")) { //if difficult is hard there is no life brick
-                    if(a >= 20)
+                    if(a >= 30)
                         wall.add(new SampleBrick(context, position));
-                    else if(a >= 10 && a < 20)
+                    else if(a >= 10 && a < 30)
                         wall.add(new ResistantBrick(context, position));
                     else if(a >= 0 && a < 10)
                         wall.add(new ScoreBrick(context, position));
                 } else { //if difficult is standard there are all types of bricks
-                    if (a >= 20)
+                    if (a >= 25)
                         wall.add(new SampleBrick(context, position));
-                    else if (a >= 10 && a < 20)
+                    else if (a >= 17 && a < 25)
                         wall.add(new ScoreBrick(context, position));
-                    else if (a >= 3 && a < 10)
+                    else if (a >= 3 && a < 17)
                         wall.add(new ResistantBrick(context, position));
                     else if (a >= 0 && a < 3)
                         wall.add(new LifeBrick(context, position));

@@ -21,7 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Editor"
-        app:srcCompat="@drawable/highscore_selector" />
+        app:srcCompat="@drawable/highscore_selector"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@+id/Versus"
@@ -35,7 +36,8 @@
         app:layout_constraintEnd_toStartOf="@+id/Editor"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Play"
-        app:srcCompat="@drawable/versus_selector" />
+        app:srcCompat="@drawable/versus_selector"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@+id/Play"
@@ -50,7 +52,8 @@
         app:layout_constraintEnd_toStartOf="@+id/Versus"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/play_selector" />
+        app:srcCompat="@drawable/play_selector"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@+id/Editor"
@@ -65,6 +68,7 @@
         app:layout_constraintEnd_toStartOf="@+id/HighScore"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Versus"
-        app:srcCompat="@drawable/editor_selector" />
+        app:srcCompat="@drawable/editor_selector"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
