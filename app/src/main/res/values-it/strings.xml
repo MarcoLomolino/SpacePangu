@@ -16,5 +16,5 @@
     <string name="editor_guide_line2">Ci sono 4 slot disponibili e la posizione dei blocchi è sempre salvata</string>
     <string name="editor_guide_line3">Puoi cambiare il tipo di blocco, toccandolo</string>
     <string name="editor_guide_line4">Quelli trasparenti indicano che non saranno presenti in partita</string>
-    <string name="editor_guide_line5">Quello rosso, rappresenta un blocco semplice. Il colore varierà</string>
+    <string name="editor_guide_line5">Quello rosso, rappresenta un blocco semplice. Il colore cambierà in partita</string>
 </resources>

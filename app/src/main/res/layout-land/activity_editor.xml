@@ -211,48 +211,48 @@
         android:id="@+id/btnSave4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/slot4"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/btnSave3"
-        app:layout_constraintTop_toBottomOf="@+id/btnSave2" />
+        app:layout_constraintStart_toEndOf="@+id/btn4_5"
+        app:layout_constraintTop_toBottomOf="@+id/btnSave3" />
 
     <Button
         android:id="@+id/btnSave2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/slot2"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/btnSave1"
-        app:layout_constraintTop_toBottomOf="@+id/editor" />
+        app:layout_constraintStart_toEndOf="@+id/btn2_5"
+        app:layout_constraintTop_toBottomOf="@+id/btnSave1" />
 
     <Button
         android:id="@+id/btnSave3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/slot3"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/btn3_5"
-        app:layout_constraintTop_toBottomOf="@+id/btnSave1" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSave2" />
 
     <Button
         android:id="@+id/btnSave1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/slot1"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/btn2_5"
+        app:layout_constraintStart_toEndOf="@+id/btn1_5"
         app:layout_constraintTop_toBottomOf="@+id/editor" />
 
     <TextView

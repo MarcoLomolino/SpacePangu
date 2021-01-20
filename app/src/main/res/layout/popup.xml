@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/line1"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/editor_guide_line1"
         android:textAlignment="center"
@@ -19,12 +19,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/line2"
         android:layout_width="300dp"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/editor_guide_line2"
         android:textAlignment="center"
@@ -38,7 +39,7 @@
     <TextView
         android:id="@+id/line3"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/editor_guide_line3"
         android:textAlignment="center"
@@ -52,7 +53,7 @@
     <TextView
         android:id="@+id/line4"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/editor_guide_line4"
         android:textAlignment="center"
@@ -66,7 +67,7 @@
     <TextView
         android:id="@+id/line5"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:fontFamily="@font/electrolize"
         android:text="@string/editor_guide_line5"
         android:textAlignment="center"

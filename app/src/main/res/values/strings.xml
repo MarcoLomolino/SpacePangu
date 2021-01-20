@@ -25,5 +25,5 @@
     <string name="editor_guide_line2">There are 4 slot available and the location of the bricks will be always auto-saved</string>
     <string name="editor_guide_line3">You can change the type of the brick by touching it</string>
     <string name="editor_guide_line4">The transparent one mean that will be no brick in that spot in game</string>
-    <string name="editor_guide_line5">The red one represents a simple brick, so it\'s color will change in game</string>
+    <string name="editor_guide_line5">The red one represents a simple brick, so its color will change in game</string>
 </resources>
