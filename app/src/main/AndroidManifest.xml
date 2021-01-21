@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".Editor"></activity>
+        <activity android:name=".VersusActivity"></activity>
+        <activity android:name=".Editor" />
         <activity android:name=".Options" />
         <activity android:name=".Highscores" />
         <activity android:name=".HomeActivity" />

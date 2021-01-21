@@ -32,12 +32,13 @@
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:focusable="true"
+        android:onClick="showVersus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Editor"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Play"
-        app:srcCompat="@drawable/versus_selector"
-        android:focusable="true" />
+        app:srcCompat="@drawable/versus_selector" />
 
     <ImageButton
         android:id="@+id/Play"

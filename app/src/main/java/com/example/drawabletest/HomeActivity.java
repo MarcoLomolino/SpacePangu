@@ -54,6 +54,12 @@ public class HomeActivity extends AppCompatActivity {
         sp.playSound(menuSound, 0.99f);
     }
 
+    public void showVersus(View view){
+        Intent intent = new Intent(this, VersusActivity.class);
+        startActivity(intent);
+        sp.playSound(menuSound, 0.99f);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
