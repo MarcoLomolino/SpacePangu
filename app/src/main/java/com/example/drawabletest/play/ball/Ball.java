@@ -158,6 +158,8 @@ public class Ball extends View {
             paddlehit++;
             increaseSpeed(paddlehit);
             sp.playSound(paddleSound, 0.99f);
+            //sp.releaseSP();
+            //paddleSound = sp.loadSound(R.raw.drum_low_04);
         }
     }
 

@@ -44,8 +44,9 @@ public class SoundPlayer {
         }
     }
 
-    /*public void releaseSP() {
+    public void releaseSP() {
         soundPool.release();
-    }*/
+
+    }
 
 }

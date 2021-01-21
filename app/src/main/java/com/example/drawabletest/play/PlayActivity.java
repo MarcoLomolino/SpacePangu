@@ -1,6 +1,7 @@
 package com.example.drawabletest.play;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 
 import android.os.Handler;
@@ -20,6 +21,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private Game game;
     private Handler updateHandler;
+    UpdateThread myThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +30,6 @@ public class PlayActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Impedisce allo schermo di spegnersi automaticamente durante la partita
-
-        game = new Game(this);
-        setContentView(game);
-
-        
-        VytvorHandler();
-        UpdateThread myThread = new UpdateThread(updateHandler);
-        myThread.start();
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -55,12 +49,33 @@ public class PlayActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         game.stopScanning();
+        try {
+            myThread.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onResume() {
         super.onResume();
+        game = new Game(this);
+        setContentView(game);
         game.runScanning();
+        VytvorHandler();
+        myThread = new UpdateThread(updateHandler);
+        myThread.start();
+
+        //game.runScanning();
+        //myThread.setPlay(true);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        game.stopScanning();
+        myThread.setPlay(false);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
