@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toStartOf="@+id/Editor"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/Play"
-        app:srcCompat="@drawable/versus_selector" />
+        app:srcCompat="@drawable/button_background" />
 
     <ImageButton
         android:id="@+id/Play"
