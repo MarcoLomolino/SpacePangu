@@ -41,7 +41,22 @@ public class Ball extends View {
             this.direction = new Position(getMIN_X() + 1, getMAX_Y() - 1);
 
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
+    }
 
+    public Ball(Context context, float x, float y) {
+        super(context);
+        context1 = context;
+        /*sp = new SoundPlayer(context1);
+        sp.createSP();
+        paddleSound = sp.loadSound(R.raw.drum_low_04);*/
+
+        this.position = new Position(x, y);
+        this.paddlehit = 0;
+
+        //direction is get randomly in a range of values
+        this.direction = new Position(getMIN_X() + 3, getMAX_Y() - 3);
+
+        this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
     }
 
     private float generateXDirection() {

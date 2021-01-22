@@ -101,7 +101,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
     }
 
-	//get display size (it's not hardware size but the size of the interactable activity)
+    //get display size (it's not hardware size but the size of the interactable activity)
     private void getSize()
     {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -218,7 +218,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
 
-        private void checkLives() {
+    private void checkLives() {
         if (statistic.getLife() == 1) {//if the player lose
             CustomerModel customerModel = new CustomerModel(-1, statistic.getScore());
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
@@ -232,7 +232,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             start = false;
             sp.playSound(brickSound, 0.90f);
             invalidate();
-        } else { //if the player can still play this match 
+        } else { //if the player can still play this match
             statistic.setLife(statistic.getLife() - 1);//decrease the life
             sp.playSound(brickSound, 0.90f);
             ball = new Ball(context, (float)size.x / 2, size.y - 480, statistic.getDifficulty());//set ball in the start
@@ -309,7 +309,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
 
-    //the first touch 
+    //the first touch
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
