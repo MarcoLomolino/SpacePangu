@@ -26,19 +26,22 @@
 
     <ImageButton
         android:id="@+id/Versus"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#00FFFFFF"
+        android:backgroundTint="#770A1FBF"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:elevation="1dp"
         android:focusable="true"
+        android:foreground="@drawable/versus"
+        android:foregroundGravity="center"
+        android:hapticFeedbackEnabled="true"
         android:onClick="showVersus"
         app:layout_constraintBottom_toTopOf="@+id/HighScore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Play"
-        app:srcCompat="@drawable/versus_selector" />
+        app:layout_constraintStart_toEndOf="@+id/Play" />
 
     <ImageButton
         android:id="@+id/Play"

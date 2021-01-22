@@ -2,6 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     android:exitFadeDuration="@android:integer/config_mediumAnimTime">
     <item android:state_pressed="true"
-          android:drawable="@drawable/versus_pressed"/>
-    <item android:drawable="@drawable/versus"/>
+          android:drawable="@color/white"
+          />
+    <item android:drawable="@color/trasparent_bg"/>
 </selector>
