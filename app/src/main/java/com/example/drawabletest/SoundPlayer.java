@@ -39,14 +39,19 @@ public class SoundPlayer {
     }
 
     public void playSound(int loadedSound, float volume) {
+        //int streamID = 0;
         if(loaded){
-            soundPool.play(loadedSound, volume, volume, 1, 0, 0.99f);
+        //    do {
+                /*streamID =*/ soundPool.play(loadedSound, volume, volume, 1, 0, 0.99f);
+        //    } while (streamID == 0);
         }
     }
 
     public void releaseSP() {
         soundPool.release();
-
+        soundPool = null;
+        loaded = false;
+        createSP();
     }
 
 }

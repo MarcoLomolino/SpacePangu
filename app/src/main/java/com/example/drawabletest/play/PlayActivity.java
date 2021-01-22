@@ -49,11 +49,12 @@ public class PlayActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         game.stopScanning();
-        try {
+        myThread.setPlay(false);
+        /*try {
             myThread.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     protected void onResume() {

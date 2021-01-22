@@ -27,9 +27,9 @@ public class Ball extends View {
     public Ball(Context context, float x, float y, String difficulty) {
         super(context);
         context1 = context;
-        sp = new SoundPlayer(context1);
+        /*sp = new SoundPlayer(context1);
         sp.createSP();
-        paddleSound = sp.loadSound(R.raw.drum_low_04);
+        paddleSound = sp.loadSound(R.raw.drum_low_04);*/
 
         this.position = new Position(x, y);
         this.paddlehit = 0;
@@ -152,15 +152,15 @@ public class Ball extends View {
     }
 
     //check if the ball is near the paddle
-    public void nearPaddle(float xPaddle, float yPaddle) {
+    public boolean nearPaddle(float xPaddle, float yPaddle) {
         if (isNear(xPaddle, yPaddle, getXPosition(), getYPosition())) {
             changeDirection();
             paddlehit++;
             increaseSpeed(paddlehit);
-            sp.playSound(paddleSound, 0.99f);
-            //sp.releaseSP();
-            //paddleSound = sp.loadSound(R.raw.drum_low_04);
-        }
+            return true;
+            //sp.playSound(paddleSound, 0.99f);
+        } else
+            return false;
     }
 
     //check if the ball has a brick collision
