@@ -10,26 +10,28 @@
 
     <ImageButton
         android:id="@+id/HighScore"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#00FFFFFF"
+        android:background="@drawable/versus_selector"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:foreground="@drawable/highscore"
+        android:foregroundGravity="center"
         android:onClick="ShowHighscore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Editor"
-        app:srcCompat="@drawable/highscore_selector"
-        android:focusable="true" />
+        app:layout_constraintStart_toEndOf="@+id/Editor" />
 
     <ImageButton
         android:id="@+id/Versus"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#770A1FBF"
+        android:background="@drawable/versus_selector"
         android:clickable="true"
         android:contentDescription="@string/button"
         android:elevation="1dp"
@@ -45,34 +47,38 @@
 
     <ImageButton
         android:id="@+id/Play"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#00FFFFFF"
+        android:background="@drawable/versus_selector"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:foreground="@drawable/play"
+        android:foregroundGravity="center"
         android:onClick="showPlayGame"
         app:layout_constraintBottom_toTopOf="@+id/Editor"
         app:layout_constraintEnd_toStartOf="@+id/Versus"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/play_selector"
-        android:focusable="true" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/Editor"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#00FFFFFF"
+        android:background="@drawable/versus_selector"
         android:clickable="true"
         android:contentDescription="@string/button"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:foreground="@drawable/editor"
+        android:foregroundGravity="center"
         android:onClick="showEditor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/HighScore"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/editor_selector"
-        android:focusable="true" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
