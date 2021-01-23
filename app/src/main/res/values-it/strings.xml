@@ -13,6 +13,11 @@
     <string name="guide">Guida</string>
     <string name="share">Questi sono i miei migliori punteggi su SpacePang!</string>
     <string name="highscores">Classifica</string>
+    <string name="no_scores">Non ci sono ancora punteggi</string>
+    <string name="classic_select">Difficoltà impostata su classica</string>
+    <string name="hard_select">Difficoltà impostata su Hard</string>
+    <string name="tilt_select">Selezionata l\'inclinazione</string>
+    <string name="drag_select">Selezionato il touch</string>
     <string name="editor_guide_line1">Qui puoi creare i tuoi livelli</string>
     <string name="editor_guide_line2">Ci sono 4 slot disponibili e la posizione dei blocchi è sempre salvata</string>
     <string name="editor_guide_line3">Puoi cambiare il tipo di blocco, toccandolo</string>

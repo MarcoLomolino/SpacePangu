@@ -110,28 +110,28 @@ public class Options extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkBox_classic:
                 if (checked) {
-                    Toast.makeText(this, "Classic Difficulty selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.classic_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("difficulty","classic");
                     mEditor.commit();
                 }
                 break;
             case R.id.checkBox_hard:
                 if (checked) {
-                    Toast.makeText(this, "Hard Difficulty selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.hard_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("difficulty","hard");
                     mEditor.commit();
                 }
                 break;
             case R.id.accelerometer:
                 if (checked) {
-                    Toast.makeText(this, "Tilt Mode selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.tilt_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("controller","accelerometer");
                     mEditor.commit();
                 }
                 break;
             case R.id.drag:
                 if (checked) {
-                    Toast.makeText(this, "Drag Mode selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.drag_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("controller","drag");
                     mEditor.commit();
                 }

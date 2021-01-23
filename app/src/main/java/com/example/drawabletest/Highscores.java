@@ -83,21 +83,24 @@ public class Highscores extends AppCompatActivity {
                 }
             }
             records = databaseHelper.getScore(1);
-            if(records.size() > 0) {
+            if(records.get(0).getScore() != 0) {
                 share = share + getString(R.string.hard) + "\n";
                 for (int i = 0; i < records.size(); i++) {
                     if (records.get(i).getScore() != 0)
                         share = share + (i + 1) + ") " + records.get(i).getScore().toString() + "\n";
                 }
             }
+            if (share.equals(getString(R.string.share) + "\n")){
+                Toast.makeText(this,getString(R.string.no_scores),Toast.LENGTH_SHORT).show();
+            } else {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, share);
+                sendIntent.setType("text/plain");
 
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT,share);
-            sendIntent.setType("text/plain");
-
-            Intent shareIntent = Intent.createChooser(sendIntent, null);
-            startActivity(shareIntent);
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+            }
         }
         return super.onOptionsItemSelected(item);
     }

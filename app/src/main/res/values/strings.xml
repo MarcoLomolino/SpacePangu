@@ -14,6 +14,11 @@
     <string name="guide">Guide</string>
     <string name="share">These are my highscores on SpacePang!</string>
     <string name="highscores">Highscores</string>
+    <string name="no_scores">There are no highscores yet</string>
+    <string name="classic_select">Classic Difficulty selected</string>
+    <string name="hard_select">Hard Difficulty selected</string>
+    <string name="tilt_select">Tilt Mode selected</string>
+    <string name="drag_select">Drag Mode selected</string>
     <string name="image" translatable="false">image</string>
     <string name="slot1" translatable="false">slot1</string>
     <string name="slot2" translatable="false">slot2</string>
