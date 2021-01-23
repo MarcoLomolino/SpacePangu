@@ -63,12 +63,15 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     int wallSound, brickSound, scorebrickSound, lifebrickSound;
     int victorySound, deathSound, gameoverSound, paddleSound;
 
+    private boolean stato;
+
     public Game(Context context) {
         super(context);
 
         this.context = context;
         this.statistic = new Statistic(context);
         this.paint = new Paint();
+        this.stato = false;
 
         sp = new SoundPlayer(this.context);
         sp.createSP();
@@ -139,6 +142,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             paint.setColor(Color.RED);
             paint.setTextSize(100);
             canvas.drawText("Game over!", (float)size.x / 4, (float)size.y / 2, paint);
+            if(statistic.getUsername().length()>2 && stato==false){
+                DatabaseRemote db = new DatabaseRemote(context);
+                db.insertDati(statistic.getUsername(),String.valueOf(statistic.getScore()));
+                stato = true;
+            }
         }
     }
 
@@ -235,10 +243,10 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             start = false;
             sp.playSound(brickSound, 0.90f);
             invalidate();
-            if(statistic.getUsername().length()>2){
+            /*if(statistic.getUsername().length()>2){
                 DatabaseRemote db = new DatabaseRemote(context);
                 db.insertDati(statistic.getUsername(),String.valueOf(statistic.getScore()));
-            }
+            }*/
         } else { //if the player can still play this match
             statistic.setLife(statistic.getLife() - 1);//decrease the life
             sp.playSound(brickSound, 0.90f);
@@ -346,7 +354,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                 resetLevel();
                 setBricks(context);
                 gameOver = false;
-
+                stato = false;
             }
         }
 
