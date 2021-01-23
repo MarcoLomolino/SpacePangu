@@ -16,7 +16,7 @@ public class SlowDownBrick extends Brick {
 
     @Override
     public void setGraphic_brick() {
-        super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_green));
+        super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.slow_brick));
     }
 
     @Override
