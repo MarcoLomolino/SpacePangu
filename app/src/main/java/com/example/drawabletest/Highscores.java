@@ -12,6 +12,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -31,7 +32,10 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Permission;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Highscores extends AppCompatActivity {
 
@@ -51,6 +55,9 @@ public class Highscores extends AppCompatActivity {
         highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
         TextView hard[] = {findViewById(R.id.globalScore1),findViewById(R.id.globalScore2),findViewById(R.id.globalScore3),findViewById(R.id.globalScore4),findViewById(R.id.globalScore5)};
         highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
+
+        //highscoreGlobal(score[0],score[1],score[2],score[3],score[4]);
+
     }
 
     @Override
@@ -126,6 +133,19 @@ public class Highscores extends AppCompatActivity {
         }
     }
 
-
+    private void highscoreGlobal(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5){
+        DatabaseRemote db = new DatabaseRemote(Highscores.this);
+        ArrayList<CustomerModel> record = db.selectDati();
+        if(record!=null){
+            score1.setText("1)"+record.get(0).getScore()+" "+record.get(0).getNome().toString());
+            score2.setText("2)"+record.get(1).getScore()+" "+record.get(1).getNome().toString());
+            score3.setText("3)"+record.get(2).getScore()+" "+record.get(2).getNome().toString());
+            score4.setText("4)"+record.get(3).getScore()+" "+record.get(3).getNome().toString());
+            score5.setText("5)"+record.get(4).getScore()+" "+record.get(4).getNome().toString());
+        }
+        else{
+            Toast.makeText(Highscores.this, "Non c'è connessione", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

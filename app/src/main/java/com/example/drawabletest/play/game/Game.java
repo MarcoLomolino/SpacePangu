@@ -1,6 +1,7 @@
 package com.example.drawabletest.play.game;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,6 +21,8 @@ import android.view.WindowManager;
 
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
+import com.example.drawabletest.DatabaseRemote;
+import com.example.drawabletest.Highscores;
 import com.example.drawabletest.R;
 import com.example.drawabletest.SoundPlayer;
 import com.example.drawabletest.play.brick.Brick;
@@ -33,6 +36,8 @@ import com.example.drawabletest.play.paddle.Paddle;
 import com.example.drawabletest.play.position.Position;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Game extends View implements View.OnTouchListener, SensorEventListener {
 
@@ -230,6 +235,10 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             start = false;
             sp.playSound(brickSound, 0.90f);
             invalidate();
+            if(statistic.getUsername().length()>2){
+                DatabaseRemote db = new DatabaseRemote(context);
+                db.insertDati(statistic.getUsername(),String.valueOf(statistic.getScore()));
+            }
         } else { //if the player can still play this match
             statistic.setLife(statistic.getLife() - 1);//decrease the life
             sp.playSound(brickSound, 0.90f);

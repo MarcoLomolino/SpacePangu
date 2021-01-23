@@ -1,138 +1,64 @@
 package com.example.drawabletest;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
-public class DatabaseRemote extends AsyncTask<String,Void,String> {
+public class DatabaseRemote {
     private Context context;
-    private final static String INSERT_URL = "https://spacepong.altervista.org/insert.php";
-    private final static String SELECT_URL = "https://spacepong.altervista.org/select.php";
-    private final static String DELETE_URL = "https://spacepong.altervista.org/delete.php";
 
-    public DatabaseRemote (Context ctx){
+    public DatabaseRemote(Context ctx){
         this.context = ctx;
     }
 
-    @Override
-    protected String doInBackground(String... params) {
-        String type = params[0];
-        if(type.equals("insert")){
+    public ArrayList<CustomerModel> selectDati(){
+        BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
+        InternetConnection conn = new InternetConnection(this.context);
+        ArrayList<CustomerModel> record = new ArrayList<CustomerModel>();
+        if (conn.isOnline()) {
+            backgroundWorker.execute("select", "", "");
             try {
-                String username = params[1];
-                String score = params[2];
-                URL url = new URL(INSERT_URL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("score","UTF-8")+"="+URLEncoder.encode(score,"UTF-8")+"&"
-                        +URLEncoder.encode("nome","UTF-8")+"="+URLEncoder.encode(username,"UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while ((line = bufferedReader.readLine())!=null){
-                    result += line;
+                String ris = backgroundWorker.get();
+                String[] nomi = ris.split(" ");
+                int i = 0;
+                while (i < 14) {
+                    record.add(new CustomerModel(Integer.parseInt(nomi[i]), nomi[i + 1], Integer.parseInt(nomi[i + 2])));
+                    i = i + 3;
                 }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (MalformedURLException e) {
+                Collections.sort(record, new CompareScore());
+                return record;
+            } catch (ExecutionException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else if(type.equals("select")){
-            try {
-                URL url = new URL(SELECT_URL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while ((line = bufferedReader.readLine())!=null){
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else if(type.equals("delete")){
-            try {
-                String id = params[1];
-                URL url = new URL(DELETE_URL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(id,"UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while ((line = bufferedReader.readLine())!=null){
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         return null;
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+    public void deleteDati(int id){
+        BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
+        InternetConnection conn = new InternetConnection(this.context);
+        backgroundWorker.execute("delete", String.valueOf(id), "");
     }
 
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+    public void insertDati(String nome, String punteggio){
+        BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
+        InternetConnection conn = new InternetConnection(this.context);
+        if (conn.isOnline()){
+            ArrayList<CustomerModel> list = new ArrayList<CustomerModel>();
+            list = selectDati();
+            if(list.size()>=5 && list.get(4).getScore()<Integer.parseInt(punteggio)){
+                deleteDati(list.get(4).getId());
+            }
+            if(list.size()<5 || list.get(4).getScore()<Integer.parseInt(punteggio)) {
+                backgroundWorker.execute("insert", nome, punteggio);
+                if (list.get(0).getId() == 0) {
+                    deleteDati(0);
+                }
+            }
+        }
     }
 }

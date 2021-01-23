@@ -10,14 +10,14 @@ public class Statistic {
     private int level;
     private String difficulty;
     private String controller;
-
+    private String username;
 
 
 
     public Statistic(Context context) {
         this.difficulty = context.getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE).getString("difficulty", "classic");
         this.controller = context.getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE).getString("controller", "accelerometer");
-
+        this.username = context.getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE).getString("username", "");
         if(difficulty.equals("classic"))
             this.life = 3;
         else
@@ -65,5 +65,13 @@ public class Statistic {
 
     public void setController(String controller) {
         this.controller = controller;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
