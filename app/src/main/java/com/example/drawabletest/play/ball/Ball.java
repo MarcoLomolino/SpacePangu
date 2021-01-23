@@ -21,20 +21,13 @@ public class Ball extends View {
     private int paddlehit;
     Context context1;
 
-    SoundPlayer sp;
-    int paddleSound;
-
     public Ball(Context context, float x, float y, String difficulty) {
         super(context);
         context1 = context;
-        /*sp = new SoundPlayer(context1);
-        sp.createSP();
-        paddleSound = sp.loadSound(R.raw.drum_low_04);*/
 
         this.position = new Position(x, y);
         this.paddlehit = 0;
 
-	    //direction is get randomly in a range of values
         if(difficulty.equals("hard"))
             this.direction = new Position(getMIN_X() + 3, getMAX_Y() - 3);
          else
@@ -46,9 +39,6 @@ public class Ball extends View {
     public Ball(Context context, float x, float y) {
         super(context);
         context1 = context;
-        /*sp = new SoundPlayer(context1);
-        sp.createSP();
-        paddleSound = sp.loadSound(R.raw.drum_low_04);*/
 
         this.position = new Position(x, y);
         this.paddlehit = 0;
@@ -173,7 +163,6 @@ public class Ball extends View {
             paddlehit++;
             increaseSpeed(paddlehit);
             return true;
-            //sp.playSound(paddleSound, 0.99f);
         } else
             return false;
     }

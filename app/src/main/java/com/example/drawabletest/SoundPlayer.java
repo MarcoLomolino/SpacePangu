@@ -17,13 +17,13 @@ public class SoundPlayer {
     //CREA LA SOUNDPOOL
     //E' DAVVERO NECESSARIO QUELL'IF ELSE? NON BASTA LA PRIMA DELLE DUE INIZIALIZZAZIONI PER TUTTI?
     public void createSP() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             soundPool = new SoundPool.Builder()
                     .setMaxStreams(500)
                     .build();
-        }else{
-            soundPool = new SoundPool(500, AudioManager.STREAM_MUSIC, 0);
-        }
+        //}else{
+        //    soundPool = new SoundPool(500, AudioManager.STREAM_MUSIC, 0);
+        //}
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
             public void onLoadComplete(SoundPool sp, int sampleId, int status) {
@@ -39,11 +39,8 @@ public class SoundPlayer {
     }
 
     public void playSound(int loadedSound, float volume) {
-        //int streamID = 0;
         if(loaded){
-        //    do {
-                /*streamID =*/ soundPool.play(loadedSound, volume, volume, 1, 0, 0.99f);
-        //    } while (streamID == 0);
+            soundPool.play(loadedSound, volume, volume, 1, 0, 0.99f);
         }
     }
 

@@ -59,10 +59,7 @@ public class Multigame extends View implements View.OnTouchListener {
 
         sp = new SoundPlayer(this.context);
         sp.createSP();
-        wallSound = sp.loadSound(R.raw.drum_low_28);
-        brickSound = sp.loadSound(R.raw.drum_low_03);
-        victorySound = sp.loadSound(R.raw.pp_05);
-        paddleSound = sp.loadSound(R.raw.drum_low_04);
+        reloadGameSoundPlayer(sp);
 
         //flag vars to start the game or to check a game over
         this.start = false;
@@ -161,7 +158,7 @@ public class Multigame extends View implements View.OnTouchListener {
         for (int j = 1; j < 6; j++) {
 
             //coordinates of each brick
-            Position position = new Position(j * 150, 10 * 100);
+            Position position = new Position(j * 150, size.y/2);
 
             wall.add(new SampleBrick(context, position));
         }
@@ -191,16 +188,19 @@ public class Multigame extends View implements View.OnTouchListener {
         start = false; //wait to move the ball until the first touch of the player
         gameOver = true;
 
-        sp.playSound(victorySound, 0.90f);
         playbuttonsound(R.raw.pp_05);
         sp.releaseSP();
+        reloadGameSoundPlayer(sp);
+        resetLevel(480, 0, 0);
+        setBricks(context);
+
+    }
+
+    private void reloadGameSoundPlayer(SoundPlayer sp) {
         wallSound = sp.loadSound(R.raw.drum_low_28);
         brickSound = sp.loadSound(R.raw.drum_low_03);
         victorySound = sp.loadSound(R.raw.pp_05);
         paddleSound = sp.loadSound(R.raw.drum_low_04);
-        resetLevel(480, 0, 0);
-        setBricks(context);
-
     }
 
 

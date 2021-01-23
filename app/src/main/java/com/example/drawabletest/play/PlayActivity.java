@@ -65,9 +65,6 @@ public class PlayActivity extends AppCompatActivity {
         VytvorHandler();
         myThread = new UpdateThread(updateHandler);
         myThread.start();
-
-        //game.runScanning();
-        //myThread.setPlay(true);
     }
 
     @Override

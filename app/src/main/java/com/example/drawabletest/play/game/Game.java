@@ -66,14 +66,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
         sp = new SoundPlayer(this.context);
         sp.createSP();
-        wallSound = sp.loadSound(R.raw.drum_low_28);
-        brickSound = sp.loadSound(R.raw.drum_low_03);
-        scorebrickSound = sp.loadSound(R.raw.pp_24);
-        //lifebrickSound = sp.loadSound(R.raw.refill);
-        //victorySound = sp.loadSound(R.raw.pp_05);
-        //deathSound = sp.loadSound(R.raw.death);
-        //gameoverSound = sp.loadSound(R.raw.death2);
-        paddleSound = sp.loadSound(R.raw.drum_low_04);
+        reloadGameSoundPlayer(sp);
 
         //flag vars to start the game or to check a game over
         this.start = false;
@@ -277,19 +270,23 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         if (wall.isEmpty()) { //if there are no bricks
             playbuttonsound(R.raw.pp_05);
             sp.releaseSP();
-            wallSound = sp.loadSound(R.raw.drum_low_28);
-            brickSound = sp.loadSound(R.raw.drum_low_03);
-            scorebrickSound = sp.loadSound(R.raw.pp_24);
-            //lifebrickSound = sp.loadSound(R.raw.refill);
-            victorySound = sp.loadSound(R.raw.pp_05);
-            //deathSound = sp.loadSound(R.raw.death);
-            //gameoverSound = sp.loadSound(R.raw.death2);
-            paddleSound = sp.loadSound(R.raw.drum_low_04);
+            reloadGameSoundPlayer(sp);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
             resetLevel();
             setBricks(context);
             start = false; //wait to move the ball until the first touch of the player
         }
+    }
+
+    private void reloadGameSoundPlayer(SoundPlayer sp) {
+        wallSound = sp.loadSound(R.raw.drum_low_28);
+        brickSound = sp.loadSound(R.raw.drum_low_03);
+        scorebrickSound = sp.loadSound(R.raw.pp_24);
+        //lifebrickSound = sp.loadSound(R.raw.refill);
+        //victorySound = sp.loadSound(R.raw.pp_05);
+        //deathSound = sp.loadSound(R.raw.death);
+        //gameoverSound = sp.loadSound(R.raw.death2);
+        paddleSound = sp.loadSound(R.raw.drum_low_04);
     }
 
     //set tha ball, the wall and the bricks
@@ -376,16 +373,6 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         ball.setDirection(direction);
     }
 
-    /*public void libera() {
-        sp.releaseSP();
-        wallSound = sp.loadSound(R.raw.drum_low_28);
-        brickSound = sp.loadSound(R.raw.drum_low_03);
-        scorebrickSound = sp.loadSound(R.raw.pp_24);
-        lifebrickSound = sp.loadSound(R.raw.refill);
-        victorySound = sp.loadSound(R.raw.pp_05);
-        deathSound = sp.loadSound(R.raw.death);
-        gameoverSound = sp.loadSound(R.raw.death2);
-    }*/
 
     private void playbuttonsound(int resource) {
         final MediaPlayer beepMP = MediaPlayer.create(context, resource);
