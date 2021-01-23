@@ -10,8 +10,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class Options extends AppCompatActivity {
@@ -22,6 +24,8 @@ public class Options extends AppCompatActivity {
     private CheckBox controller_drag;
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
+    private EditText username;
+    private Button conferma;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,18 @@ public class Options extends AppCompatActivity {
         difficulty_Hard = findViewById(R.id.checkBox_hard);
         controller_accelerometer = findViewById(R.id.accelerometer);
         controller_drag = findViewById(R.id.drag);
+        username = findViewById(R.id.editTextTextPersonName2);
+        conferma = (Button)findViewById(R.id.ConfirmButton);
 
         mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
 
+
         mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
+        String name = mPreferences.getString("username","");
+        username.setText(name);
+        buttonClicked(conferma,username);
+
         String difficulty = mPreferences.getString("difficulty", "classic");
         if (difficulty.equals("classic")) {
             difficulty_classic.setChecked(true);
@@ -138,6 +149,19 @@ public class Options extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    public void buttonClicked(Button btn, EditText text){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.putString("username",text.getText().toString());
+                Toast.makeText(Options.this, "Modifica effettuata", Toast.LENGTH_SHORT).show();
+                mEditor.commit();
+                text.setEnabled(false);
+                text.setEnabled(true);
+            }
+        });
     }
 
 
