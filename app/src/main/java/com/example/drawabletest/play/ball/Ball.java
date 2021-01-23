@@ -122,8 +122,8 @@ public class Ball extends View {
     //the speed is increased by the level TO CHANGE BY EACH PADDLE HIT
     public void increaseSpeed(float phit) {
         if (direction.getX() <= this.getMAX_X() && direction.getY() >= this.getMIN_Y()) {
-            direction.setX((float) (direction.getX() + (phit * 0.04)));
-            direction.setY((float) (direction.getY() - (phit * 0.04)));
+            direction.setX((float) (direction.getX() + (phit * 0.03)));
+            direction.setY((float) (direction.getY() - (phit * 0.03)));
         }
     }
 
@@ -217,6 +217,10 @@ public class Ball extends View {
 
     public void changeYDirection() {
         direction.setY( - this.direction.getY());
+    }
+
+    public void resetPaddleHit() {
+        this.paddlehit = 0;
     }
 
 }

@@ -34,6 +34,8 @@ public class SlowDownBrick extends Brick {
             directionY = game.getBall().getMAX_Y();
         }
 
+        game.getBall().resetPaddleHit();
+
         Position direction = new Position(directionX, directionY);
         game.setBallDirection(direction);
     }
