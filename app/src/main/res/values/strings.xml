@@ -12,6 +12,7 @@
     <string name="classic_score">Classic Score</string>
     <string name="hard_score">Hard Score</string>
     <string name="guide">Guide</string>
+    <string name="share">These are my highscores on SpacePang!</string>
     <string name="highscores">Highscores</string>
     <string name="image" translatable="false">image</string>
     <string name="slot1" translatable="false">slot1</string>

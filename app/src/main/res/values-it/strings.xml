@@ -11,6 +11,7 @@
     <string name="classic_score">Classica</string>
     <string name="hard_score">Difficile</string>
     <string name="guide">Guida</string>
+    <string name="share">Questi sono i miei migliori punteggi su SpacePang!</string>
     <string name="highscores">Classifica</string>
     <string name="editor_guide_line1">Qui puoi creare i tuoi livelli</string>
     <string name="editor_guide_line2">Ci sono 4 slot disponibili e la posizione dei blocchi è sempre salvata</string>

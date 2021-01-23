@@ -214,7 +214,6 @@ public class Editor extends AppCompatActivity {
     public void createInfoDialog(MenuItem item){
         dialogBuilder = new AlertDialog.Builder(this);
         final View infoPopupView = getLayoutInflater().inflate(R.layout.popup, null);
-        //confirm = (Button) infoPopupView.findViewById(R.id.confirm_button);
 
         TextView customTitle = new TextView(this);
         customTitle.setText(R.string.guide);

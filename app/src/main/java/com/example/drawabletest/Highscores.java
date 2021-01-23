@@ -2,28 +2,42 @@ package com.example.drawabletest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.Permission;
 import java.util.List;
 
 public class Highscores extends AppCompatActivity {
 
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private static final int PERMISSION_RESULT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,87 +62,48 @@ public class Highscores extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
-                
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-    public boolean screenshotShare(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.share_button:
-
-                try {
-                    shareImage(store(getScreenShot(),"screenshot"));
-
+    public boolean scoreShare(MenuItem item) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(Highscores.this);
+        if (item.getItemId() == R.id.share_button){
+            List<CustomerModel> records = databaseHelper.getScore(0);
+            String share = getString(R.string.share) + "\n";
+            if(records.get(0).getScore() != 0 ){
+                share = share + getString(R.string.classic) + "\n";
+                for (int i = 0; i < records.size(); i++) {
+                    if (records.get(i).getScore() != 0)
+                        share = share + (i + 1) + ") " + records.get(i).getScore().toString() + "\n";
                 }
-                catch (Exception e) {
-                    System.out.println(e);
+            }
+            records = databaseHelper.getScore(1);
+            if(records.size() > 0) {
+                share = share + getString(R.string.hard) + "\n";
+                for (int i = 0; i < records.size(); i++) {
+                    if (records.get(i).getScore() != 0)
+                        share = share + (i + 1) + ") " + records.get(i).getScore().toString() + "\n";
                 }
+            }
 
-                return true;
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT,share);
+            sendIntent.setType("text/plain");
 
-            default:
-                return super.onOptionsItemSelected(item);
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
         }
-    }
-     */
-
-    public void scoreShare(MenuItem item){
-        try {
-            shareImage(store(getScreenShot(),"screenshot"));
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public Bitmap getScreenShot() {
-        View rootView = findViewById(android.R.id.content).getRootView();
-        rootView.setDrawingCacheEnabled(true);
-        return rootView.getDrawingCache();
-    }
-
-    public static File store(Bitmap bm, String fileName){
-        final String dirPath = Environment.getStorageDirectory().getAbsolutePath() + "/Screenshots";
-        File dir = new File(dirPath);
-        if(!dir.exists())
-            dir.mkdirs();
-        File file = new File(dirPath, fileName);
-        try {
-            FileOutputStream fOut = new FileOutputStream(file);
-            bm.compress(Bitmap.CompressFormat.PNG, 85, fOut);
-            fOut.flush();
-            fOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dir;
-    }
-
-    private void shareImage(File file) {
-        Uri uri = Uri.fromFile(file);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("image/*");
-
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        try {
-            startActivity(Intent.createChooser(intent, "Share Screenshot"));
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
-        }
+        return super.onOptionsItemSelected(item);
     }
 
 
-        private void highscoreGenerator(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5, int difficulty){
+    private void highscoreGenerator(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5, int difficulty){
         DatabaseHelper databaseHelper = new DatabaseHelper(Highscores.this);
         List<CustomerModel> records = databaseHelper.getScore(difficulty);
         if(records.size()>0 && records.get(0).getScore()!=0){
