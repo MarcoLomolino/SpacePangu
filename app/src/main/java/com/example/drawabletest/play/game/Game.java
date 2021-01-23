@@ -27,6 +27,7 @@ import com.example.drawabletest.play.ball.Ball;
 import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ScoreBrick;
+import com.example.drawabletest.play.brick.bonus_brick.SlowDownBrick;
 import com.example.drawabletest.play.brick.sample_brick.SampleBrick;
 import com.example.drawabletest.play.paddle.Paddle;
 import com.example.drawabletest.play.position.Position;
@@ -176,17 +177,21 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                 if(statistic.getDifficulty().equals("hard")) { //if difficult is hard there is no life brick
                     if(a >= 30)
                         wall.add(new SampleBrick(context, position));
-                    else if(a >= 10 && a < 30)
+                    else if(a >= 13 && a < 30)
                         wall.add(new ResistantBrick(context, position));
-                    else if(a >= 0 && a < 10)
+                    else if(a >= 3 && a < 13)
                         wall.add(new ScoreBrick(context, position));
+                    else if(a >= 0 && a < 3)
+                        wall.add(new SlowDownBrick(context, position));
                 } else { //if difficult is standard there are all types of bricks
-                    if (a >= 25)
+                    if (a >= 27)
                         wall.add(new SampleBrick(context, position));
-                    else if (a >= 17 && a < 25)
+                    else if (a >= 17 && a < 27)
                         wall.add(new ScoreBrick(context, position));
-                    else if (a >= 3 && a < 17)
+                    else if (a >= 6 && a < 17)
                         wall.add(new ResistantBrick(context, position));
+                    else if (a >= 3 && a < 6)
+                        wall.add(new SlowDownBrick(context, position));
                     else if (a >= 0 && a < 3)
                         wall.add(new LifeBrick(context, position));
                 }
