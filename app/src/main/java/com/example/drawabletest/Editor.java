@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.drawabletest.play.PlayActivity;
 
 import java.util.List;
 
@@ -132,6 +135,11 @@ public class Editor extends AppCompatActivity {
                         database.modificaBlocchi(j,i,4,livello);
                         break;
                     case 4:
+                        b.setImageResource(R.drawable.slow_brick);
+                        isClicked[i][j] = 5;
+                        database.modificaBlocchi(j,i,5,livello);
+                        break;
+                    case 5:
                         b.setImageResource(R.drawable.brick_empty);
                         isClicked[i][j] = 0;
                         database.modificaBlocchi(j,i,0,livello);
@@ -187,6 +195,10 @@ public class Editor extends AppCompatActivity {
                         case 4:
                             isClicked[cm.getY()][cm.getX()] = 4;
                             btn[cm.getY()][cm.getX()].setImageResource(R.drawable.brick_metal);
+                            break;
+                        case 5:
+                            isClicked[cm.getY()][cm.getX()] = 5;
+                            btn[cm.getY()][cm.getX()].setImageResource(R.drawable.slow_brick);
                             break;
                         default:
                             break;
@@ -245,5 +257,10 @@ public class Editor extends AppCompatActivity {
         a.setBackgroundColor(Color.rgb(25,25,112));
         b.setBackgroundColor(Color.rgb(25,25,112));
         c.setBackgroundColor(Color.rgb(25,25,112));
+    }
+
+    public void showPlayEditedGame(View view){
+        Intent intent = new Intent(this, PlayEditorActivity.class);
+        startActivity(intent);
     }
 }

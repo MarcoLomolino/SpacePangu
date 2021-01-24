@@ -3,6 +3,7 @@ package com.example.drawabletest.play.brick.sample_brick;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.brick.Brick;
 import com.example.drawabletest.play.game.Game;
@@ -51,5 +52,8 @@ public class SampleBrick extends Brick {
 
     }
 
+    @Override
+    public void setEffect(EditedGame game) {
 
+    }
 }

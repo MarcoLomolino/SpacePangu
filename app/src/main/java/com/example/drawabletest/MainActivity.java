@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     //tempo durata del mio splashscreen in ms

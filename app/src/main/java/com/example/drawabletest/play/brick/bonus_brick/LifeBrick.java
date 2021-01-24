@@ -3,6 +3,7 @@ package com.example.drawabletest.play.brick.bonus_brick;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 
 import com.example.drawabletest.play.brick.Brick;
@@ -28,6 +29,13 @@ public class LifeBrick extends Brick {
     @Override
     public void setEffect(Game game)
     {
+        int life = game.getStatistic().getLife();
+
+        game.getStatistic().setLife(life + 1);
+    }
+
+    @Override
+    public void setEffect(EditedGame game) {
         int life = game.getStatistic().getLife();
 
         game.getStatistic().setLife(life + 1);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 
+import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.play.game.Game;
 import com.example.drawabletest.play.position.Position;
 
@@ -91,6 +92,9 @@ public abstract class Brick extends View {
 
 	//the brick produce an effect 
     public abstract void setEffect(Game game);
+
+    //the brick produce an effect
+    public abstract void setEffect(EditedGame game);
 
 
 
