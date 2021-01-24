@@ -2,6 +2,7 @@ package com.example.drawabletest;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,8 @@ public class PlayEditorActivity extends AppCompatActivity {
 
     private EditedGame game;
     private Handler updateHandler;
+    private SharedPreferences mPrefs;
+    private int mCur;
     UpdateThread myThread;
 
     @Override
@@ -32,6 +35,8 @@ public class PlayEditorActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        mPrefs = getSharedPreferences("salva_map",MODE_PRIVATE);
+        mCur = mPrefs.getInt("view_mode",1);
     }
 
     @SuppressLint("HandlerLeak")
@@ -58,7 +63,7 @@ public class PlayEditorActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        game = new EditedGame(this);
+        game = new EditedGame(this,mCur);
         setContentView(game);
         game.runScanning();
         VytvorHandler();

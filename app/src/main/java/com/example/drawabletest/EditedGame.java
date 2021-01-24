@@ -53,13 +53,15 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     private boolean start;
     private boolean gameOver;
     private final Context context;
+    private int slot;
     SoundPlayer sp;
     int wallSound, brickSound, scorebrickSound, lifebrickSound;
     int victorySound, deathSound, gameoverSound, paddleSound;
 
-    public EditedGame(Context context) {
+    public EditedGame(Context context,int slot) {
         super(context);
 
+        this.slot = slot;
         this.context = context;
         this.statistic = new Statistic(context);
         this.paint = new Paint();
@@ -166,7 +168,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
 
     private void setBricks(Context context) {
         DatabaseHelper dbh = new DatabaseHelper(context);
-        List<ModelEditor> wall1 = dbh.getEditorFile(1);
+        List<ModelEditor> wall1 = dbh.getEditorFile(slot);
         for(ModelEditor w : wall1) {
             if(w.getAttivo()!=0){
                 Position position = new Position((w.getX()+1) * 150, (w.getY()+3) * 100);
