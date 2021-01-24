@@ -143,7 +143,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             paint.setTextSize(100);
             canvas.drawText("Game over!", (float)size.x / 4, (float)size.y / 2, paint);
             if(statistic.getUsername().length()>2 && stato==false){
-                DatabaseRemote db = new DatabaseRemote(context);
+                DatabaseRemote db = new DatabaseRemote(context,statistic.getDifficulty());
                 db.insertDati(statistic.getUsername(),String.valueOf(statistic.getScore()));
                 stato = true;
             }

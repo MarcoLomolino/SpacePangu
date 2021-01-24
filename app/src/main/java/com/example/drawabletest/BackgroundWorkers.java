@@ -20,6 +20,9 @@ public class BackgroundWorkers extends AsyncTask<String,Void,String> {
     private final static String INSERT_URL = "https://spacepong.altervista.org/insert.php";
     private final static String SELECT_URL = "https://spacepong.altervista.org/select.php";
     private final static String DELETE_URL = "https://spacepong.altervista.org/delete.php";
+    private final static String HARD_INSERT_URL = "https://spacepong.altervista.org/insertHard.php";
+    private final static String HARD_SELECT_URL = "https://spacepong.altervista.org/selectHard.php";
+    private final static String HARD_DELETE_URL = "https://spacepong.altervista.org/deleteHard.php";
 
     public BackgroundWorkers (Context ctx){
         this.context = ctx;
@@ -30,9 +33,15 @@ public class BackgroundWorkers extends AsyncTask<String,Void,String> {
         String type = params[0];
         if(type.equals("insert")){
             try {
-                String username = params[1];
-                String score = params[2];
-                URL url = new URL(INSERT_URL);
+                String username = params[2];
+                String score = params[3];
+                URL url;
+                if(params[1]=="classic"){
+                    url = new URL(INSERT_URL);
+                }
+                else{
+                    url = new URL(HARD_INSERT_URL);
+                }
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -64,7 +73,13 @@ public class BackgroundWorkers extends AsyncTask<String,Void,String> {
         }
         else if(type.equals("select")){
             try {
-                URL url = new URL(SELECT_URL);
+                URL url;
+                if(params[1]=="classic"){
+                    url = new URL(SELECT_URL);
+                }
+                else{
+                    url = new URL(HARD_SELECT_URL);
+                }
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -88,8 +103,14 @@ public class BackgroundWorkers extends AsyncTask<String,Void,String> {
         }
         else if(type.equals("delete")){
             try {
-                String id = params[1];
-                URL url = new URL(DELETE_URL);
+                String id = params[2];
+                URL url;
+                if(params[1]=="classic"){
+                    url = new URL(DELETE_URL);
+                }
+                else{
+                    url = new URL(HARD_DELETE_URL);
+                }
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);

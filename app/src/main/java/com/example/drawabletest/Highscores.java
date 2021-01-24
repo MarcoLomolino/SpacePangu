@@ -134,7 +134,7 @@ public class Highscores extends AppCompatActivity {
     }
 
     private void highscoreGlobal(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5){
-        DatabaseRemote db = new DatabaseRemote(Highscores.this);
+        DatabaseRemote db = new DatabaseRemote(Highscores.this,"classic");
         ArrayList<CustomerModel> record = db.selectDati();
         if(record!=null){
             score1.setText("1)"+record.get(0).getScore()+" "+record.get(0).getNome().toString());
