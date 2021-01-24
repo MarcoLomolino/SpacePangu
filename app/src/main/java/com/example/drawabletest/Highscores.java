@@ -56,8 +56,8 @@ public class Highscores extends AppCompatActivity {
         TextView hard[] = {findViewById(R.id.globalScore1),findViewById(R.id.globalScore2),findViewById(R.id.globalScore3),findViewById(R.id.globalScore4),findViewById(R.id.globalScore5)};
         highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
 
-        //highscoreGlobal(score[0],score[1],score[2],score[3],score[4]);
-
+        //highscoreGlobal(score[0],score[1],score[2],score[3],score[4],"classic");
+        //highscoreGlobal(hard[0],hard[1],hard[2],hard[3],hard[4],"hard");
     }
 
     @Override
@@ -133,8 +133,8 @@ public class Highscores extends AppCompatActivity {
         }
     }
 
-    private void highscoreGlobal(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5){
-        DatabaseRemote db = new DatabaseRemote(Highscores.this,"classic");
+    private void highscoreGlobal(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5, String difficulty){
+        DatabaseRemote db = new DatabaseRemote(Highscores.this,difficulty);
         ArrayList<CustomerModel> record = db.selectDati();
         if(record!=null){
             score1.setText("1)"+record.get(0).getScore()+" "+record.get(0).getNome().toString());
