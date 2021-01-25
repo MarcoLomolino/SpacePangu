@@ -27,6 +27,8 @@
     <string name="slot4" translatable="false">slot4</string>
     <string name="editor" translatable="false">Editor</string>
     <string name="username" translatable="false">Username</string>
+    <string name="player1wins">Player 1 wins!</string>
+    <string name="player2wins">Player 2 wins!</string>
     <string name="ok" translatable="false">OK</string>
     <string name="editor_guide_line1">Here you can create your own levels</string>
     <string name="editor_guide_line2">There are 4 slot available and the location of the bricks will be always auto-saved</string>

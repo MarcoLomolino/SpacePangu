@@ -19,6 +19,8 @@
     <string name="tilt_select">Selezionata l\'inclinazione</string>
     <string name="drag_select">Selezionato il touch</string>
     <string name="play">gioca</string>
+    <string name="player1wins">Giocatore 1 vince!</string>
+    <string name="player2wins">Giocatore 2 vince!</string>
     <string name="editor_guide_line1">Qui puoi creare i tuoi livelli</string>
     <string name="editor_guide_line2">Ci sono 4 slot disponibili e la posizione dei blocchi è sempre salvata</string>
     <string name="editor_guide_line3">Puoi cambiare il tipo di blocco, toccandolo</string>
