@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/darkgalaxy_landscape"
-    tools:context=".MainActivity">
+    tools:context=".Editor">
 
     <ImageButton
         android:id="@+id/btn1_1"
@@ -235,6 +235,8 @@
         android:fontFamily="@font/electrolize"
         android:text="@string/play"
         android:textColor="@color/white"
+        android:clickable="true"
+        android:onClick="showPlayEditedGame"
         app:layout_constraintBottom_toTopOf="@+id/btnSave1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
