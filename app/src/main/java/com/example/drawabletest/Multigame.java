@@ -37,14 +37,11 @@ public class Multigame extends View implements View.OnTouchListener {
     private Point size;
     private final Paint paint;
 
-    private final SensorManager sManager;
-    private final Sensor accelerometer;
-
     private boolean start;
     private boolean gameOver;
     private final Context context;
     SoundPlayer sp;
-    int wallSound, brickSound, victorySound, paddleSound;;
+    int wallSound, brickSound, paddleSound, deathSound;
 
 
     private int player_score1;
@@ -64,11 +61,6 @@ public class Multigame extends View implements View.OnTouchListener {
         //flag vars to start the game or to check a game over
         this.start = false;
         this.gameOver = false;
-
-
-        // accelerometer SensorManager
-        sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         this.setBackground();//set background image
         this.getSize();//get screen size
@@ -188,7 +180,7 @@ public class Multigame extends View implements View.OnTouchListener {
         start = false; //wait to move the ball until the first touch of the player
         gameOver = true;
 
-        playbuttonsound(R.raw.pp_05);
+        playbuttonsound(R.raw.levelup);
         sp.releaseSP();
         reloadGameSoundPlayer(sp);
         resetLevel(480, 0, 0);
@@ -199,8 +191,8 @@ public class Multigame extends View implements View.OnTouchListener {
     private void reloadGameSoundPlayer(SoundPlayer sp) {
         wallSound = sp.loadSound(R.raw.drum_low_28);
         brickSound = sp.loadSound(R.raw.drum_low_03);
-        victorySound = sp.loadSound(R.raw.pp_05);
         paddleSound = sp.loadSound(R.raw.drum_low_04);
+        deathSound = sp.loadSound(R.raw.balldie);
     }
 
 
@@ -209,7 +201,7 @@ public class Multigame extends View implements View.OnTouchListener {
             victory();
         else
         {
-            sp.playSound(brickSound, 0.90f);
+            sp.playSound(deathSound, 0.90f);
 
             if(b)
             {

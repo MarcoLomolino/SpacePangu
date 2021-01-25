@@ -55,8 +55,8 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     private final Context context;
     private int slot;
     SoundPlayer sp;
-    int wallSound, brickSound, scorebrickSound, lifebrickSound;
-    int victorySound, deathSound, gameoverSound, paddleSound;
+    int wallSound, brickSound, specialBrickSound;
+    int deathSound, gameoverSound, paddleSound;
 
     public EditedGame(Context context,int slot) {
         super(context);
@@ -207,11 +207,11 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
         if (statistic.getLife() == 1) {//if the player lose
             gameOver = true; //set game over as true
             start = false;
-            sp.playSound(brickSound, 0.90f);
+            sp.playSound(gameoverSound, 0.90f);
             invalidate();
         } else { //if the player can still play this match
             statistic.setLife(statistic.getLife() - 1);//decrease the life
-            sp.playSound(brickSound, 0.90f);
+            sp.playSound(deathSound, 0.90f);
             ball = new Ball(context, (float)size.x / 2, size.y - 480, statistic.getDifficulty());//set ball in the start
             start = false;
         }
@@ -232,10 +232,9 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
 
                     LifeBrick temp1 = new LifeBrick(context, b.getPosition());
                     ScoreBrick temp2 = new ScoreBrick(context, b.getPosition());
-                    if(b.getClass()==temp1.getClass()) {
-                        sp.playSound(scorebrickSound, 0.90f);
-                    } else if (b.getClass()==temp2.getClass()) {
-                        sp.playSound(scorebrickSound, 0.75f);
+                    SlowDownBrick temp3 = new SlowDownBrick(context, b.getPosition());
+                    if(b.getClass()==temp1.getClass() || b.getClass()==temp2.getClass() || b.getClass()==temp3.getClass()) {
+                        sp.playSound(specialBrickSound, 0.99f);
                     } else {
                         sp.playSound(brickSound, 0.99f);
                     }
@@ -252,7 +251,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     //check if the player has won
     private void victory() {
         if (wall.isEmpty()) { //if there are no bricks
-            playbuttonsound(R.raw.pp_05);
+            playbuttonsound(R.raw.levelup);
             sp.releaseSP();
             reloadGameSoundPlayer(sp);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
@@ -265,11 +264,9 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     private void reloadGameSoundPlayer(SoundPlayer sp) {
         wallSound = sp.loadSound(R.raw.drum_low_28);
         brickSound = sp.loadSound(R.raw.drum_low_03);
-        scorebrickSound = sp.loadSound(R.raw.pp_24);
-        //lifebrickSound = sp.loadSound(R.raw.refill);
-        //victorySound = sp.loadSound(R.raw.pp_05);
-        //deathSound = sp.loadSound(R.raw.death);
-        //gameoverSound = sp.loadSound(R.raw.death2);
+        specialBrickSound = sp.loadSound(R.raw.pp_24);
+        deathSound = sp.loadSound(R.raw.balldie);
+        gameoverSound = sp.loadSound(R.raw.gameover);
         paddleSound = sp.loadSound(R.raw.drum_low_04);
     }
 
@@ -351,8 +348,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
 
     public Ball getBall() {return ball; }
 
-    public void setBallDirection(/*Position position,*/ Position direction) {
-        //ball.setPosition(position);
+    public void setBallDirection(Position direction) {
         ball.setDirection(direction);
     }
 
