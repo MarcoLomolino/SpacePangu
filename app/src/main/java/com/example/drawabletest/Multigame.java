@@ -1,5 +1,6 @@
 package com.example.drawabletest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -57,10 +59,6 @@ public class Multigame extends View implements View.OnTouchListener {
         this.context = context;
         this.paint = new Paint();
 
-        player1_score = findViewById(R.id.player1_score);
-        player2_score = findViewById(R.id.player2_score);
-        winner = findViewById(R.id.winner);
-
         sp = new SoundPlayer(this.context);
         sp.createSP();
         reloadGameSoundPlayer(sp);
@@ -69,7 +67,12 @@ public class Multigame extends View implements View.OnTouchListener {
         this.start = false;
         this.gameOver = false;
 
+        player1_score = ((Activity)context).findViewById(R.id.player1_score);
+        player2_score = ((Activity)context).findViewById(R.id.player2_score);
+        winner = ((Activity)context).findViewById(R.id.winner);
+        player1_score.setVisibility(View.VISIBLE);
         this.setBackground();//set background image
+        player1_score.setVisibility(View.VISIBLE);
         this.getSize();//get screen size
         this.resetLevel(480, 0, 0);//initialize ball, paddle and bricks
 
@@ -210,7 +213,7 @@ public class Multigame extends View implements View.OnTouchListener {
         wallSound = sp.loadSound(R.raw.drum_low_28);
         brickSound = sp.loadSound(R.raw.drum_low_03);
         paddleSound = sp.loadSound(R.raw.drum_low_04);
-        deathSound = sp.loadSound(R.raw.balldie);
+        deathSound = sp.loadSound(R.raw.levelup);
     }
 
 
@@ -268,13 +271,14 @@ public class Multigame extends View implements View.OnTouchListener {
         this.player_score1 = player_score1;
         this.player_score2 = player_score2;
         if(player_score1!=0||player_score2!=0){
-            player1_score.setText(this.player_score1);
-            player2_score.setText(this.player_score2);
-            player1_score.setVisibility(VISIBLE);
-            player2_score.setVisibility(VISIBLE);
+            player1_score.setText(String.valueOf(this.player_score1));
+            System.out.println("CIAOOOOOOOO");
+            System.out.println(player1_score.getText());
+            player1_score.setVisibility(View.VISIBLE);
+            player2_score.setText(String.valueOf(this.player_score2));
+            player2_score.setVisibility(View.VISIBLE);
         }
     }
-
 
 
     //the first touch
