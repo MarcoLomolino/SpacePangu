@@ -49,9 +49,7 @@ public class Multigame extends View implements View.OnTouchListener {
 
     private int player_score1 = 0;
     private int player_score2 = 0;
-    private TextView player1_score;
-    private TextView player2_score;
-    private TextView winner;
+    private int winner;
 
     public Multigame(Context context) {
         super(context);
@@ -67,12 +65,7 @@ public class Multigame extends View implements View.OnTouchListener {
         this.start = false;
         this.gameOver = false;
 
-        player1_score = ((Activity)context).findViewById(R.id.player1_score);
-        player2_score = ((Activity)context).findViewById(R.id.player2_score);
-        winner = ((Activity)context).findViewById(R.id.winner);
-        player1_score.setVisibility(View.VISIBLE);
         this.setBackground();//set background image
-        player1_score.setVisibility(View.VISIBLE);
         this.getSize();//get screen size
         this.resetLevel(480, 0, 0);//initialize ball, paddle and bricks
 
@@ -94,6 +87,7 @@ public class Multigame extends View implements View.OnTouchListener {
     private void getSize()
     {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        //Display display = context.getDisplay();
         Display display = wm.getDefaultDisplay();
         size = new Point();
         display.getSize(size);
@@ -111,6 +105,8 @@ public class Multigame extends View implements View.OnTouchListener {
         this.drawBricks(canvas);
 
         this.drawGameOver(canvas);
+
+        this.drawScore(canvas);
     }
 
 
@@ -122,11 +118,26 @@ public class Multigame extends View implements View.OnTouchListener {
 
     }
 
+    private void drawScore(Canvas canvas){
+         paint.setColor(Color.RED);
+         paint.setTextSize(100);
+         canvas.rotate(90,size.x/2,size.y/2);
+         canvas.drawText(String.valueOf(player_score2) + " - " + String.valueOf(player_score1) ,(float)size.x / 2 -50, (float)(size.y / 3), paint);
+    }
+
     private void drawGameOver(Canvas canvas) {
         if (gameOver) {
             paint.setColor(Color.RED);
             paint.setTextSize(100);
-            canvas.drawText("Game over!", (float)size.x / 4, (float)size.y / 2, paint);
+            if(winner == 1){
+                canvas.drawText(context.getResources().getString(R.string.player1wins), (float)size.x / 9, (float)size.y / 2 - 150, paint);
+            }
+            else {
+                canvas.rotate(180,size.x/2,size.y/2);
+                canvas.drawText(context.getResources().getString(R.string.player2wins), (float)size.x / 9, (float)size.y / 2 + 150 , paint);
+                canvas.rotate(180,size.x/2,size.y/2);
+            }
+
         }
     }
 
@@ -187,22 +198,17 @@ public class Multigame extends View implements View.OnTouchListener {
     //check if the player has won
     private void victory() {
 
-
         start = false; //wait to move the ball until the first touch of the player
         gameOver = true;
 
+        if(player_score1==3){
+            winner = 1;
+        }
+        else {
+            winner = 2;
+        }
         playbuttonsound(R.raw.levelup);
         sp.releaseSP();
-        if(player_score1==3){
-            winner.setRotationX(0);
-            winner.setText(R.string.player1wins);
-        }
-        else
-        {
-            winner.setRotationX(180);
-            winner.setText(R.string.player2wins);
-        }
-        winner.setVisibility(VISIBLE);
         reloadGameSoundPlayer(sp);
         resetLevel(480, 0, 0);
         setBricks(context);
@@ -270,14 +276,6 @@ public class Multigame extends View implements View.OnTouchListener {
         wall = new CopyOnWriteArrayList<>();
         this.player_score1 = player_score1;
         this.player_score2 = player_score2;
-        if(player_score1!=0||player_score2!=0){
-            player1_score.setText(String.valueOf(this.player_score1));
-            System.out.println("CIAOOOOOOOO");
-            System.out.println(player1_score.getText());
-            player1_score.setVisibility(View.VISIBLE);
-            player2_score.setText(String.valueOf(this.player_score2));
-            player2_score.setVisibility(View.VISIBLE);
-        }
     }
 
 
@@ -310,9 +308,6 @@ public class Multigame extends View implements View.OnTouchListener {
         }
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
-           /* winner.setVisibility(INVISIBLE);
-            player1_score.setVisibility(INVISIBLE);
-            player2_score.setVisibility(INVISIBLE);*/
             this.start = true;
             this.gameOver = false;
         }
