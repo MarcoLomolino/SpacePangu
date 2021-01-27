@@ -155,11 +155,16 @@ public class Options extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEditor.putString("username",text.getText().toString());
-                Toast.makeText(Options.this, "Modifica effettuata", Toast.LENGTH_SHORT).show();
-                mEditor.commit();
-                text.setEnabled(false);
-                text.setEnabled(true);
+                if(text.getText().toString().length()>15){
+                    Toast.makeText(Options.this, "Username troppo lungo", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    mEditor.putString("username",text.getText().toString());
+                    mEditor.commit();
+                    text.setEnabled(false);
+                    text.setEnabled(true);
+                    Toast.makeText(Options.this, "Modifica effettuata", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
