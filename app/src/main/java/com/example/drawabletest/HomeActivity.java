@@ -3,6 +3,7 @@ package com.example.drawabletest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AsyncPlayer;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -22,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
     SoundPlayer sp = new SoundPlayer(this);
     int menuSound;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ShowHighscore(View view){
+        mPrefs = getSharedPreferences("salva_map",MODE_PRIVATE);
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putInt("lg",0);
+        ed.commit();
         Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);

@@ -9,10 +9,11 @@
 
     <TextView
         android:id="@+id/globalScore5"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -24,10 +25,11 @@
 
     <TextView
         android:id="@+id/globalScore4"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -39,10 +41,11 @@
 
     <TextView
         android:id="@+id/globalScore2"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -54,10 +57,11 @@
 
     <TextView
         android:id="@+id/globalScore3"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -117,11 +121,11 @@
 
     <TextView
         android:id="@+id/score5"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -133,11 +137,11 @@
 
     <TextView
         android:id="@+id/score4"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -149,11 +153,11 @@
 
     <TextView
         android:id="@+id/score3"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -165,11 +169,11 @@
 
     <TextView
         android:id="@+id/score2"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -181,11 +185,11 @@
 
     <TextView
         android:id="@+id/score1"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -225,10 +229,11 @@
 
     <TextView
         android:id="@+id/globalScore1"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"

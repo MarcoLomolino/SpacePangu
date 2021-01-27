@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,8 @@ public class Highscores extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private static final int PERMISSION_RESULT = 0;
+    private SharedPreferences mPrefs;
+    private int mCur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +39,51 @@ public class Highscores extends AppCompatActivity {
         ImageButton gblBtn = (ImageButton)findViewById(R.id.globalButton);
         TextView score[] = {findViewById(R.id.score1),findViewById(R.id.score2),findViewById(R.id.score3),findViewById(R.id.score4),findViewById(R.id.score5)};
         TextView hard[] = {findViewById(R.id.globalScore1),findViewById(R.id.globalScore2),findViewById(R.id.globalScore3),findViewById(R.id.globalScore4),findViewById(R.id.globalScore5)};
-        highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
-        highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
+        mPrefs = getSharedPreferences("salva_map",MODE_PRIVATE);
+        mCur = mPrefs.getInt("lg",0);
+
+        switch (mCur){
+            case 0:
+                highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
+                highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
+                break;
+            case 1:
+                highscoreGlobal(score[0],score[1],score[2],score[3],score[4],"classic");
+                highscoreGlobal(hard[0],hard[1],hard[2],hard[3],hard[4],"hard");
+                break;
+            default:
+                break;
+        }
 
         lclBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCur = 0;
+                Toast.makeText(Highscores.this, getString(R.string.localscore), Toast.LENGTH_SHORT).show();
                 pulisci(score[0],score[1],score[2],score[3],score[4]);
                 pulisci(hard[0],hard[1],hard[2],hard[3],hard[4]);
                 highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
                 highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
-                Toast.makeText(Highscores.this, getString(R.string.localscore), Toast.LENGTH_SHORT).show();
             }
         });
 
         gblBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCur = 1;
+                Toast.makeText(Highscores.this, getString(R.string.globalscore), Toast.LENGTH_SHORT).show();
                 highscoreGlobal(score[0],score[1],score[2],score[3],score[4],"classic");
                 highscoreGlobal(hard[0],hard[1],hard[2],hard[3],hard[4],"hard");
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putInt("lg",mCur);
+        ed.commit();
     }
 
     @Override
@@ -136,9 +163,6 @@ public class Highscores extends AppCompatActivity {
         DatabaseRemote db = new DatabaseRemote(Highscores.this,difficulty);
         ArrayList<CustomerModel> record = db.selectDati();
         if(record!=null){
-            if(difficulty=="classic") {
-                Toast.makeText(Highscores.this, getString(R.string.globalscore), Toast.LENGTH_SHORT).show();
-            }
             score1.setText("1) "+record.get(0).getScore()+" "+record.get(0).getNome().toString());
             score2.setText("2) "+record.get(1).getScore()+" "+record.get(1).getNome().toString());
             score3.setText("3) "+record.get(2).getScore()+" "+record.get(2).getNome().toString());
@@ -148,6 +172,7 @@ public class Highscores extends AppCompatActivity {
         else{
             if(difficulty=="classic") {
                 Toast.makeText(Highscores.this, getString(R.string.noconnection), Toast.LENGTH_SHORT).show();
+                mCur=0;
             }
         }
     }
