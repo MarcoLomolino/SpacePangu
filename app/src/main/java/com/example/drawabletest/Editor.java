@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.drawabletest.play.PlayActivity;
 
@@ -260,7 +261,12 @@ public class Editor extends AppCompatActivity {
     }
 
     public void showPlayEditedGame(View view){
-        Intent intent = new Intent(this, PlayEditorActivity.class);
-        startActivity(intent);
+        if(database.getEmpty()!=0){
+            Intent intent = new Intent(this, PlayEditorActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Lo slot è vuoto", Toast.LENGTH_SHORT).show();
+        }
     }
 }

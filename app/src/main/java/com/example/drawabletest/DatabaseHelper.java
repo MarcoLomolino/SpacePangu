@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String X_COLUMN = "X";
     private static final String Y_COLUMN = "Y";
     private static final String ATTIVO_COLUMN = "ATTIVO";
+    private int empty;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "customer.db", null, 1);
@@ -142,11 +143,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void modificaBlocchi(int x, int y, int attivo, int livello){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE EDITOR SET ATTIVO="+attivo +" WHERE X="+x+" AND Y="+y+" AND LIVELLO="+livello);
+        if(attivo!=0){
+            empty = empty+1;
+        }
+        else{
+            empty = empty -5;
+        }
     }
 
     public List<ModelEditor> getEditorFile(int livello){
         List<ModelEditor> list = new ArrayList<>();
-
+        empty = 0;
         String queryString = "SELECT * FROM " + EDITOR_TABLE+ " WHERE LIVELLO="+livello;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
@@ -158,6 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 ModelEditor me = new ModelEditor(customerX,customerY,customerA);
                 list.add(me);
+                empty = empty + me.getAttivo();
             }while(cursor.moveToNext());
         }
         else{
@@ -166,5 +174,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return list;
         }
         return list;
+    }
+
+    public int getEmpty(){
+        return empty;
     }
 }
