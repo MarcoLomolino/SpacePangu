@@ -79,9 +79,9 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/globalButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/localButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -97,7 +97,7 @@
         app:layout_constraintBottom_toTopOf="@+id/score1"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/localButton" />
 
     <TextView
         android:id="@+id/textView4"
@@ -113,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/globalButton" />
 
     <TextView
         android:id="@+id/score5"
@@ -195,8 +195,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <ImageButton
+        android:id="@+id/localButton"
         android:layout_width="57dp"
         android:layout_height="59dp"
         android:contentDescription="@string/image"
@@ -204,11 +204,10 @@
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trophy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/globalButton"
         android:layout_width="63dp"
         android:layout_height="59dp"
         android:contentDescription="@string/image"
@@ -216,8 +215,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trophy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/globalScore1"

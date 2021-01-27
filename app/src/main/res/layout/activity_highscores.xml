@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/globalScore5"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -23,9 +24,10 @@
 
     <TextView
         android:id="@+id/globalScore4"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -37,9 +39,10 @@
 
     <TextView
         android:id="@+id/globalScore3"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -51,9 +54,10 @@
 
     <TextView
         android:id="@+id/globalScore2"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -81,11 +85,11 @@
 
     <TextView
         android:id="@+id/score1"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -97,11 +101,11 @@
 
     <TextView
         android:id="@+id/score2"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -113,11 +117,11 @@
 
     <TextView
         android:id="@+id/score3"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -129,11 +133,11 @@
 
     <TextView
         android:id="@+id/score4"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -145,11 +149,11 @@
 
     <TextView
         android:id="@+id/score5"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
         android:foregroundTint="#FFFFFF"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -191,8 +195,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score5" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <ImageButton
+        android:id="@+id/localButton"
         android:layout_width="57dp"
         android:layout_height="59dp"
         android:layout_marginTop="16dp"
@@ -200,11 +204,10 @@
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trophy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/globalButton"
         android:layout_width="63dp"
         android:layout_height="59dp"
         android:layout_marginTop="16dp"
@@ -212,14 +215,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trophy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/globalScore1"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:fontFamily="@font/electrolize"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"

@@ -4,38 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.security.Permission;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class Highscores extends AppCompatActivity {
 
@@ -51,13 +32,32 @@ public class Highscores extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        ImageButton lclBtn = (ImageButton)findViewById(R.id.localButton);
+        ImageButton gblBtn = (ImageButton)findViewById(R.id.globalButton);
         TextView score[] = {findViewById(R.id.score1),findViewById(R.id.score2),findViewById(R.id.score3),findViewById(R.id.score4),findViewById(R.id.score5)};
-        highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
         TextView hard[] = {findViewById(R.id.globalScore1),findViewById(R.id.globalScore2),findViewById(R.id.globalScore3),findViewById(R.id.globalScore4),findViewById(R.id.globalScore5)};
+        highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
         highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
 
-        //highscoreGlobal(score[0],score[1],score[2],score[3],score[4],"classic");
-        //highscoreGlobal(hard[0],hard[1],hard[2],hard[3],hard[4],"hard");
+        lclBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pulisci(score[0],score[1],score[2],score[3],score[4]);
+                pulisci(hard[0],hard[1],hard[2],hard[3],hard[4]);
+                highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
+                highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
+                //MARCO - Metti la stringa qua
+                Toast.makeText(Highscores.this, "Punteggi locali", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        gblBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                highscoreGlobal(score[0],score[1],score[2],score[3],score[4],"classic");
+                highscoreGlobal(hard[0],hard[1],hard[2],hard[3],hard[4],"hard");
+            }
+        });
     }
 
     @Override
@@ -137,15 +137,26 @@ public class Highscores extends AppCompatActivity {
         DatabaseRemote db = new DatabaseRemote(Highscores.this,difficulty);
         ArrayList<CustomerModel> record = db.selectDati();
         if(record!=null){
-            score1.setText("1)"+record.get(0).getScore()+" "+record.get(0).getNome().toString());
-            score2.setText("2)"+record.get(1).getScore()+" "+record.get(1).getNome().toString());
-            score3.setText("3)"+record.get(2).getScore()+" "+record.get(2).getNome().toString());
-            score4.setText("4)"+record.get(3).getScore()+" "+record.get(3).getNome().toString());
-            score5.setText("5)"+record.get(4).getScore()+" "+record.get(4).getNome().toString());
+            //MARCO - Metti la stringa qua
+            Toast.makeText(Highscores.this, "Punteggi globali", Toast.LENGTH_SHORT).show();
+            score1.setText("1) "+record.get(0).getScore()+" "+record.get(0).getNome().toString());
+            score2.setText("2) "+record.get(1).getScore()+" "+record.get(1).getNome().toString());
+            score3.setText("3) "+record.get(2).getScore()+" "+record.get(2).getNome().toString());
+            score4.setText("4) "+record.get(3).getScore()+" "+record.get(3).getNome().toString());
+            score5.setText("5) "+record.get(4).getScore()+" "+record.get(4).getNome().toString());
         }
         else{
+            //MARCO - Metti la stringa qua
             Toast.makeText(Highscores.this, "Non c'è connessione", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void pulisci(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5){
+            score1.setText("");
+            score2.setText("");
+            score3.setText("");
+            score4.setText("");
+            score5.setText("");
     }
 
 }
