@@ -13,6 +13,10 @@
     <string name="hard_score">Hard Score</string>
     <string name="guide">Guide</string>
     <string name="play">Play</string>
+    <string name="noconnection">There is no internet connection</string>
+    <string name="empyt_slot">Empty Set</string>
+    <string name="globalscore">Global Scores Selected</string>
+    <string name="localscore">Local Scores Selected</string>
     <string name="share">These are my highscores on SpacePang!</string>
     <string name="highscores">Highscores</string>
     <string name="no_scores">There are no highscores yet</string>

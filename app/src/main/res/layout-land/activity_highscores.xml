@@ -197,9 +197,12 @@
 
     <ImageButton
         android:id="@+id/localButton"
-        android:layout_width="57dp"
-        android:layout_height="59dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
         android:contentDescription="@string/image"
+        android:foreground="@drawable/localscore"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.5"
@@ -208,9 +211,12 @@
 
     <ImageButton
         android:id="@+id/globalButton"
-        android:layout_width="63dp"
-        android:layout_height="59dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
         android:contentDescription="@string/image"
+        android:foreground="@drawable/globalscore"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

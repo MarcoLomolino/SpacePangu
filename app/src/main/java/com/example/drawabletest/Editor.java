@@ -266,7 +266,7 @@ public class Editor extends AppCompatActivity {
             startActivity(intent);
         }
         else{
-            Toast.makeText(this, "Lo slot è vuoto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.empyt_slot), Toast.LENGTH_SHORT).show();
         }
     }
 }

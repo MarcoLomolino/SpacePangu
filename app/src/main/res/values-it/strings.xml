@@ -18,6 +18,10 @@
     <string name="hard_select">Difficoltà impostata su Hard</string>
     <string name="tilt_select">Selezionata l\'inclinazione</string>
     <string name="drag_select">Selezionato il touch</string>
+    <string name="noconnection">Non c\'è connessione ad internet</string>
+    <string name="empyt_slot">Slot Vuoto</string>
+    <string name="globalscore">Punteggi Globali Selezionati</string>
+    <string name="localscore">Punteggi Locali Selezionati</string>
     <string name="play">gioca</string>
     <string name="player1wins">Giocatore 1 vince!</string>
     <string name="player2wins">Giocatore 2 vince!</string>

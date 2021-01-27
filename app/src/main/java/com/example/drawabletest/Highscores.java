@@ -46,8 +46,7 @@ public class Highscores extends AppCompatActivity {
                 pulisci(hard[0],hard[1],hard[2],hard[3],hard[4]);
                 highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
                 highscoreGenerator(hard[0],hard[1],hard[2],hard[3],hard[4],1);
-                //MARCO - Metti la stringa qua
-                Toast.makeText(Highscores.this, "Punteggi locali", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Highscores.this, getString(R.string.localscore), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -137,8 +136,9 @@ public class Highscores extends AppCompatActivity {
         DatabaseRemote db = new DatabaseRemote(Highscores.this,difficulty);
         ArrayList<CustomerModel> record = db.selectDati();
         if(record!=null){
-            //MARCO - Metti la stringa qua
-            Toast.makeText(Highscores.this, "Punteggi globali", Toast.LENGTH_SHORT).show();
+            if(difficulty=="classic") {
+                Toast.makeText(Highscores.this, getString(R.string.globalscore), Toast.LENGTH_SHORT).show();
+            }
             score1.setText("1) "+record.get(0).getScore()+" "+record.get(0).getNome().toString());
             score2.setText("2) "+record.get(1).getScore()+" "+record.get(1).getNome().toString());
             score3.setText("3) "+record.get(2).getScore()+" "+record.get(2).getNome().toString());
@@ -146,8 +146,9 @@ public class Highscores extends AppCompatActivity {
             score5.setText("5) "+record.get(4).getScore()+" "+record.get(4).getNome().toString());
         }
         else{
-            //MARCO - Metti la stringa qua
-            Toast.makeText(Highscores.this, "Non c'è connessione", Toast.LENGTH_SHORT).show();
+            if(difficulty=="classic") {
+                Toast.makeText(Highscores.this, getString(R.string.noconnection), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
