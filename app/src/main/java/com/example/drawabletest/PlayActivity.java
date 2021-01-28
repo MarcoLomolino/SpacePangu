@@ -1,25 +1,20 @@
-package com.example.drawabletest.play;
+package com.example.drawabletest;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
-
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.drawabletest.UpdateThread;
-import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.SinglePlayer;
 
 public class PlayActivity extends AppCompatActivity {
 
-    private Game game;
+    private SinglePlayer game;
     private Handler updateHandler;
     UpdateThread myThread;
 
@@ -28,10 +23,10 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Impedisce allo schermo di spegnersi automaticamente durante la partita
 
         ActionBar ab = getSupportActionBar();
+        assert ab != null;
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -59,7 +54,7 @@ public class PlayActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        game = new Game(this);
+        game = new SinglePlayer(this);
         setContentView(game);
         game.runScanning();
         VytvorHandler();
@@ -77,10 +72,9 @@ public class PlayActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

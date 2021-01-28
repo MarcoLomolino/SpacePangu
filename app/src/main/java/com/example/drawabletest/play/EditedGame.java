@@ -1,4 +1,4 @@
-package com.example.drawabletest;
+package com.example.drawabletest.play;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +18,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.example.drawabletest.DatabaseHelper;
+import com.example.drawabletest.ModelEditor;
+import com.example.drawabletest.R;
+import com.example.drawabletest.SoundPlayer;
 import com.example.drawabletest.play.ball.Ball;
 import com.example.drawabletest.play.brick.Brick;
 import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;

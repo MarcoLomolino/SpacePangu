@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 
-import com.example.drawabletest.EditedGame;
+import com.example.drawabletest.play.EditedGame;
 import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 

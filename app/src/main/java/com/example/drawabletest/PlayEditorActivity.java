@@ -9,6 +9,8 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.example.drawabletest.play.EditedGame;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

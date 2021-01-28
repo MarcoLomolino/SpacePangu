@@ -3,7 +3,7 @@ package com.example.drawabletest.play.brick.bonus_brick;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
-import com.example.drawabletest.EditedGame;
+import com.example.drawabletest.play.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.brick.Brick;
 import com.example.drawabletest.play.SinglePlayer;
