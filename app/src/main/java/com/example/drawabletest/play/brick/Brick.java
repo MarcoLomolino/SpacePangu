@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.view.View;
 
 import com.example.drawabletest.EditedGame;
-import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
 public abstract class Brick extends View {
@@ -91,10 +91,12 @@ public abstract class Brick extends View {
     public abstract void setGraphic_brick();
 
 	//the brick produce an effect 
-    public abstract void setEffect(Game game);
+    public abstract void setEffect(SinglePlayer singlePlayer);
 
     //the brick produce an effect
     public abstract void setEffect(EditedGame game);
+
+    public abstract String getType();
 
 
 

@@ -12,11 +12,11 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.MultiPlayer;
 
 public class VersusActivity extends AppCompatActivity {
 
-    private Multigame game;
+    private MultiPlayer game;
     private Handler updateHandler;
     UpdateThread myThread;
     @Override
@@ -54,7 +54,7 @@ public class VersusActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        game = new Multigame(this);
+        game = new MultiPlayer(this);
         setContentView(game);
         VytvorHandler();
         myThread = new UpdateThread(updateHandler);

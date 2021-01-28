@@ -4,20 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AsyncPlayer;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SoundEffectConstants;
 import android.view.View;
-
-import com.example.drawabletest.play.PlayActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -49,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showPlayGame(View view){
-        Intent intent = new Intent(this, PlayActivity.class);
+        Intent intent = new Intent(this, DatabaseHelper.SinglePlayerActivity.class);
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);
     }

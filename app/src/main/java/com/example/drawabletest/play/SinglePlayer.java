@@ -1,7 +1,6 @@
-package com.example.drawabletest.play.game;
+package com.example.drawabletest.play;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,7 +21,6 @@ import android.view.WindowManager;
 import com.example.drawabletest.CustomerModel;
 import com.example.drawabletest.DatabaseHelper;
 import com.example.drawabletest.DatabaseRemote;
-import com.example.drawabletest.Highscores;
 import com.example.drawabletest.R;
 import com.example.drawabletest.SoundPlayer;
 import com.example.drawabletest.play.brick.Brick;
@@ -31,15 +29,14 @@ import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ScoreBrick;
 import com.example.drawabletest.play.brick.bonus_brick.SlowDownBrick;
-import com.example.drawabletest.play.brick.sample_brick.SampleBrick;
+import com.example.drawabletest.play.brick.sample_brick.SimpleBrick;
+import com.example.drawabletest.play.game.Statistic;
 import com.example.drawabletest.play.paddle.Paddle;
 import com.example.drawabletest.play.position.Position;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class Game extends View implements View.OnTouchListener, SensorEventListener {
+public class SinglePlayer extends View implements View.OnTouchListener, SensorEventListener, Game {
 
     private Bitmap background;
     private Bitmap roztiahnuty;
@@ -59,13 +56,13 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     private boolean start;
     private boolean gameOver;
     private final Context context;
-    SoundPlayer sp;
+    private SoundPlayer sp;
     int wallSound, brickSound, specialBrickSound;
     int deathSound, gameoverSound, paddleSound;
 
     private boolean stato;
 
-    public Game(Context context) {
+    public SinglePlayer(Context context) {
         super(context);
 
         this.context = context;
@@ -87,9 +84,9 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
 
         this.setBackground();//set background image
         this.getSize();//get screen size
-        this.resetLevel();//initialize ball, paddle and bricks
+        this.resetLevel(size.y / 1.35);//initialize ball, paddle and bricks
 
-        setBricks(context);//set bricks coordinates position
+        this.setBricks(context);//set bricks coordinates position
         this.setOnTouchListener(this);
 
     }
@@ -99,7 +96,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
      */
 
     //get a Bitmap object from drawable resources and set it to background field
-    private void setBackground() {
+    @Override
+    public void setBackground() {
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
     }
 
@@ -142,8 +140,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             paint.setColor(Color.RED);
             paint.setTextSize(100);
             canvas.drawText("Game over!", (float)size.x / 4, (float)size.y / 2, paint);
-            if(statistic.getUsername().length()>2 && stato==false){
-                DatabaseRemote db = new DatabaseRemote(context,statistic.getDifficulty());
+            if(statistic.getUsername().length() > 2 && !stato){
+                DatabaseRemote db = new DatabaseRemote(context, statistic.getDifficulty());
                 db.insertDati(statistic.getUsername(),String.valueOf(statistic.getScore()));
                 stato = true;
             }
@@ -178,7 +176,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         canvas.drawBitmap(ball.getGraphic_ball(), ball.getXPosition(), ball.getYPosition(), paint);
     }
 
-    private void setBricks(Context context) {
+    @Override
+    public void setBricks(Context context) {
         for (int i = 3; i < 7; i++) {
             for (int j = 1; j < 6; j++) {
 
@@ -189,7 +188,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                 int a = (int) (Math.random() * 100);
                 if(statistic.getDifficulty().equals("hard")) { //if difficult is hard there is no life brick
                     if(a >= 30)
-                        wall.add(new SampleBrick(context, position));
+                        wall.add(new SimpleBrick(context, position));
                     else if(a >= 13 && a < 30)
                         wall.add(new ResistantBrick(context, position));
                     else if(a >= 3 && a < 13)
@@ -198,7 +197,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
                         wall.add(new SlowDownBrick(context, position));
                 } else { //if difficult is standard there are all types of bricks
                     if (a >= 27)
-                        wall.add(new SampleBrick(context, position));
+                        wall.add(new SimpleBrick(context, position));
                     else if (a >= 17 && a < 27)
                         wall.add(new ScoreBrick(context, position));
                     else if (a >= 6 && a < 17)
@@ -213,7 +212,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
     //check if the ball hit a wall
-    private void checkWalls() {
+    @Override
+    public void checkWalls() {
         if (ball.getXPosition() + ball.getDirection().getX() >= size.x - 60) {
             ball.changeDirection("prava");
             sp.playSound(wallSound, 0.99f);
@@ -224,29 +224,27 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             ball.changeDirection("hore");
             sp.playSound(wallSound, 0.99f);
         } else if (ball.getYPosition() + ball.getDirection().getX() >= size.y - 200) {
-            checkLives();
+            checkLifes(true);
         }
     }
 
 
-    private void checkLives() {
+    @Override
+    public void checkLifes(boolean b) {
         if (statistic.getLife() == 1) {//if the player lose
             CustomerModel customerModel = new CustomerModel(-1, statistic.getScore());
             DatabaseHelper databaseHelper = new DatabaseHelper(context);
             if(statistic.getDifficulty().equals("classic")){
-                boolean success = databaseHelper.addOne(customerModel,0); //set point in DB to show in top ten leaderboard
+                databaseHelper.addOne(customerModel,0); //set point in DB to show in top ten leaderboard
             }
             else{
-                boolean success = databaseHelper.addOne(customerModel,1); //set point in DB to show in top ten leaderboard
+                databaseHelper.addOne(customerModel,1); //set point in DB to show in top ten leaderboard
             }
             gameOver = true; //set game over as true
             start = false;
             sp.playSound(gameoverSound, 0.90f);
             invalidate();
-            /*if(statistic.getUsername().length()>2){
-                DatabaseRemote db = new DatabaseRemote(context);
-                db.insertDati(statistic.getUsername(),String.valueOf(statistic.getScore()));
-            }*/
+
         } else { //if the player can still play this match
             statistic.setLife(statistic.getLife() - 1);//decrease the life
             sp.playSound(deathSound, 0.90f);
@@ -256,44 +254,44 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
     //main method call by PlayActivity. It manage game status
+    @Override
     public void update() {
         if (start) {//if the player touch the screen the first time
-            victory(); //check if the player has won
+            checkVictory(); //check if the player has won
             checkWalls(); //check if the ball hits a wall
             if(ball.nearPaddle(paddle.getXPosition(), paddle.getYPosition())) {
                 sp.playSound(paddleSound, 0.99f);
-            }; //check if the ball hits the paddle
+                ball.increaseSpeed(ball.getPaddlehit());
+            }
+             //check if the ball hits the paddle
             for (Brick b : wall) { //for each brick
                 if (ball.isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
                     if(b.getLives() == 1) //if the hitted brick has only a life
                         wall.remove(b);	//then remove it
 
-                    LifeBrick temp1 = new LifeBrick(context, b.getPosition());
-                    ScoreBrick temp2 = new ScoreBrick(context, b.getPosition());
-                    SlowDownBrick temp3 = new SlowDownBrick(context, b.getPosition());
-                    if(b.getClass()==temp1.getClass() || b.getClass()==temp2.getClass() || b.getClass()==temp3.getClass()) {
+                    if(b.getType().equals("life") || b.getType().equals("score") || b.getType().equals("slowdown"))
                         sp.playSound(specialBrickSound, 0.99f);
-                    } else {
+                    else
                         sp.playSound(brickSound, 0.99f);
-                    }
 
                     b.setEffect(this); //set the brick effect
                     statistic.setScore(statistic.getScore() + b.getScore()); //add brick score to the match general score
                 }
             }
-            ball.move(); //move the ball
+            this.ball.move(); //move the ball
         }
     }
 
 
     //check if the player has won
-    private void victory() {
+    @Override
+    public void checkVictory() {
         if (wall.isEmpty()) { //if there are no bricks
-            playbuttonsound(R.raw.levelup);
+            playbuttonsound();
             sp.releaseSP();
             reloadGameSoundPlayer(sp);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
-            resetLevel();
+            resetLevel((float) (size.y / 1.35));
             setBricks(context);
             start = false; //wait to move the ball until the first touch of the player
         }
@@ -309,10 +307,11 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
     //set tha ball, the wall and the bricks
-    private void resetLevel() {
-        ball = new Ball(context, (float)size.x / 2, size.y - 480, statistic.getDifficulty());
-        paddle = new Paddle(context, (float)size.x / 2, size.y - 400);
-        wall = new CopyOnWriteArrayList<>();
+    @Override
+    public void resetLevel(double v) {
+        this.ball = new Ball(context, (float)size.x / 2, (float) v, statistic.getDifficulty());
+        this.paddle = new Paddle(context, (float)size.x / 2, (float) ((float)size.y / 1.25));
+        this.wall = new CopyOnWriteArrayList<>();
     }
 
 
@@ -325,7 +324,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
 
-    //the first touch
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -348,7 +347,7 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
             if (gameOver) {//if the player has lost and touches the screen
 
                 statistic = new Statistic(context);
-                resetLevel();
+                resetLevel(size.y / 1.35);
                 setBricks(context);
                 gameOver = false;
                 stato = false;
@@ -381,10 +380,6 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
         return statistic;
     }
 
-    public void setStatistic(Statistic statistic) {
-        this.statistic = statistic;
-    }
-
     public Ball getBall() {return ball; }
 
     public void setBallDirection(Position direction) {
@@ -392,8 +387,8 @@ public class Game extends View implements View.OnTouchListener, SensorEventListe
     }
 
 
-    private void playbuttonsound(int resource) {
-        final MediaPlayer beepMP = MediaPlayer.create(context, resource);
+    private void playbuttonsound() {
+        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.levelup);
         beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {

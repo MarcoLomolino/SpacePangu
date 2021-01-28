@@ -50,7 +50,7 @@ public class DatabaseRemote {
         BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
         InternetConnection conn = new InternetConnection(this.context);
         if (conn.isOnline()){
-            ArrayList<CustomerModel> list = new ArrayList<CustomerModel>();
+            ArrayList<CustomerModel> list;
             list = selectDati();
             if(list.size()>=5 && list.get(4).getScore()<Integer.parseInt(punteggio)){
                 deleteDati(list.get(4).getId());

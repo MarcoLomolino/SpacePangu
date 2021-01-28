@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.brick.Brick;
-import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
 public class SlowDownBrick extends Brick {
@@ -21,24 +21,24 @@ public class SlowDownBrick extends Brick {
     }
 
     @Override
-    public void setEffect(Game game) {
+    public void setEffect(SinglePlayer singlePlayer) {
         float directionX = 0, directionY = 0;
 
-        if (game.getBall().getDirection().getX() > 0) {
-            directionX = game.getBall().getMIN_X();
-        } else if (game.getBall().getDirection().getX() < 0) {
-            directionX = -game.getBall().getMIN_X();
+        if (singlePlayer.getBall().getDirection().getX() > 0) {
+            directionX = singlePlayer.getBall().getMIN_X();
+        } else if (singlePlayer.getBall().getDirection().getX() < 0) {
+            directionX = -singlePlayer.getBall().getMIN_X();
         }
-        if (game.getBall().getDirection().getY() > 0) {
-            directionY = -game.getBall().getMAX_Y();
-        } else if (game.getBall().getDirection().getY() < 0) {
-            directionY = game.getBall().getMAX_Y();
+        if (singlePlayer.getBall().getDirection().getY() > 0) {
+            directionY = -singlePlayer.getBall().getMAX_Y();
+        } else if (singlePlayer.getBall().getDirection().getY() < 0) {
+            directionY = singlePlayer.getBall().getMAX_Y();
         }
 
-        game.getBall().resetPaddleHit();
+        singlePlayer.getBall().resetPaddleHit();
 
         Position direction = new Position(directionX, directionY);
-        game.setBallDirection(direction);
+        singlePlayer.setBallDirection(direction);
     }
 
     @Override
@@ -60,5 +60,10 @@ public class SlowDownBrick extends Brick {
 
         Position direction = new Position(directionX, directionY);
         game.setBallDirection(direction);
+    }
+
+    @Override
+    public String getType() {
+        return "slowdown";
     }
 }

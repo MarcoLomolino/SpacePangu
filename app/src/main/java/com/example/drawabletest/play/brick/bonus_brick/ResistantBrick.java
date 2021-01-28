@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.brick.Brick;
-import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
 public class ResistantBrick extends Brick {
@@ -24,7 +24,7 @@ public class ResistantBrick extends Brick {
 
 	//after an hit its texture change
     @Override
-    public void setEffect(Game game) {
+    public void setEffect(SinglePlayer singlePlayer) {
 
         super.setLives(super.getLives() - 1);
         super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_metalbroken));
@@ -35,5 +35,10 @@ public class ResistantBrick extends Brick {
 
         super.setLives(super.getLives() - 1);
         super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_metalbroken));
+    }
+
+    @Override
+    public String getType() {
+        return "resistant";
     }
 }

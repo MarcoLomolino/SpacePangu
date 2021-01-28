@@ -24,12 +24,11 @@ import com.example.drawabletest.play.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.play.brick.bonus_brick.ScoreBrick;
 import com.example.drawabletest.play.brick.bonus_brick.SlowDownBrick;
-import com.example.drawabletest.play.brick.sample_brick.SampleBrick;
+import com.example.drawabletest.play.brick.sample_brick.SimpleBrick;
 import com.example.drawabletest.play.game.Statistic;
 import com.example.drawabletest.play.paddle.Paddle;
 import com.example.drawabletest.play.position.Position;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -173,7 +172,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
             if(w.getAttivo()!=0){
                 Position position = new Position((w.getX()+1) * 150, (w.getY()+3) * 100);
                 if(w.getAttivo() == 1)
-                    wall.add(new SampleBrick(context, position));
+                    wall.add(new SimpleBrick(context, position));
                 else if(w.getAttivo()==2)
                     wall.add(new LifeBrick(context, position));
                 else if(w.getAttivo()==3)

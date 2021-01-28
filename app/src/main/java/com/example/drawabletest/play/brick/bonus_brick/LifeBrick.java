@@ -7,8 +7,7 @@ import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 
 import com.example.drawabletest.play.brick.Brick;
-import com.example.drawabletest.play.game.Game;
-import com.example.drawabletest.play.game.Statistic;
+import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
 public class LifeBrick extends Brick {
@@ -27,11 +26,11 @@ public class LifeBrick extends Brick {
 	
 	//player's life is increased by one
     @Override
-    public void setEffect(Game game)
+    public void setEffect(SinglePlayer singlePlayer)
     {
-        int life = game.getStatistic().getLife();
+        int life = singlePlayer.getStatistic().getLife();
 
-        game.getStatistic().setLife(life + 1);
+        singlePlayer.getStatistic().setLife(life + 1);
     }
 
     @Override
@@ -39,5 +38,10 @@ public class LifeBrick extends Brick {
         int life = game.getStatistic().getLife();
 
         game.getStatistic().setLife(life + 1);
+    }
+
+    @Override
+    public String getType() {
+        return "life";
     }
 }

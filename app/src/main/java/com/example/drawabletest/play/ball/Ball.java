@@ -105,8 +105,11 @@ public class Ball extends View {
 
     public void setDirection (Position direction) {this.direction=direction; }
 
-	
-	//change direction after an hit
+    public int getPaddlehit() {
+        return paddlehit;
+    }
+
+    //change direction after an hit
     public void changeDirection() {
         if (direction.getX() > 0 && direction.getY() < 0) {
             changeXDirection();
@@ -125,6 +128,11 @@ public class Ball extends View {
             direction.setX((float) (direction.getX() + (phit * 0.03)));
             direction.setY((float) (direction.getY() - (phit * 0.03)));
         }
+    }
+
+    public void increaseSpeed() {
+            direction.setX((float) (direction.getX() + (paddlehit * 0.03)));
+            direction.setY((float) (direction.getY() - (paddlehit * 0.03)));
     }
 
     @SuppressWarnings("NullableProblems")
@@ -161,7 +169,6 @@ public class Ball extends View {
         if (isNear(xPaddle, yPaddle, getXPosition(), getYPosition())) {
             changeDirection();
             paddlehit++;
-            increaseSpeed(paddlehit);
             return true;
         } else
             return false;

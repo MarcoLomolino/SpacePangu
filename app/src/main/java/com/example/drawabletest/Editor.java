@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,8 +20,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.drawabletest.play.PlayActivity;
 
 import java.util.List;
 

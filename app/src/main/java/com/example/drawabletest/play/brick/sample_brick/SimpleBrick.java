@@ -6,12 +6,12 @@ import android.graphics.BitmapFactory;
 import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.brick.Brick;
-import com.example.drawabletest.play.game.Game;
+import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
-public class SampleBrick extends Brick {
+public class SimpleBrick extends Brick {
 
-    public SampleBrick(Context context, Position position) {
+    public SimpleBrick(Context context, Position position) {
         super(context, position, 80, 1);//set the brick position, a score of 80 and only a life
     }
 
@@ -48,12 +48,17 @@ public class SampleBrick extends Brick {
 	
 	//a simple brick produce none effect
     @Override
-    public void setEffect(Game game) {
+    public void setEffect(SinglePlayer singlePlayer) {
 
     }
 
     @Override
     public void setEffect(EditedGame game) {
 
+    }
+
+    @Override
+    public String getType() {
+        return "simple";
     }
 }

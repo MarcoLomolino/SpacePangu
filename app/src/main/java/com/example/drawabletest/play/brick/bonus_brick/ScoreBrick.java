@@ -6,8 +6,7 @@ import android.graphics.BitmapFactory;
 import com.example.drawabletest.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.play.brick.Brick;
-import com.example.drawabletest.play.game.Game;
-import com.example.drawabletest.play.game.Statistic;
+import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
 public class ScoreBrick extends Brick {
@@ -23,11 +22,11 @@ public class ScoreBrick extends Brick {
 
 	//double the actual player score TO CHANGE IN ANOTHER EFFECT
     @Override
-    public void setEffect(Game game) {
+    public void setEffect(SinglePlayer singlePlayer) {
 
-        int score = game.getStatistic().getScore();
+        int score = singlePlayer.getStatistic().getScore();
 
-        game.getStatistic().setScore(score + 200);
+        singlePlayer.getStatistic().setScore(score + 200);
 
     }
 
@@ -38,5 +37,10 @@ public class ScoreBrick extends Brick {
 
         game.getStatistic().setScore(score + 200);
 
+    }
+
+    @Override
+    public String getType() {
+        return "score";
     }
 }
