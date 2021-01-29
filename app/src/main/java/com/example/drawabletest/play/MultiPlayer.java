@@ -42,7 +42,7 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
     private boolean gameOver;
     private final Context context;
     private final SoundPlayer sp;
-    int wallSound, brickSound, paddleSound, deathSound;
+    int wallSound, brickSound, paddleSound;
 
 
     private int player_score1 = 0;
@@ -228,7 +228,6 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
         wallSound = sp.loadSound(R.raw.drum_low_28);
         brickSound = sp.loadSound(R.raw.drum_low_03);
         paddleSound = sp.loadSound(R.raw.drum_low_04);
-        deathSound = sp.loadSound(R.raw.levelup);
     }
 
 
@@ -237,7 +236,6 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
             checkVictory();
         else
         {
-            sp.playSound(deathSound, 0.90f);
             if(b) //if player 1 scores
             {
                 this.resetLevel((float)size.y / 13);
@@ -248,6 +246,9 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
                 this.resetLevel((float) (size.y / 1.35));
 
             this.setScores(this.player_score1, this.player_score2);
+            playbuttonsound();
+            sp.releaseSP();
+            loadSounds(sp);
             start = false;
             invalidate();
             setBricks(context);
