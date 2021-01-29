@@ -14,28 +14,26 @@ public class HomeActivity extends AppCompatActivity {
 
     SoundPlayer sp = new SoundPlayer(this);
     int menuSound;
-    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        sp.createSP();
         menuSound = sp.loadSound(R.raw.menu_101);
     }
 
     public void ShowHighscore(View view){
-        mPrefs = getSharedPreferences("salva_map",MODE_PRIVATE);
+        SharedPreferences mPrefs = getSharedPreferences("salva_map", MODE_PRIVATE);
         SharedPreferences.Editor ed = mPrefs.edit();
         ed.putInt("lg",0);
-        ed.commit();
-        Intent intent = new Intent(this, Highscores.class);
+        ed.apply();
+        Intent intent = new Intent(this, HighscoresActivity.class);
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);
     }
 
     public void showOption(MenuItem item) {
-        Intent intent = new Intent(this,Options.class);
+        Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
     }
 

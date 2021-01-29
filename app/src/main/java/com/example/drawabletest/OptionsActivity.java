@@ -16,41 +16,41 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Options extends AppCompatActivity {
+public class OptionsActivity extends AppCompatActivity {
 
     private CheckBox difficulty_classic;
     private CheckBox difficulty_Hard;
     private CheckBox controller_accelerometer;
     private CheckBox controller_drag;
-    private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
-    private EditText username;
-    private Button conferma;
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
 
 
         difficulty_classic = findViewById(R.id.checkBox_classic);
         difficulty_Hard = findViewById(R.id.checkBox_hard);
         controller_accelerometer = findViewById(R.id.accelerometer);
         controller_drag = findViewById(R.id.drag);
-        username = findViewById(R.id.editTextTextPersonName2);
-        conferma = (Button)findViewById(R.id.ConfirmButton);
+        EditText username = findViewById(R.id.editTextTextPersonName2);
+        Button conferma = findViewById(R.id.ConfirmButton);
 
-        mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
+        SharedPreferences mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
 
 
         mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
         String name = mPreferences.getString("username","");
         username.setText(name);
-        buttonClicked(conferma,username);
+        buttonClicked(conferma, username);
 
         String difficulty = mPreferences.getString("difficulty", "classic");
         if (difficulty.equals("classic")) {
@@ -61,13 +61,13 @@ public class Options extends AppCompatActivity {
             difficulty_Hard.setClickable(false);
         }
 
-        difficulty_Hard.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (group, checkedId) -> {
+        difficulty_Hard.setOnCheckedChangeListener((CompoundButton group, boolean checkedId) -> {
             if(difficulty_Hard.isChecked())
                 ableCheck(difficulty_classic, difficulty_Hard);
 
         });
 
-        difficulty_classic.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (group, checkedId) -> {
+        difficulty_classic.setOnCheckedChangeListener((group, checkedId) -> {
             if(difficulty_classic.isChecked())
                 ableCheck(difficulty_Hard, difficulty_classic);
 
@@ -83,13 +83,13 @@ public class Options extends AppCompatActivity {
             controller_drag.setClickable(false);
         }
 
-        controller_drag.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (group, checkedId) -> {
+        controller_drag.setOnCheckedChangeListener((group, checkedId) -> {
             if(controller_drag.isChecked())
                 ableCheck(controller_accelerometer, controller_drag);
 
         });
 
-        controller_accelerometer.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (group, checkedId) -> {
+        controller_accelerometer.setOnCheckedChangeListener((group, checkedId) -> {
             if(controller_accelerometer.isChecked())
                 ableCheck(controller_drag, controller_accelerometer);
 
@@ -105,14 +105,11 @@ public class Options extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -152,19 +149,22 @@ public class Options extends AppCompatActivity {
     }
 
     public void buttonClicked(Button btn, EditText text){
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(text.getText().toString().length()>15){
-                    Toast.makeText(Options.this, "Username troppo lungo", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    mEditor.putString("username",text.getText().toString());
-                    mEditor.commit();
-                    text.setEnabled(false);
-                    text.setEnabled(true);
-                    Toast.makeText(Options.this, "Modifica effettuata", Toast.LENGTH_SHORT).show();
-                }
+        btn.setOnClickListener(v -> {
+            if(text.getText().toString().length()>15){
+                Toast.makeText(OptionsActivity.this, "Username troppo lungo", Toast.LENGTH_SHORT).show();
+            }
+            else if(text.getText().toString().length()<3){
+                Toast.makeText(OptionsActivity.this, "Username troppo corto", Toast.LENGTH_SHORT).show();
+            }
+            else if(!text.getText().toString().matches("[A-Za-z0-9]+")){
+                Toast.makeText(OptionsActivity.this, "Puoi inserire solo lettere o numeri", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                mEditor.putString("username",text.getText().toString().replaceAll(" ",""));
+                mEditor.commit();
+                text.setEnabled(false);
+                text.setEnabled(true);
+                Toast.makeText(OptionsActivity.this, "Modifica effettuata", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,8 +1,9 @@
 package com.example.drawabletest;
 
+
 public class CustomerModel {
     private int id;
-    private String nome;
+    private final String nome;
     private int score;
 
     public CustomerModel(int id,String nome, int score) {
@@ -35,10 +36,6 @@ public class CustomerModel {
 
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     @Override

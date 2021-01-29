@@ -30,7 +30,7 @@ public class Paddle extends View {
 
     public float getYPosition(){ return position.getY();}
 
-    public void setXPosition(int x){this.position.setX(x);}
+    public void setXPosition(float x){this.position.setX(x);}
 
     /*public void setYPosition(int y){this.position.setY(y);}*/
 

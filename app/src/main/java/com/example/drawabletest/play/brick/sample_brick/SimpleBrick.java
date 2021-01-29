@@ -1,5 +1,6 @@
 package com.example.drawabletest.play.brick.sample_brick;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
@@ -9,6 +10,7 @@ import com.example.drawabletest.play.brick.Brick;
 import com.example.drawabletest.play.SinglePlayer;
 import com.example.drawabletest.play.position.Position;
 
+@SuppressLint("ViewConstructor")
 public class SimpleBrick extends Brick {
 
     public SimpleBrick(Context context, Position position) {

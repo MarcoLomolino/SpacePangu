@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.drawabletest">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,9 +19,9 @@
         <activity android:name=".VersusActivity"/>
         <activity android:name=".Editor"
             android:label="@string/editor"/>
-        <activity android:name=".Options"
+        <activity android:name=".OptionsActivity"
             android:label="@string/options"/>
-        <activity android:name=".Highscores"
+        <activity android:name=".HighscoresActivity"
             android:label="@string/highscores"/>
         <activity android:name=".HomeActivity" />
         <activity android:name=".DatabaseHelper$SinglePlayerActivity" />

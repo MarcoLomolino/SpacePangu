@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/darkgalaxy"
-    tools:context=".Options">
+    tools:context=".OptionsActivity">
 
     <TextView
         android:id="@+id/Difficulty"

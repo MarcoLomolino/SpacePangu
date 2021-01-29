@@ -3,35 +3,31 @@ package com.example.drawabletest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    //tempo durata del mio splashscreen in ms
-    private static int SPLASH_TIME_OUT = 1700;
-    SoundPlayer sp;
-    int startSound;
+    private SoundPlayer sp;
+    private int startSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sp = new SoundPlayer(this);
-        sp.createSP();
         startSound = sp.loadSound(R.raw.splash2);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
-        new Handler(Looper.myLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                sp.playSound(startSound, 0.50f);
-                Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(homeIntent);
-                finish();
-            }
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        //tempo durata del mio splashscreen in ms
+        int SPLASH_TIME_OUT = 1700;
+        new Handler(Looper.myLooper()).postDelayed(() -> {
+            sp.playSound(startSound, 0.50f);
+            Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(homeIntent);
+            finish();
         }, SPLASH_TIME_OUT);
     }
 

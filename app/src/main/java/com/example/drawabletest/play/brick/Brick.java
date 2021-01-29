@@ -11,9 +11,7 @@ import com.example.drawabletest.play.position.Position;
 public abstract class Brick extends View {
 
     private Bitmap graphic_brick;//brick texture
-    private Position position;//x and y coordinates of the brick
-    private float x;
-    private float y;
+    private final Position position;//x and y coordinates of the brick
     private int score;//the score of a single brick
     private int lives;//how many hit are needed to destroy a brick
 
@@ -26,13 +24,7 @@ public abstract class Brick extends View {
         this.lives = lives;
     }
 
-    public Brick(Context context, float x, float y)
-    {
-        super(context);
-        this.x = x;
-        this.y = y;
-        this.setGraphic_brick();
-    }
+
 
     public float getXPosition()
     {
@@ -82,8 +74,6 @@ public abstract class Brick extends View {
         return "Brick{" +
                 "graphic_brick=" + graphic_brick +
                 ", position=" + position +
-                ", x=" + x +
-                ", y=" + y +
                 '}';
     }
 

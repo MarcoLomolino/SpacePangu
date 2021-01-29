@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(CustomerModel customerModel, int difficulty){
+    public void addOne(CustomerModel customerModel, int difficulty){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         List<CustomerModel> list;
@@ -73,32 +73,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else{
             list = getScore(1);
         }
-        if(isDuplicatedRecord(list,customerModel.getScore())==false){
-            if(list.size()>=5 && list.get(4).getScore()<customerModel.getScore()){
-                deleteOne(list.get(4).getId(),difficulty);
-            }
+        if(!isDuplicatedRecord(list, customerModel.getScore())){
+            if(list.size()>=5 && list.get(4).getScore()<customerModel.getScore())
+                deleteOne(list.get(4).getId(), difficulty);
             if(list.size()<5 || list.get(4).getScore()<customerModel.getScore()){
                 cv.put(SCORE_COLUMN, customerModel.getScore());
 
-                if(list.get(0).getId()==0){
+                if(list.get(0).getId()==0)
                     deleteOne(0,difficulty);
-                }
-                long insert;
-                if(difficulty==0){
-                    insert = db.insert(CUSTOMER_TABLE, null, cv);
-                }
-                else{
-                    insert = db.insert(HARD_TABLE, null, cv);
-                }
-                if(insert==-1){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+
+                if(difficulty==0)
+                    db.insert(CUSTOMER_TABLE, null, cv);
+
+                else
+                    db.insert(HARD_TABLE, null, cv);
+
             }
         }
-        return true;
     }
 
     public void deleteOne(int id, int difficulty){
@@ -207,7 +198,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Impedisce allo schermo di spegnersi automaticamente durante la partita
 
             ActionBar ab = getSupportActionBar();
-            ab.setDisplayHomeAsUpEnabled(true);
+            if (ab != null) {
+                ab.setDisplayHomeAsUpEnabled(true);
+            }
         }
 
         @SuppressLint("HandlerLeak")
@@ -252,10 +245,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         @Override
         public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()){
-                case android.R.id.home:
-                    finish();
-                    return true;
+            if (item.getItemId() == android.R.id.home) {
+                finish();
+                return true;
             }
             return super.onOptionsItemSelected(item);
         }

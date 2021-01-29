@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Highscores extends AppCompatActivity {
+public class HighscoresActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -59,7 +59,7 @@ public class Highscores extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCur = 0;
-                Toast.makeText(Highscores.this, getString(R.string.localscore), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HighscoresActivity.this, getString(R.string.localscore), Toast.LENGTH_SHORT).show();
                 pulisci(score[0],score[1],score[2],score[3],score[4]);
                 pulisci(hard[0],hard[1],hard[2],hard[3],hard[4]);
                 highscoreGenerator(score[0],score[1],score[2],score[3],score[4],0);
@@ -71,7 +71,7 @@ public class Highscores extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCur = 1;
-                Toast.makeText(Highscores.this, getString(R.string.globalscore), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HighscoresActivity.this, getString(R.string.globalscore), Toast.LENGTH_SHORT).show();
                 highscoreGlobal(score[0],score[1],score[2],score[3],score[4],"classic");
                 highscoreGlobal(hard[0],hard[1],hard[2],hard[3],hard[4],"hard");
             }
@@ -104,7 +104,7 @@ public class Highscores extends AppCompatActivity {
 
 
     public boolean scoreShare(MenuItem item) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(Highscores.this);
+        DatabaseHelper databaseHelper = new DatabaseHelper(HighscoresActivity.this);
         if (item.getItemId() == R.id.share_button){
             List<CustomerModel> records = databaseHelper.getScore(0);
             String share = getString(R.string.share) + "\n";
@@ -140,7 +140,7 @@ public class Highscores extends AppCompatActivity {
 
 
     private void highscoreGenerator(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5, int difficulty){
-        DatabaseHelper databaseHelper = new DatabaseHelper(Highscores.this);
+        DatabaseHelper databaseHelper = new DatabaseHelper(HighscoresActivity.this);
         List<CustomerModel> records = databaseHelper.getScore(difficulty);
         if(records.size()>0 && records.get(0).getScore()!=0){
             score1.setText("1) "+records.get(0).getScore().toString());
@@ -160,7 +160,7 @@ public class Highscores extends AppCompatActivity {
     }
 
     private void highscoreGlobal(TextView score1, TextView score2, TextView score3, TextView score4, TextView score5, String difficulty){
-        DatabaseRemote db = new DatabaseRemote(Highscores.this,difficulty);
+        DatabaseRemote db = new DatabaseRemote(HighscoresActivity.this,difficulty);
         ArrayList<CustomerModel> record = db.selectDati();
         if(record!=null){
             score1.setText("1) "+record.get(0).getScore()+" "+record.get(0).getNome().toString());
@@ -171,7 +171,7 @@ public class Highscores extends AppCompatActivity {
         }
         else{
             if(difficulty=="classic") {
-                Toast.makeText(Highscores.this, getString(R.string.noconnection), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HighscoresActivity.this, getString(R.string.noconnection), Toast.LENGTH_SHORT).show();
                 mCur=0;
             }
         }

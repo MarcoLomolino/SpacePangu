@@ -2,6 +2,8 @@ package com.example.drawabletest.play;
 
 import android.content.Context;
 
+import com.example.drawabletest.SoundPlayer;
+
 public interface Game {
 
     void setBricks(Context context);
@@ -19,4 +21,6 @@ public interface Game {
 
     //set tha ball, the wall and the bricks
     void resetLevel(double v);
+
+    void loadSounds(SoundPlayer sp);
 }

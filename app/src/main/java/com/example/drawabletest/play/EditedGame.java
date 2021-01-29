@@ -1,5 +1,6 @@
 package com.example.drawabletest.play;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,7 @@ import com.example.drawabletest.play.position.Position;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@SuppressLint("ViewConstructor")
 public class EditedGame extends View implements View.OnTouchListener, SensorEventListener {
 
     private Bitmap background;
@@ -56,12 +58,13 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     private boolean start;
     private boolean gameOver;
     private final Context context;
-    private int slot;
+    private final int slot;
     SoundPlayer sp;
     int wallSound, brickSound, specialBrickSound;
     int deathSound, gameoverSound, paddleSound;
 
-    public EditedGame(Context context,int slot) {
+    @SuppressLint("ClickableViewAccessibility")
+    public EditedGame(Context context, int slot) {
         super(context);
 
         this.slot = slot;
@@ -70,7 +73,6 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
         this.paint = new Paint();
 
         sp = new SoundPlayer(this.context);
-        sp.createSP();
         reloadGameSoundPlayer(sp);
 
         //flag vars to start the game or to check a game over
@@ -227,7 +229,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
             checkWalls(); //check if the ball hits a wall
             if(ball.nearPaddle(paddle.getXPosition(), paddle.getYPosition())) {
                 sp.playSound(paddleSound, 0.99f);
-            }; //check if the ball hits the paddle
+            }//check if the ball hits the paddle
             for (Brick b : wall) { //for each brick
                 if (ball.isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
                     if(b.getLives() == 1) //if the hitted brick has only a life
@@ -254,7 +256,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     //check if the player has won
     private void victory() {
         if (wall.isEmpty()) { //if there are no bricks
-            playbuttonsound(R.raw.levelup);
+            playbuttonsound();
             sp.releaseSP();
             reloadGameSoundPlayer(sp);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
@@ -345,10 +347,6 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
         return statistic;
     }
 
-    public void setStatistic(Statistic statistic) {
-        this.statistic = statistic;
-    }
-
     public Ball getBall() {return ball; }
 
     public void setBallDirection(Position direction) {
@@ -356,23 +354,10 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     }
 
 
-    private void playbuttonsound(int resource) {
-        final MediaPlayer beepMP = MediaPlayer.create(context, resource);
-        beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
-        mprelease(beepMP);
-    }
-
-    private void mprelease(MediaPlayer soundmp) {
-        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            };
-        });
+    private void playbuttonsound() {
+        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.levelup);
+        beepMP.setOnPreparedListener(MediaPlayer::start);
+        beepMP.setOnCompletionListener(MediaPlayer::release);
     }
 }
 

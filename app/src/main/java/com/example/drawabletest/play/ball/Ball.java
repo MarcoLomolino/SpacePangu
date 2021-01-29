@@ -4,20 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.os.Build;
 import android.view.View;
 import com.example.drawabletest.R;
-import com.example.drawabletest.SoundPlayer;
 import com.example.drawabletest.play.position.Position;
 
 @SuppressLint("ViewConstructor")
 public class Ball extends View {
     private Position position; //x and y position of the ball
     private Position direction; //x and y position where the ball goes
-    private Bitmap graphic_ball; //ball texture
+    private final Bitmap graphic_ball; //ball texture
     private int paddlehit;
     Context context1;
 
@@ -47,16 +42,6 @@ public class Ball extends View {
         this.direction = new Position(getMIN_X() + 3, getMAX_Y() - 3);
 
         this.graphic_ball = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
-    }
-
-    private float generateXDirection() {
-        float rangeX = this.getMAX_X() - this.getMIN_X() + 1;
-        return (float) ((Math.random() * rangeX) + this.getMIN_X()); //imposta una velocità x alla palla (da 7 a 13)
-    }
-
-    private float generateYDirection() {
-        float rangeY = this.getMAX_Y() - this.getMIN_Y() + 1;
-        return (float) ((Math.random() * rangeY) + this.getMIN_Y()); //imposta una velocità y alla palla (da -17 a -23)
     }
 
     public float getMAX_X() {

@@ -1,36 +1,29 @@
 package com.example.drawabletest;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Build;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+import static android.media.SoundPool.*;
 
 public class SoundPlayer {
-    SoundPool soundPool;
+    private SoundPool soundPool;
     private boolean loaded = false;
-    Context context;
+    private final Context context;
 
     public SoundPlayer(Context context) {
         this.context = context;
+        this.createSP();
     }
 
-    //CREA LA SOUNDPOOL
-    //E' DAVVERO NECESSARIO QUELL'IF ELSE? NON BASTA LA PRIMA DELLE DUE INIZIALIZZAZIONI PER TUTTI?
-    public void createSP() {
-        //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            soundPool = new SoundPool.Builder()
-                    .setMaxStreams(500)
-                    .build();
-        //}else{
-        //    soundPool = new SoundPool(500, AudioManager.STREAM_MUSIC, 0);
-        //}
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool sp, int sampleId, int status) {
-                loaded = true;
-                return;
-            }
-        });
+
+    private void createSP() {
+        Builder builder = new Builder();
+        builder.setMaxStreams(500);
+        soundPool = builder.build();
+        soundPool.setOnLoadCompleteListener((SoundPool sp, int sampleId, int status) -> loaded = true);
         loaded = false;
     }
 
@@ -50,5 +43,6 @@ public class SoundPlayer {
         loaded = false;
         createSP();
     }
+
 
 }

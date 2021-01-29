@@ -1,5 +1,6 @@
 package com.example.drawabletest.play;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,11 +40,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SinglePlayer extends View implements View.OnTouchListener, SensorEventListener, Game {
 
     private Bitmap background;
-    private Bitmap roztiahnuty;
 
     private Ball ball;
     private Paddle paddle;
     private CopyOnWriteArrayList<Brick> wall;
+    private Statistic statistic;
 
     private Point size;
     private final Paint paint;
@@ -51,17 +52,18 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     private final SensorManager sManager;
     private final Sensor accelerometer;
 
-    private Statistic statistic;
-
     private boolean start;
     private boolean gameOver;
+
     private final Context context;
-    private SoundPlayer sp;
-    int wallSound, brickSound, specialBrickSound;
-    int deathSound, gameoverSound, paddleSound;
+
+    private final SoundPlayer sp;
+    int wallSound, brickSound, specialBrickSound, deathSound, gameoverSound, paddleSound;
+
 
     private boolean stato;
 
+    @SuppressLint("ClickableViewAccessibility")
     public SinglePlayer(Context context) {
         super(context);
 
@@ -70,9 +72,8 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
         this.paint = new Paint();
         this.stato = false;
 
-        sp = new SoundPlayer(this.context);
-        sp.createSP();
-        reloadGameSoundPlayer(sp);
+        this.sp = new SoundPlayer(this.context);
+        this.loadSounds(sp);
 
         //flag vars to start the game or to check a game over
         this.start = false;
@@ -82,13 +83,12 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
         sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        this.setBackground();//set background image
+        this.setBackground();
         this.getSize();//get screen size
         this.resetLevel(size.y / 1.35);//initialize ball, paddle and bricks
 
         this.setBricks(context);//set bricks coordinates position
         this.setOnTouchListener(this);
-
     }
 
     /*
@@ -98,7 +98,7 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     //get a Bitmap object from drawable resources and set it to background field
     @Override
     public void setBackground() {
-        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
+        this.background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
     }
 
     //get display size (it's not hardware size but the size of the interactable activity)
@@ -128,11 +128,9 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
 
 
     private void drawBackground(Canvas canvas) {
-        if (roztiahnuty == null) { //create background only once
-            roztiahnuty = Bitmap.createScaledBitmap(background, size.x, size.y, false);
-        }
-        canvas.drawBitmap(roztiahnuty, 0, 0, paint);
 
+        Bitmap roztiahnuty = Bitmap.createScaledBitmap(background, size.x, size.y, false);
+        canvas.drawBitmap(roztiahnuty, 0, 0, paint);
     }
 
     private void drawGameOver(Canvas canvas) {
@@ -176,6 +174,9 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
         canvas.drawBitmap(ball.getGraphic_ball(), ball.getXPosition(), ball.getYPosition(), paint);
     }
 
+    /*
+        SET VALUES OBJECTS
+     */
     @Override
     public void setBricks(Context context) {
         for (int i = 3; i < 7; i++) {
@@ -185,31 +186,43 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
                 Position position = new Position(j * 150, i * 100);
 
                 //set percentage spawn for bricks type
-                int a = (int) (Math.random() * 100);
+                double a =  Math.random() * 100;
                 if(statistic.getDifficulty().equals("hard")) { //if difficult is hard there is no life brick
                     if(a >= 30)
                         wall.add(new SimpleBrick(context, position));
-                    else if(a >= 13 && a < 30)
+                    else if(a >= 13)
                         wall.add(new ResistantBrick(context, position));
-                    else if(a >= 3 && a < 13)
+                    else if(a >= 3)
                         wall.add(new ScoreBrick(context, position));
-                    else if(a >= 0 && a < 3)
+                    else if(a >= 0)
                         wall.add(new SlowDownBrick(context, position));
                 } else { //if difficult is standard there are all types of bricks
                     if (a >= 27)
                         wall.add(new SimpleBrick(context, position));
-                    else if (a >= 17 && a < 27)
+                    else if (a >= 17)
                         wall.add(new ScoreBrick(context, position));
-                    else if (a >= 6 && a < 17)
+                    else if (a >= 6)
                         wall.add(new ResistantBrick(context, position));
-                    else if (a >= 3 && a < 6)
+                    else if (a >= 3)
                         wall.add(new SlowDownBrick(context, position));
-                    else if (a >= 0 && a < 3)
+                    else if (a >= 0)
                         wall.add(new LifeBrick(context, position));
                 }
             }
         }
     }
+
+    //set tha ball, the wall and the bricks
+    @Override
+    public void resetLevel(double v) {
+        this.ball = new Ball(context, (float)size.x / 2, (float) v, statistic.getDifficulty());
+        this.paddle = new Paddle(context, (float)size.x / 2, (float) ((float)size.y / 1.25));
+        this.wall = new CopyOnWriteArrayList<>();
+    }
+
+    /*
+        CONTROL METHODS
+     */
 
     //check if the ball hit a wall
     @Override
@@ -253,6 +266,20 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
         }
     }
 
+    //check if the player has won
+    @Override
+    public void checkVictory() {
+        if (wall.isEmpty()) { //if there are no bricks
+            this.playButtonSound();
+            sp.releaseSP();
+            this.loadSounds(sp);
+            statistic.setLevel(statistic.getLevel() + 1); //increase the level
+            resetLevel((float) (size.y / 1.35));
+            setBricks(context);
+            start = false; //wait to move the ball until the first touch of the player
+        }
+    }
+
     //main method call by PlayActivity. It manage game status
     @Override
     public void update() {
@@ -283,21 +310,12 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     }
 
 
-    //check if the player has won
-    @Override
-    public void checkVictory() {
-        if (wall.isEmpty()) { //if there are no bricks
-            playbuttonsound();
-            sp.releaseSP();
-            reloadGameSoundPlayer(sp);
-            statistic.setLevel(statistic.getLevel() + 1); //increase the level
-            resetLevel((float) (size.y / 1.35));
-            setBricks(context);
-            start = false; //wait to move the ball until the first touch of the player
-        }
-    }
+    /*
+        SOUND METHODS
+     */
 
-    private void reloadGameSoundPlayer(SoundPlayer sp) {
+    @Override
+    public void loadSounds(SoundPlayer sp) {
         wallSound = sp.loadSound(R.raw.drum_low_28);
         brickSound = sp.loadSound(R.raw.drum_low_03);
         specialBrickSound = sp.loadSound(R.raw.pp_24);
@@ -306,14 +324,33 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
         paddleSound = sp.loadSound(R.raw.drum_low_04);
     }
 
-    //set tha ball, the wall and the bricks
-    @Override
-    public void resetLevel(double v) {
-        this.ball = new Ball(context, (float)size.x / 2, (float) v, statistic.getDifficulty());
-        this.paddle = new Paddle(context, (float)size.x / 2, (float) ((float)size.y / 1.25));
-        this.wall = new CopyOnWriteArrayList<>();
+    private void playButtonSound() {
+        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.levelup);
+        beepMP.setOnPreparedListener(MediaPlayer::start);
+        beepMP.setOnCompletionListener(MediaPlayer::release);
     }
 
+
+    /*
+        SENSOR METHODS
+     */
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (statistic.getController().equals("accelerometer") && event.sensor.getType() == Sensor.TYPE_ACCELEROMETER ) {
+            paddle.setXPosition((int) (paddle.getXPosition() - event.values[0] - event.values[0]));
+
+            if (paddle.getXPosition() + event.values[0] > size.x - 240) {
+                paddle.setXPosition(size.x - 240);
+            } else if (paddle.getXPosition() - event.values[0] <= 20) {
+                paddle.setXPosition(20);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
     public void stopScanning() {
         sManager.unregisterListener(this);
@@ -332,14 +369,15 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
         {
             float x= event.getX();
 
-            paddle.setXPosition((int) x);
+            if(x <= paddle.getXPosition() + 160 && x >= paddle.getXPosition() - 160) {
+                paddle.setXPosition((int) x);
 
-            if (paddle.getXPosition()> size.x - 240) {
-                paddle.setXPosition(size.x - 240);
-            } else if (paddle.getXPosition() <= 20) {
-                paddle.setXPosition(20);
+                if (paddle.getXPosition() > size.x - 240) {
+                    paddle.setXPosition(size.x - 240);
+                } else if (paddle.getXPosition() <= 20) {
+                    paddle.setXPosition(20);
+                }
             }
-
         }
         else
         {
@@ -359,22 +397,9 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     }
 
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (statistic.getController().equals("accelerometer") && event.sensor.getType() == Sensor.TYPE_ACCELEROMETER ) {
-            paddle.setXPosition((int) (paddle.getXPosition() - event.values[0] - event.values[0]));
-
-            if (paddle.getXPosition() + event.values[0] > size.x - 240) {
-                paddle.setXPosition(size.x - 240);
-            } else if (paddle.getXPosition() - event.values[0] <= 20) {
-                paddle.setXPosition(20);
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    /*
+        get and set
+     */
 
     public Statistic getStatistic() {
         return statistic;
@@ -387,22 +412,5 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     }
 
 
-    private void playbuttonsound() {
-        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.levelup);
-        beepMP.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
-        mprelease(beepMP);
-    }
 
-    private void mprelease(MediaPlayer soundmp) {
-        soundmp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            };
-        });
-    }
 }

@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 public class DatabaseRemote {
-    private Context context;
-    private String difficulty;
+    private final Context context;
+    private final String difficulty;
 
     public DatabaseRemote(Context ctx, String difficulty){
         this.context = ctx;
@@ -16,9 +16,9 @@ public class DatabaseRemote {
     }
 
     public ArrayList<CustomerModel> selectDati(){
-        BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
+        BackgroundWorkers backgroundWorker = new BackgroundWorkers();
         InternetConnection conn = new InternetConnection(this.context);
-        ArrayList<CustomerModel> record = new ArrayList<CustomerModel>();
+        ArrayList<CustomerModel> record = new ArrayList<>();
         if (conn.isOnline()) {
             backgroundWorker.execute("select",difficulty);
             try {
@@ -31,9 +31,7 @@ public class DatabaseRemote {
                 }
                 Collections.sort(record, new CompareScore());
                 return record;
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -41,13 +39,13 @@ public class DatabaseRemote {
     }
 
     public void deleteDati(int id){
-        BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
-        InternetConnection conn = new InternetConnection(this.context);
+        BackgroundWorkers backgroundWorker = new BackgroundWorkers();
+        new InternetConnection(this.context);
         backgroundWorker.execute("delete", difficulty, String.valueOf(id));
     }
 
     public void insertDati(String nome, String punteggio){
-        BackgroundWorkers backgroundWorker = new BackgroundWorkers(this.context);
+        BackgroundWorkers backgroundWorker = new BackgroundWorkers();
         InternetConnection conn = new InternetConnection(this.context);
         if (conn.isOnline()){
             ArrayList<CustomerModel> list;
