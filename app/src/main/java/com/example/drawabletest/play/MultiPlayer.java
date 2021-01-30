@@ -122,8 +122,9 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
     private void drawScore(Canvas canvas){
          paint.setColor(Color.RED);
          paint.setTextSize(100);
-         canvas.rotate(90,(float) size.x / 2,(float) size.y / 2);
-         canvas.drawText(player_score2 + " - " + player_score1,(float)size.x / 2 -50, (float)(size.y / 3), paint);
+         canvas.rotate(90,(float) size.x / 2 ,(float) size.y / 2);
+         canvas.drawText(player_score2 + " - " + player_score1,(float)size.x / 2 - 110, (float)(size.y / 3), paint);
+         canvas.rotate(-90,(float) size.x / 2 ,(float) size.y / 2);
     }
 
     private void drawGameOver(Canvas canvas) {
@@ -131,14 +132,14 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
             paint.setColor(Color.RED);
             paint.setTextSize(100);
             paint.setTextAlign(Paint.Align.CENTER);
+            canvas.rotate(90,(float) size.x / 2 ,(float) size.y / 2);
             if(winner == 1){
-                canvas.drawText(context.getResources().getString(R.string.player1wins), (float)size.x / 2, (float)size.y / 2 - 150, paint);
+                canvas.drawText(context.getResources().getString(R.string.player1wins), (float)size.x / 2, (float)size.y / 2, paint);
             }
             else {
-                canvas.rotate(180,(float)size.x/2,(float)size.y/2);
-                canvas.drawText(context.getResources().getString(R.string.player2wins), (float)size.x / 2, (float)size.y / 2 + 150 , paint);
-                canvas.rotate(180,(float)size.x/2,(float)size.y/2);
+                canvas.drawText(context.getResources().getString(R.string.player2wins), (float)size.x / 2, (float)size.y / 2, paint);
             }
+            canvas.rotate(-90,(float) size.x / 2 ,(float) size.y / 2);
 
         }
     }
@@ -174,7 +175,7 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
         for (int j = 1; j < 6; j++) {
 
             //coordinates of each brick
-            Position position = new Position(j * 150, (float)size.y/2);
+            Position position = new Position(j * 150, (float)(size.y/2) - 64);
 
             wall.add(new SimpleBrick(context, position));
         }

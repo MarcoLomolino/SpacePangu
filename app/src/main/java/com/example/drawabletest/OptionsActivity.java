@@ -118,28 +118,24 @@ public class OptionsActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkBox_classic:
                 if (checked) {
-                    Toast.makeText(this, getString(R.string.classic_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("difficulty","classic");
                     mEditor.commit();
                 }
                 break;
             case R.id.checkBox_hard:
                 if (checked) {
-                    Toast.makeText(this, getString(R.string.hard_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("difficulty","hard");
                     mEditor.commit();
                 }
                 break;
             case R.id.accelerometer:
                 if (checked) {
-                    Toast.makeText(this, getString(R.string.tilt_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("controller","accelerometer");
                     mEditor.commit();
                 }
                 break;
             case R.id.drag:
                 if (checked) {
-                    Toast.makeText(this, getString(R.string.drag_select), Toast.LENGTH_SHORT).show();
                     mEditor.putString("controller","drag");
                     mEditor.commit();
                 }
@@ -150,21 +146,18 @@ public class OptionsActivity extends AppCompatActivity {
 
     public void buttonClicked(Button btn, EditText text){
         btn.setOnClickListener(v -> {
-            if(text.getText().toString().length()>15){
-                Toast.makeText(OptionsActivity.this, "Username troppo lungo", Toast.LENGTH_SHORT).show();
-            }
-            else if(text.getText().toString().length()<3){
-                Toast.makeText(OptionsActivity.this, "Username troppo corto", Toast.LENGTH_SHORT).show();
+            if(text.getText().toString().length()>15 || text.getText().toString().length()<3){
+                Toast.makeText(OptionsActivity.this, getString(R.string.username_length), Toast.LENGTH_SHORT).show();
             }
             else if(!text.getText().toString().matches("[A-Za-z0-9]+")){
-                Toast.makeText(OptionsActivity.this, "Puoi inserire solo lettere o numeri", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OptionsActivity.this, getString(R.string.username_notValid), Toast.LENGTH_SHORT).show();
             }
             else{
                 mEditor.putString("username",text.getText().toString().replaceAll(" ",""));
                 mEditor.commit();
                 text.setEnabled(false);
                 text.setEnabled(true);
-                Toast.makeText(OptionsActivity.this, "Modifica effettuata", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OptionsActivity.this, getString(R.string.username_saved), Toast.LENGTH_SHORT).show();
             }
         });
     }

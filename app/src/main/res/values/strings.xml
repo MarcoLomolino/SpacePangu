@@ -24,6 +24,9 @@
     <string name="hard_select">Hard Difficulty selected</string>
     <string name="tilt_select">Tilt Mode selected</string>
     <string name="drag_select">Drag Mode selected</string>
+    <string name="username_length">Username must be between 3 and 15 characters</string>
+    <string name="username_notValid">Only letters and numbers are allow</string>
+    <string name="username_saved">Username changed successfully</string>
     <string name="image" translatable="false">image</string>
     <string name="slot1" translatable="false">slot1</string>
     <string name="slot2" translatable="false">slot2</string>
@@ -34,6 +37,7 @@
     <string name="player1wins">Player 1 wins!</string>
     <string name="player2wins">Player 2 wins!</string>
     <string name="ok" translatable="false">OK</string>
+    <string name="splashscreen" translatable="false">Developed by Among Bugs</string>
     <string name="editor_guide_line1">Here you can create your own levels</string>
     <string name="editor_guide_line2">There are 4 slot available and the location of the bricks will be always auto-saved</string>
     <string name="editor_guide_line3">You can change the type of the brick by touching it</string>
