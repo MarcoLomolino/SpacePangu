@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showPlayGame(View view){
-        Intent intent = new Intent(this, DatabaseHelper.SinglePlayerActivity.class);
+        Intent intent = new Intent(this, PlayActivity.class);
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);
     }

@@ -24,7 +24,7 @@
         <activity android:name=".HighscoresActivity"
             android:label="@string/highscores"/>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".DatabaseHelper$SinglePlayerActivity" />
+        <activity android:name=".PlayActivity" />
         <activity android:name=".PlayEditorActivity" />
         <activity
             android:name=".MainActivity"
