@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/darkgalaxy"
     android:theme="@style/Theme.DrawableTest"
-    tools:context=".Editor">
+    tools:context=".activities.editor.EditorActivity">
 
     <ImageButton
         android:id="@+id/btn3_1"

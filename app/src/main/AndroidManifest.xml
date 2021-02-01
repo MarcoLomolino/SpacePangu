@@ -16,18 +16,18 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".VersusActivity"/>
-        <activity android:name=".Editor"
+        <activity android:name=".activities.game.VersusActivity"/>
+        <activity android:name=".activities.editor.EditorActivity"
             android:label="@string/editor"/>
-        <activity android:name=".OptionsActivity"
+        <activity android:name=".activities.options.OptionsActivity"
             android:label="@string/options"/>
-        <activity android:name=".HighscoresActivity"
+        <activity android:name=".activities.highscores.HighscoresActivity"
             android:label="@string/highscores"/>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".PlayActivity" />
-        <activity android:name=".PlayEditorActivity" />
+        <activity android:name=".activities.home.HomeActivity" />
+        <activity android:name=".activities.game.PlayActivity" />
+        <activity android:name=".activities.game.PlayEditorActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.home.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

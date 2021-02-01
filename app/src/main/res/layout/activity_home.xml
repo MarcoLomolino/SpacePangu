@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:contentDescription="@string/button"
-    tools:context=".HomeActivity">
+    tools:context=".activities.home.HomeActivity">
 
     <ImageButton
         android:id="@+id/HighScore"
