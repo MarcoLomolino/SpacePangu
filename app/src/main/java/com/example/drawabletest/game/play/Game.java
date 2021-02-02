@@ -8,7 +8,6 @@ public interface Game {
 
     void setBricks(Context context);
 
-
     void checkWalls();
 
     void checkVictory();

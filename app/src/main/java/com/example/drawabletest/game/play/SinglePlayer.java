@@ -59,8 +59,6 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
 
     private final SoundPlayer sp;
     int wallSound, brickSound, specialBrickSound, deathSound, gameoverSound, paddleSound;
-
-
     private boolean stato;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -270,9 +268,9 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     @Override
     public void checkVictory() {
         if (wall.isEmpty()) { //if there are no bricks
-            this.playButtonSound();
+            //playButtonSound();
             sp.releaseSP();
-            this.loadSounds(sp);
+            loadSounds(sp);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
             resetLevel((float) (size.y / 1.35));
             setBricks(context);
@@ -325,7 +323,7 @@ public class SinglePlayer extends View implements View.OnTouchListener, SensorEv
     }
 
     private void playButtonSound() {
-        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.levelup);
+        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.menu_101);
         beepMP.setOnPreparedListener(MediaPlayer::start);
         beepMP.setOnCompletionListener(MediaPlayer::release);
     }

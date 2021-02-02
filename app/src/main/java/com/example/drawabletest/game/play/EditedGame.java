@@ -256,7 +256,7 @@ public class EditedGame extends View implements View.OnTouchListener, SensorEven
     //check if the player has won
     private void victory() {
         if (wall.isEmpty()) { //if there are no bricks
-            playbuttonsound();
+            //playbuttonsound();
             sp.releaseSP();
             reloadGameSoundPlayer(sp);
             statistic.setLevel(statistic.getLevel() + 1); //increase the level
