@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="options">Opzioni</string>
+    <string name="options">Impostazioni</string>
     <string name="difficulty">Difficoltà</string>
     <string name="classic">Classica</string>
     <string name="hard">Difficile</string>

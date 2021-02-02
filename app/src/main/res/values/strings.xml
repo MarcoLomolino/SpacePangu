@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">SpacePang</string>
     <string name="button" translatable="false">Button</string>
-    <string name="options">Options</string>
+    <string name="options">Settings</string>
     <string name="difficulty">Difficulty</string>
     <string name="classic">Classic</string>
     <string name="hard">Hard</string>

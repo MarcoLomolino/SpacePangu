@@ -19,7 +19,7 @@
         <activity android:name=".activities.game.VersusActivity"/>
         <activity android:name=".activities.editor.EditorActivity"
             android:label="@string/editor"/>
-        <activity android:name=".activities.options.OptionsActivity"
+        <activity android:name=".activities.impostazioni.ImpostazioniActivity"
             android:label="@string/options"/>
         <activity android:name=".activities.highscores.HighscoresActivity"
             android:label="@string/highscores"/>

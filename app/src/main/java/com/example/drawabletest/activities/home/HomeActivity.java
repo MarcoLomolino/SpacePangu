@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.example.drawabletest.activities.editor.EditorActivity;
 import com.example.drawabletest.activities.highscores.HighscoresActivity;
-import com.example.drawabletest.activities.options.OptionsActivity;
+import com.example.drawabletest.activities.impostazioni.ImpostazioniActivity;
 import com.example.drawabletest.R;
 import com.example.drawabletest.sounds.SoundPlayer;
 import com.example.drawabletest.activities.game.PlayActivity;
@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showOption(MenuItem item) {
-        Intent intent = new Intent(this, OptionsActivity.class);
+        Intent intent = new Intent(this, ImpostazioniActivity.class);
         startActivity(intent);
     }
 

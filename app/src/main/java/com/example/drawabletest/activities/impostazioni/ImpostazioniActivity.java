@@ -1,4 +1,4 @@
-package com.example.drawabletest.activities.options;
+package com.example.drawabletest.activities.impostazioni;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -17,8 +17,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.drawabletest.R;
+import com.example.drawabletest.sounds.SoundPlayer;
 
-public class OptionsActivity extends AppCompatActivity {
+public class ImpostazioniActivity extends AppCompatActivity {
+
+    SoundPlayer sp = new SoundPlayer(this);
+    int menuSound;
 
     private CheckBox difficulty_classic;
     private CheckBox difficulty_Hard;
@@ -31,6 +35,7 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        menuSound = sp.loadSound(R.raw.menu_101);
 
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -122,24 +127,28 @@ public class OptionsActivity extends AppCompatActivity {
                 if (checked) {
                     mEditor.putString("difficulty","classic");
                     mEditor.commit();
+                    sp.playSound(menuSound, 0.80f);
                 }
                 break;
             case R.id.checkBox_hard:
                 if (checked) {
                     mEditor.putString("difficulty","hard");
                     mEditor.commit();
+                    sp.playSound(menuSound, 0.80f);
                 }
                 break;
             case R.id.accelerometer:
                 if (checked) {
                     mEditor.putString("controller","accelerometer");
                     mEditor.commit();
+                    sp.playSound(menuSound, 0.80f);
                 }
                 break;
             case R.id.drag:
                 if (checked) {
                     mEditor.putString("controller","drag");
                     mEditor.commit();
+                    sp.playSound(menuSound, 0.80f);
                 }
 
                 break;
@@ -149,17 +158,17 @@ public class OptionsActivity extends AppCompatActivity {
     public void buttonClicked(Button btn, EditText text){
         btn.setOnClickListener(v -> {
             if(text.getText().toString().length()>15 || text.getText().toString().length()<3){
-                Toast.makeText(OptionsActivity.this, getString(R.string.username_length), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImpostazioniActivity.this, getString(R.string.username_length), Toast.LENGTH_SHORT).show();
             }
             else if(!text.getText().toString().matches("[A-Za-z0-9]+")){
-                Toast.makeText(OptionsActivity.this, getString(R.string.username_notValid), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImpostazioniActivity.this, getString(R.string.username_notValid), Toast.LENGTH_SHORT).show();
             }
             else{
                 mEditor.putString("username",text.getText().toString().replaceAll(" ",""));
                 mEditor.commit();
                 text.setEnabled(false);
                 text.setEnabled(true);
-                Toast.makeText(OptionsActivity.this, getString(R.string.username_saved), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImpostazioniActivity.this, getString(R.string.username_saved), Toast.LENGTH_SHORT).show();
             }
         });
     }
