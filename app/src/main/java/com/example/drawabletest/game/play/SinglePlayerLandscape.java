@@ -96,7 +96,7 @@ public class SinglePlayerLandscape extends View implements View.OnTouchListener,
     //get a Bitmap object from drawable resources and set it to background field
     @Override
     public void setBackground() {
-        this.background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_score));
+        this.background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.pozadie_scorelandscape));
     }
 
     //get display size (it's not hardware size but the size of the interactable activity)
@@ -336,11 +336,11 @@ public class SinglePlayerLandscape extends View implements View.OnTouchListener,
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (statistic.getController().equals("accelerometer") && event.sensor.getType() == Sensor.TYPE_ACCELEROMETER ) {
-            paddle.setXPosition((int) (paddle.getXPosition() - event.values[0] - event.values[0]));
+            paddle.setXPosition((int) (paddle.getYPosition() - event.values[0] - event.values[0]));
 
-            if (paddle.getXPosition() + event.values[0] > size.x - 240) {
+            if (paddle.getYPosition() + event.values[0] > size.x - 240) {
                 paddle.setXPosition(size.x - 240);
-            } else if (paddle.getXPosition() - event.values[0] <= 20) {
+            } else if (paddle.getYPosition() - event.values[0] <= 20) {
                 paddle.setXPosition(20);
             }
         }

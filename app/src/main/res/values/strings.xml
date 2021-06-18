@@ -9,8 +9,8 @@
     <string name="tilt">Tilt</string>
     <string name="touch">Touch</string>
     <string name="confirm">Confirm</string>
-    <string name="classic_score">Classic Score</string>
-    <string name="hard_score">Hard Score</string>
+    <string name="classic_score">Classic</string>
+    <string name="hard_score">Hard</string>
     <string name="guide">Guide</string>
     <string name="play">Play</string>
     <string name="noconnection">There is no internet connection</string>
