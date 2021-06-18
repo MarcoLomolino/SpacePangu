@@ -9,6 +9,7 @@ import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
 import com.example.drawabletest.game.play.SinglePlayer;
 import com.example.drawabletest.game.game_tools.position.Position;
+import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
 public class LifeBrick extends Brick {
 
@@ -38,6 +39,14 @@ public class LifeBrick extends Brick {
         int life = game.getStatistic().getLife();
 
         game.getStatistic().setLife(life + 1);
+    }
+
+    @Override
+    public void setEffect(SinglePlayerLandscape singlePlayer)
+    {
+        int life = singlePlayer.getStatistic().getLife();
+
+        singlePlayer.getStatistic().setLife(life + 1);
     }
 
     @Override

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
@@ -16,13 +17,17 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".activities.game.VersusActivity"/>
-        <activity android:name=".activities.editor.EditorActivity"
-            android:label="@string/editor"/>
-        <activity android:name=".activities.impostazioni.ImpostazioniActivity"
-            android:label="@string/options"/>
-        <activity android:name=".activities.highscores.HighscoresActivity"
-            android:label="@string/highscores"/>
+        <activity android:name=".activities.game.PlayActivityLandscape"></activity>
+        <activity android:name=".activities.game.VersusActivity" />
+        <activity
+            android:name=".activities.editor.EditorActivity"
+            android:label="@string/editor" />
+        <activity
+            android:name=".activities.impostazioni.ImpostazioniActivity"
+            android:label="@string/options" />
+        <activity
+            android:name=".activities.highscores.HighscoresActivity"
+            android:label="@string/highscores" />
         <activity android:name=".activities.home.HomeActivity" />
         <activity android:name=".activities.game.PlayActivity" />
         <activity android:name=".activities.game.PlayEditorActivity" />

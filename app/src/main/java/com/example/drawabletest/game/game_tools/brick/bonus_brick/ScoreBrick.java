@@ -8,6 +8,7 @@ import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
 import com.example.drawabletest.game.play.SinglePlayer;
 import com.example.drawabletest.game.game_tools.position.Position;
+import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
 public class ScoreBrick extends Brick {
 
@@ -36,6 +37,15 @@ public class ScoreBrick extends Brick {
         int score = game.getStatistic().getScore();
 
         game.getStatistic().setScore(score + 200);
+
+    }
+
+    @Override
+    public void setEffect(SinglePlayerLandscape singlePlayer) {
+
+        int score = singlePlayer.getStatistic().getScore();
+
+        singlePlayer.getStatistic().setScore(score + 200);
 
     }
 

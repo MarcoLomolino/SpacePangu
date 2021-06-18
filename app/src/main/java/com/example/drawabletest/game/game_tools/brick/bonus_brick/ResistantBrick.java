@@ -8,6 +8,7 @@ import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
 import com.example.drawabletest.game.play.SinglePlayer;
 import com.example.drawabletest.game.game_tools.position.Position;
+import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
 public class ResistantBrick extends Brick {
 
@@ -36,6 +37,15 @@ public class ResistantBrick extends Brick {
         super.setLives(super.getLives() - 1);
         super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_metalbroken));
     }
+
+    @Override
+    public void setEffect(SinglePlayerLandscape singlePlayer) {
+
+        super.setLives(super.getLives() - 1);
+        super.setGraphic_brick(BitmapFactory.decodeResource(getResources(), R.drawable.brick_metalbroken));
+    }
+
+
 
     @Override
     public String getType() {

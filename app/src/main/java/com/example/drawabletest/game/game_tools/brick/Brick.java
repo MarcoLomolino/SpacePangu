@@ -7,6 +7,7 @@ import android.view.View;
 import com.example.drawabletest.game.play.EditedGame;
 import com.example.drawabletest.game.play.SinglePlayer;
 import com.example.drawabletest.game.game_tools.position.Position;
+import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
 public abstract class Brick extends View {
 
@@ -82,6 +83,9 @@ public abstract class Brick extends View {
 
 	//the brick produce an effect 
     public abstract void setEffect(SinglePlayer singlePlayer);
+
+    //the brick produce an effect 
+    public abstract void setEffect(SinglePlayerLandscape singlePlayerLandscape);
 
     //the brick produce an effect
     public abstract void setEffect(EditedGame game);

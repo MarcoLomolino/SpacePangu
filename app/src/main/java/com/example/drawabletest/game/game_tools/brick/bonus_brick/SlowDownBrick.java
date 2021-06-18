@@ -8,6 +8,7 @@ import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
 import com.example.drawabletest.game.play.SinglePlayer;
 import com.example.drawabletest.game.game_tools.position.Position;
+import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
 public class SlowDownBrick extends Brick {
 
@@ -60,6 +61,27 @@ public class SlowDownBrick extends Brick {
 
         Position direction = new Position(directionX, directionY);
         game.setBallDirection(direction);
+    }
+
+    @Override
+    public void setEffect(SinglePlayerLandscape singlePlayer) {
+        float directionX = 0, directionY = 0;
+
+        if (singlePlayer.getBall().getDirection().getX() > 0) {
+            directionX = singlePlayer.getBall().getMIN_X();
+        } else if (singlePlayer.getBall().getDirection().getX() < 0) {
+            directionX = -singlePlayer.getBall().getMIN_X();
+        }
+        if (singlePlayer.getBall().getDirection().getY() > 0) {
+            directionY = -singlePlayer.getBall().getMAX_Y();
+        } else if (singlePlayer.getBall().getDirection().getY() < 0) {
+            directionY = singlePlayer.getBall().getMAX_Y();
+        }
+
+        singlePlayer.getBall().resetPaddleHit();
+
+        Position direction = new Position(directionX, directionY);
+        singlePlayer.setBallDirection(direction);
     }
 
     @Override

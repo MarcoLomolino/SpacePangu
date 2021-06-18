@@ -9,6 +9,7 @@ import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
 import com.example.drawabletest.game.play.SinglePlayer;
 import com.example.drawabletest.game.game_tools.position.Position;
+import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
 @SuppressLint("ViewConstructor")
 public class SimpleBrick extends Brick {
@@ -51,6 +52,10 @@ public class SimpleBrick extends Brick {
 	//a simple brick produce none effect
     @Override
     public void setEffect(SinglePlayer singlePlayer) {
+
+    }
+
+    public void setEffect(SinglePlayerLandscape singlePlayer) {
 
     }
 

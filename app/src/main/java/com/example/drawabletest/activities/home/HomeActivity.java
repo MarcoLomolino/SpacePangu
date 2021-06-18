@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.drawabletest.activities.editor.EditorActivity;
+import com.example.drawabletest.activities.game.PlayActivityLandscape;
 import com.example.drawabletest.activities.highscores.HighscoresActivity;
 import com.example.drawabletest.activities.impostazioni.ImpostazioniActivity;
 import com.example.drawabletest.R;
@@ -46,7 +48,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showPlayGame(View view){
-        Intent intent = new Intent(this, PlayActivity.class);
+            Intent intent;
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            intent = new Intent(this, PlayActivity.class);
+        } else{
+            intent = new Intent(this, PlayActivityLandscape.class);
+        }
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);
     }
