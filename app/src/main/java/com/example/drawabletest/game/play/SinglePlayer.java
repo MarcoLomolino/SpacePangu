@@ -16,10 +16,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import com.example.drawabletest.databases.model.ModelScore;
 import com.example.drawabletest.databases.DatabaseHelper;
 import com.example.drawabletest.databases.DatabaseRemote;
@@ -29,15 +27,12 @@ import com.example.drawabletest.game.game_tools.paddle.Paddle;
 import com.example.drawabletest.game.game_tools.statistics.Statistic;
 import com.example.drawabletest.sounds.SoundPlayer;
 import com.example.drawabletest.game.game_tools.brick.Brick;
-
 import com.example.drawabletest.game.game_tools.brick.bonus_brick.LifeBrick;
 import com.example.drawabletest.game.game_tools.brick.bonus_brick.ResistantBrick;
 import com.example.drawabletest.game.game_tools.brick.bonus_brick.ScoreBrick;
 import com.example.drawabletest.game.game_tools.brick.bonus_brick.SlowDownBrick;
 import com.example.drawabletest.game.game_tools.brick.sample_brick.SimpleBrick;
-
 import com.example.drawabletest.game.game_tools.position.Position;
-
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SinglePlayer extends AbstractGame implements View.OnTouchListener, SensorEventListener {
@@ -256,7 +251,6 @@ public class SinglePlayer extends AbstractGame implements View.OnTouchListener, 
                 if (ball.isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
                     if(b.getLives() == 1) //if the hitted brick has only a life
                         super.getWall().remove(b);	//then remove it
-                        Log.d("COLLISION: ", b.getYPosition() / 100 + " - " + b.getXPosition() / 150);
 
                     if(b.getType().equals("life") || b.getType().equals("score") || b.getType().equals("slowdown"))
                         super.getSp().playSound(specialBrickSound, 0.99f);
