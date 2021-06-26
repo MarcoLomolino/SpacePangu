@@ -57,7 +57,7 @@ public class ImpostazioniActivity extends AppCompatActivity {
 
 
         mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
-        String name = mPreferences.getString("username","");
+        String name = mPreferences.getString("username","UtenteDemo");
         username.setText(name);
         buttonClicked(conferma, username);
 

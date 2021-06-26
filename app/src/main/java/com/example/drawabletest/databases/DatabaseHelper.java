@@ -39,7 +39,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableStatement2);
         String createTableStatement3 = "CREATE TABLE " + HARD_TABLE + " (" + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SCORE_COLUMN + " INT)";
         db.execSQL(createTableStatement3);
-        db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(0,0)");
+        //DATI NELLA VERSIONE DEMO
+        db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(1,100)");
+        db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(2,90)");
+        db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(3,70)");
+        db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(4,50)");
+        db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(5,30)");
+        //db.execSQL("INSERT INTO "+ CUSTOMER_TABLE+ " VALUES(0,0)");
         for(int z=1;z<5;z++){
             for(int x=0;x<5;x++){
                 for(int y=0;y<4;y++){
@@ -47,7 +53,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(0,0)");
+        //DATI NELLA VERSIONE DEMO
+        db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(1,110)");
+        db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(2,80)");
+        db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(3,60)");
+        db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(4,30)");
+        db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(5,10)");
+        //db.execSQL("INSERT INTO "+ HARD_TABLE+ " VALUES(0,0)");
     }
 
     @Override
