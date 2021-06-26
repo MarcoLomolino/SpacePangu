@@ -19,9 +19,7 @@ public class PlayEditorActivity extends AppCompatActivity {
 
     private EditedGame game;
     private Handler updateHandler;
-    private SharedPreferences mPrefs;
-    private int mCur;
-    UpdateThread myThread;
+    private UpdateThread myThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,6 @@ public class PlayEditorActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        mPrefs = getSharedPreferences("salva_map",MODE_PRIVATE);
-        mCur = mPrefs.getInt("view_mode",1);
     }
 
     @SuppressLint("HandlerLeak")
@@ -48,6 +44,7 @@ public class PlayEditorActivity extends AppCompatActivity {
         };
     }
 
+    @Override
     protected void onPause() {
         super.onPause();
         game.stopScanning();
@@ -59,9 +56,10 @@ public class PlayEditorActivity extends AppCompatActivity {
         }*/
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
-        game = new EditedGame(this,mCur);
+        game = new EditedGame(this);
         setContentView(game);
         game.runScanning();
         VytvorHandler();
@@ -79,10 +77,9 @@ public class PlayEditorActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

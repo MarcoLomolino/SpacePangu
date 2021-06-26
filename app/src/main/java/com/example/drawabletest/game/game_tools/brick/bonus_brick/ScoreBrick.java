@@ -3,6 +3,7 @@ package com.example.drawabletest.game.game_tools.brick.bonus_brick;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import com.example.drawabletest.game.play.AbstractGame;
 import com.example.drawabletest.game.play.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
@@ -23,31 +24,14 @@ public class ScoreBrick extends Brick {
 
 	//double the actual player score TO CHANGE IN ANOTHER EFFECT
     @Override
-    public void setEffect(SinglePlayer singlePlayer) {
+    public void setEffect(AbstractGame abstractGame){
 
-        int score = singlePlayer.getStatistic().getScore();
+        int score = abstractGame.getStatistic().getScore();
 
-        singlePlayer.getStatistic().setScore(score + 200);
-
-    }
-
-    @Override
-    public void setEffect(EditedGame game) {
-
-        int score = game.getStatistic().getScore();
-
-        game.getStatistic().setScore(score + 200);
+        abstractGame.getStatistic().setScore(score + 200);
 
     }
 
-    @Override
-    public void setEffect(SinglePlayerLandscape singlePlayer) {
-
-        int score = singlePlayer.getStatistic().getScore();
-
-        singlePlayer.getStatistic().setScore(score + 200);
-
-    }
 
     @Override
     public String getType() {

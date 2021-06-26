@@ -33,8 +33,8 @@ public class EditorActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Button confirm;
-    DatabaseHelper database;
-    int isClicked[][] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+    private DatabaseHelper database;
+    private int isClicked[][] = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
     private SharedPreferences mPrefs;
     private int mCur;
 

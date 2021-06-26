@@ -1,33 +1,34 @@
 package com.example.drawabletest.activities.game;
 
-import android.annotation.SuppressLint;
-import android.content.pm.ActivityInfo;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.drawabletest.game.play.SinglePlayer;
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.MenuItem;
+import android.view.WindowManager;
 
-public class PlayActivity extends AppCompatActivity {
+import com.example.drawabletest.game.play.MultiPlayer;
 
-    private SinglePlayer game;
+public class PlayMultyplayerActivity extends AppCompatActivity {
+
+    private MultiPlayer game;
     private Handler updateHandler;
     UpdateThread myThread;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Impedisce allo schermo di spegnersi automaticamente durante la partita
 
         ActionBar ab = getSupportActionBar();
-        assert ab != null;
+        assert ab!= null;
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -42,26 +43,33 @@ public class PlayActivity extends AppCompatActivity {
         };
     }
 
+    @Override
     protected void onPause() {
         super.onPause();
-        game.stopScanning();
         myThread.setPlay(false);
+        /*try {
+            myThread.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
-        game = new SinglePlayer(this);
+        game = new MultiPlayer(this);
         setContentView(game);
-        game.runScanning();
         VytvorHandler();
         myThread = new UpdateThread(updateHandler);
         myThread.start();
+
+        //game.runScanning();
+        //myThread.setPlay(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        game.stopScanning();
         myThread.setPlay(false);
     }
 
@@ -76,4 +84,3 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 }
-

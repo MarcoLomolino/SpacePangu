@@ -17,8 +17,8 @@
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".activities.game.PlayActivityLandscape"></activity>
-        <activity android:name=".activities.game.VersusActivity" />
+        <activity android:name=".activities.game.SinglePlayerActivityLandscape"></activity>
+        <activity android:name=".activities.game.PlayMultyplayerActivity" />
         <activity
             android:name=".activities.editor.EditorActivity"
             android:label="@string/editor" />
@@ -29,7 +29,7 @@
             android:name=".activities.highscores.HighscoresActivity"
             android:label="@string/highscores" />
         <activity android:name=".activities.home.HomeActivity" />
-        <activity android:name=".activities.game.PlayActivity" />
+        <activity android:name=".activities.game.PlaySinglePlayerActivity" />
         <activity android:name=".activities.game.PlayEditorActivity" />
         <activity
             android:name=".activities.home.MainActivity"

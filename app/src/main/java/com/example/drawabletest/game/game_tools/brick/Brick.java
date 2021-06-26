@@ -3,11 +3,9 @@ package com.example.drawabletest.game.game_tools.brick;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
-
-import com.example.drawabletest.game.play.EditedGame;
-import com.example.drawabletest.game.play.SinglePlayer;
+import com.example.drawabletest.game.play.AbstractGame;
 import com.example.drawabletest.game.game_tools.position.Position;
-import com.example.drawabletest.game.play.SinglePlayerLandscape;
+
 
 public abstract class Brick extends View {
 
@@ -20,7 +18,7 @@ public abstract class Brick extends View {
     {
         super(context);
         this.position = position;
-        this.setGraphic_brick();
+        this.setGraphic_brick();//the graphic side of a brick is initialized by concrete class
         this.score = score;
         this.lives = lives;
     }
@@ -65,15 +63,11 @@ public abstract class Brick extends View {
         this.lives = lives;
     }
 
-    /* public void setPosition(Position position) {
-        this.position = position;
-    }*/
-
     @SuppressWarnings("NullableProblems")
     @Override
     public String toString() {
         return "Brick{" +
-                "graphic_brick=" + graphic_brick +
+                "graphic_brick=" + graphic_brick.toString() +
                 ", position=" + position +
                 '}';
     }
@@ -82,13 +76,8 @@ public abstract class Brick extends View {
     public abstract void setGraphic_brick();
 
 	//the brick produce an effect 
-    public abstract void setEffect(SinglePlayer singlePlayer);
+    public abstract void setEffect(AbstractGame singlePlayer);
 
-    //the brick produce an effect 
-    public abstract void setEffect(SinglePlayerLandscape singlePlayerLandscape);
-
-    //the brick produce an effect
-    public abstract void setEffect(EditedGame game);
 
     public abstract String getType();
 

@@ -3,6 +3,7 @@ package com.example.drawabletest.game.game_tools.brick.bonus_brick;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import com.example.drawabletest.game.play.AbstractGame;
 import com.example.drawabletest.game.play.EditedGame;
 import com.example.drawabletest.R;
 
@@ -27,27 +28,14 @@ public class LifeBrick extends Brick {
 	
 	//player's life is increased by one
     @Override
-    public void setEffect(SinglePlayer singlePlayer)
+    public void setEffect(AbstractGame abstractGame)
     {
-        int life = singlePlayer.getStatistic().getLife();
+        int life = abstractGame.getStatistic().getLife();
 
-        singlePlayer.getStatistic().setLife(life + 1);
+        abstractGame.getStatistic().setLife(life + 1);
     }
 
-    @Override
-    public void setEffect(EditedGame game) {
-        int life = game.getStatistic().getLife();
 
-        game.getStatistic().setLife(life + 1);
-    }
-
-    @Override
-    public void setEffect(SinglePlayerLandscape singlePlayer)
-    {
-        int life = singlePlayer.getStatistic().getLife();
-
-        singlePlayer.getStatistic().setLife(life + 1);
-    }
 
     @Override
     public String getType() {

@@ -12,24 +12,25 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.drawabletest.activities.editor.EditorActivity;
-import com.example.drawabletest.activities.game.PlayActivityLandscape;
+import com.example.drawabletest.activities.game.SinglePlayerActivityLandscape;
 import com.example.drawabletest.activities.highscores.HighscoresActivity;
 import com.example.drawabletest.activities.impostazioni.ImpostazioniActivity;
 import com.example.drawabletest.R;
 import com.example.drawabletest.sounds.SoundPlayer;
-import com.example.drawabletest.activities.game.PlayActivity;
-import com.example.drawabletest.activities.game.VersusActivity;
+import com.example.drawabletest.activities.game.PlaySinglePlayerActivity;
+import com.example.drawabletest.activities.game.PlayMultyplayerActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
-    SoundPlayer sp = new SoundPlayer(this);
-    int menuSound;
+    private SoundPlayer sp;
+    private int menuSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        menuSound = sp.loadSound(R.raw.menu_101);
+        this.sp = new SoundPlayer(this);
+        this.menuSound = sp.loadSound(R.raw.menu_101);
     }
 
     public void ShowHighscore(View view){
@@ -48,11 +49,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showPlayGame(View view){
-            Intent intent;
+        Intent intent;
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            intent = new Intent(this, PlayActivity.class);
+            intent = new Intent(this, PlaySinglePlayerActivity.class);
         } else{
-            intent = new Intent(this, PlayActivityLandscape.class);
+            intent = new Intent(this, SinglePlayerActivityLandscape.class);
         }
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);
@@ -65,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showVersus(View view){
-        Intent intent = new Intent(this, VersusActivity.class);
+        Intent intent = new Intent(this, PlayMultyplayerActivity.class);
         startActivity(intent);
         sp.playSound(menuSound, 0.99f);
     }

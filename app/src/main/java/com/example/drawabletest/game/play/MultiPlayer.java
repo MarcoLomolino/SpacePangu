@@ -1,74 +1,54 @@
 package com.example.drawabletest.game.play;
 
 import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
+
 import android.graphics.RectF;
 import android.media.MediaPlayer;
-import android.view.Display;
+
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
+
 
 import com.example.drawabletest.R;
-import com.example.drawabletest.sounds.SoundPlayer;
 import com.example.drawabletest.game.game_tools.ball.Ball;
+import com.example.drawabletest.game.game_tools.paddle.Paddle;
+import com.example.drawabletest.sounds.SoundPlayer;
 import com.example.drawabletest.game.game_tools.brick.Brick;
 import com.example.drawabletest.game.game_tools.brick.sample_brick.SimpleBrick;
-import com.example.drawabletest.game.game_tools.paddle.Paddle;
 import com.example.drawabletest.game.game_tools.position.Position;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class MultiPlayer extends View implements View.OnTouchListener, Game {
+public class MultiPlayer extends AbstractGame implements View.OnTouchListener {
 
     private Bitmap background;
-    private Bitmap roztiahnuty;
-
-    private Ball ball;
-    private Paddle paddle;
+    
     private Paddle paddle2;
-    private CopyOnWriteArrayList<Brick> wall;
 
-    private Point size;
     private final Paint paint;
 
-    private boolean start;
-    private boolean gameOver;
-    private final Context context;
-    private final SoundPlayer sp;
-    int wallSound, brickSound, paddleSound;
+    private int wallSound, brickSound, paddleSound;
 
 
-    private int player_score1 = 0;
-    private int player_score2 = 0;
+    private int player_score1;
+    private int player_score2;
     private int winner;
 
     @SuppressLint("ClickableViewAccessibility")
     public MultiPlayer(Context context) {
         super(context);
-
-        this.context = context;
+        
         this.paint = new Paint();
-
-        sp = new SoundPlayer(this.context);
-        this.loadSounds(sp);
-
-        //flag vars to start the game or to check a game over
-        this.start = false;
-        this.gameOver = false;
-
-        this.setBackground();//set background image
-        this.getSize();//get screen size
-        this.resetLevel(size.y / 1.35);//initialize ball, paddle and bricks
+        
         this.setScores(0, 0);
-
-        this.setBricks(context);//set bricks coordinates position
+        
         this.setOnTouchListener(this);
 
     }
@@ -79,20 +59,11 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
     //get a Bitmap object from drawable resources and set it to background field
     @Override
-    public void setBackground() {
+    protected void setBackground() {
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.versuslayout));
 
     }
-
-    //get display size (it's not hardware size but the size of the interactable activity)
-    private void getSize()
-    {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        //Display display = context.getDisplay();
-        Display display = wm.getDefaultDisplay();
-        size = new Point();
-        display.getSize(size);
-    }
+    
 
     //main method of drawing elements
     protected void onDraw(Canvas canvas) {
@@ -112,9 +83,7 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
 
     private void drawBackground(Canvas canvas) {
-        if (roztiahnuty == null) { //create background only once
-            roztiahnuty = Bitmap.createScaledBitmap(background, size.x, size.y, false);
-        }
+        Bitmap roztiahnuty = Bitmap.createScaledBitmap(background, super.getSizeX(), super.getSizeY(), false);
         canvas.drawBitmap(roztiahnuty, 0, 0, paint);
 
     }
@@ -122,24 +91,24 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
     private void drawScore(Canvas canvas){
          paint.setColor(Color.RED);
          paint.setTextSize(100);
-         canvas.rotate(90,(float) size.x / 2 ,(float) size.y / 2);
-         canvas.drawText(player_score2 + " - " + player_score1,(float)size.x / 2 - 110, (float)(size.y / 3), paint);
-         canvas.rotate(-90,(float) size.x / 2 ,(float) size.y / 2);
+         canvas.rotate(90,(float) super.getSizeX() / 2 ,(float) super.getSizeY() / 2);
+         canvas.drawText(player_score2 + " - " + player_score1,(float)super.getSizeX() / 2 - 110, (float)(super.getSizeY() / 3), paint);
+         canvas.rotate(-90,(float) super.getSizeX() / 2 ,(float) super.getSizeY() / 2);
     }
 
     private void drawGameOver(Canvas canvas) {
-        if (gameOver) {
+        if (super.isGameOver()) {
             paint.setColor(Color.RED);
             paint.setTextSize(100);
             paint.setTextAlign(Paint.Align.CENTER);
-            canvas.rotate(90,(float) size.x / 2 ,(float) size.y / 2);
+            canvas.rotate(90,(float) super.getSizeX() / 2 ,(float) super.getSizeY() / 2);
             if(winner == 1){
-                canvas.drawText(context.getResources().getString(R.string.player1wins), (float)size.x / 2, (float)size.y / 2, paint);
+                canvas.drawText(super.getContext().getResources().getString(R.string.player1wins), (float)super.getSizeX() / 2, (float)super.getSizeY() / 2, paint);
             }
             else {
-                canvas.drawText(context.getResources().getString(R.string.player2wins), (float)size.x / 2, (float)size.y / 2, paint);
+                canvas.drawText(super.getContext().getResources().getString(R.string.player2wins), (float)super.getSizeX() / 2, (float)super.getSizeY() / 2, paint);
             }
-            canvas.rotate(-90,(float) size.x / 2 ,(float) size.y / 2);
+            canvas.rotate(-90,(float) super.getSizeX() / 2 ,(float) super.getSizeY() / 2);
 
         }
     }
@@ -147,7 +116,7 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
     private void drawBricks(Canvas canvas) {
         RectF r;
-        for (Brick b : wall)
+        for (Brick b : super.getWall())
         {
             r = new RectF(b.getXPosition(), b.getYPosition(), b.getXPosition() + 100, b.getYPosition() + 80);
             canvas.drawBitmap(b.getGraphic_brick(), null, r, paint);
@@ -157,8 +126,8 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
     private void drawPaddles(Canvas canvas) {
         paint.setColor(Color.WHITE);
-        RectF r = new RectF(paddle.getXPosition(), paddle.getYPosition(), paddle.getXPosition() + 200, paddle.getYPosition() + 40);
-        canvas.drawBitmap(paddle.getGraphic_paddle(), null, r, paint);
+        RectF r = new RectF(super.getPaddle().getXPosition(), super.getPaddle().getYPosition(), super.getPaddle().getXPosition() + 200, super.getPaddle().getYPosition() + 40);
+        canvas.drawBitmap(super.getPaddle().getGraphic_paddle(), null, r, paint);
 
         paint.setColor(Color.WHITE);
         r = new RectF(paddle2.getXPosition(), paddle2.getYPosition(), paddle2.getXPosition() + 200, paddle2.getYPosition() + 40);
@@ -167,17 +136,17 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
     private void drawBall(Canvas canvas) {
         paint.setColor(Color.RED);
-        canvas.drawBitmap(ball.getGraphic_ball(), ball.getXPosition(), ball.getYPosition(), paint);
+        canvas.drawBitmap(super.getBall().getGraphic_ball(), super.getBall().getXPosition(), super.getBall().getYPosition(), paint);
     }
 
     @Override
-    public void setBricks(Context context) {
+    protected void setBricks(Context context) {
         for (int j = 1; j < 6; j++) {
 
             //coordinates of each brick
-            Position position = new Position(j * 150, (float)(size.y/2) - 64);
+            Position position = new Position(j * 150, (float)(super.getSizeY()/2) - 64);
 
-            wall.add(new SimpleBrick(context, position));
+            super.getWall().add(new SimpleBrick(super.getContext(), position));
         }
     }
 
@@ -185,74 +154,75 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
     //check if the ball hit a wall
     @Override
-    public void checkWalls() {
-        if (ball.getXPosition() + ball.getDirection().getX() >= size.x - 60) {
-            ball.changeDirection("prava");
-            sp.playSound(wallSound, 0.99f);
-        } else if (ball.getXPosition() + ball.getDirection().getX() <= 0) {
-            ball.changeDirection("lava");
-            sp.playSound(wallSound, 0.99f);
-        } else if (ball.getYPosition() + ball.getDirection().getX() <= 0) {
+    protected void checkWalls() {
+        if (super.getBall().getXPosition() + super.getBall().getDirection().getX() >= super.getSizeX() - 60) {
+            super.getBall().changeDirection("prava");
+            super.getSp().playSound(wallSound, 0.99f);
+        } else if (super.getBall().getXPosition() + super.getBall().getDirection().getX() <= 0) {
+            super.getBall().changeDirection("lava");
+            super.getSp().playSound(wallSound, 0.99f);
+        } else if (super.getBall().getYPosition() + super.getBall().getDirection().getX() <= 0) {
             player_score1++;
-            checkLifes( true );
+            checkLives( true );
 
-        } else if (ball.getYPosition() + ball.getDirection().getX() >= size.y - 200) {
+        } else if (super.getBall().getYPosition() + super.getBall().getDirection().getX() >= super.getSizeY() - 200) {
             player_score2++;
-            checkLifes( false );
+            checkLives( false );
         }
     }
 
 
     //check if the player has won
     @Override
-    public void checkVictory() {
+    protected void checkVictory() {
 
-        start = false; //wait to move the ball until the first touch of the player
-        gameOver = true;
+        super.setStart(false); //wait to move the ball until the first touch of the player
+        super.setGameOver(true);
 
         if(player_score1==3)
             winner = 1;
         else
             winner = 2;
 
-        playbuttonsound();
-        sp.releaseSP();
-        loadSounds(sp);
-        resetLevel(size.y / 1.35);
+        playButtonSound();
+        super.getSp().releaseSP();
+        loadSounds(super.getSp());
+        resetLevel(super.getSizeY() / 1.35);
         this.setScores(0, 0);
-        setBricks(context);
+        setBricks(super.getContext());
 
     }
 
     @Override
-    public void loadSounds(SoundPlayer sp) {
-        wallSound = sp.loadSound(R.raw.drum_low_28);
-        brickSound = sp.loadSound(R.raw.drum_low_03);
-        paddleSound = sp.loadSound(R.raw.drum_low_04);
+    protected void loadSounds(SoundPlayer sp) {
+        wallSound = super.getSp().loadSound(R.raw.drum_low_28);
+        brickSound = super.getSp().loadSound(R.raw.drum_low_03);
+        paddleSound = super.getSp().loadSound(R.raw.drum_low_04);
     }
 
 
-    public void checkLifes(boolean b) {
+    @Override
+    protected void checkLives(boolean b) {
         if(player_score1 == 3 || player_score2 == 3) //if a player has 3 as score
             checkVictory();
         else
         {
             if(b) //if player 1 scores
             {
-                this.resetLevel((float)size.y / 13);
-                ball.getDirection().setX(- ball.getDirection().getX());//set opposite direction for player 2's first throw of the ball
-                ball.getDirection().setY(- ball.getDirection().getY());
+                this.resetLevel((float)super.getSizeY() / 13);
+                super.getBall().getDirection().setX(- super.getBall().getDirection().getX());//set opposite direction for player 2's first throw of the ball
+                super.getBall().getDirection().setY(- super.getBall().getDirection().getY());
             }
             else//if player 2 scores
-                this.resetLevel((float) (size.y / 1.35));
+                this.resetLevel((float) (super.getSizeY() / 1.35));
 
             this.setScores(this.player_score1, this.player_score2);
-            playbuttonsound();
-            sp.releaseSP();
-            loadSounds(sp);
-            start = false;
+            playButtonSound();
+            super.getSp().releaseSP();
+            loadSounds(super.getSp());
+            super.setStart(false);
             invalidate();
-            setBricks(context);
+            setBricks(super.getContext());
         }
     }
 
@@ -262,25 +232,26 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
     }
 
     //main method call by PlayActivity. It manage game status
+    @Override
     public void update() {
-        if (start) {//if the player touch the screen the first time
+        if (super.isStart()) {//if the player touch the screen the first time
 
             this.checkWalls(); //check if the ball hits a wall
-            if(ball.nearPaddle(paddle.getXPosition(), paddle.getYPosition()))
+            if(super.getBall().nearPaddle(super.getPaddle().getXPosition(), super.getPaddle().getYPosition()))
             {
-                sp.playSound(paddleSound, 0.99f);
-                this.ball.increaseSpeed();
+                super.getSp().playSound(paddleSound, 0.99f);
+                super.getBall().increaseSpeed();
             }
-            else if(ball.nearPaddle(paddle2.getXPosition(), paddle2.getYPosition()))
-                sp.playSound(paddleSound, 0.99f);
+            else if(super.getBall().nearPaddle(paddle2.getXPosition(), paddle2.getYPosition()))
+                super.getSp().playSound(paddleSound, 0.99f);
 
-            for (Brick b : wall) { //for each brick
-                if (ball.isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
-                    this.wall.remove(b);	//then remove it
-                    this.sp.playSound(brickSound, 0.99f);
+            for (Brick b : super.getWall()) { //for each brick
+                if (super.getBall().isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
+                    super.getWall().remove(b);	//then remove it
+                    super.getSp().playSound(brickSound, 0.99f);
                 }
             }
-            this.ball.move(); //move the ball
+            super.getBall().move(); //move the ball
         }
     }
 
@@ -289,11 +260,11 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
 
     //set tha ball, the wall and the bricks
     @Override
-    public void resetLevel(double ball_position) {
-        this.ball = new Ball(context, (float)size.x / 2, (float) ball_position);
-        this.paddle = new Paddle(context, (float)size.x / 2, (float) (size.y / 1.25));
-        this.paddle2 = new Paddle(context, (float)size.x / 2, (float) size.y / 20);
-        this.wall = new CopyOnWriteArrayList<>();
+    protected void resetLevel(double ball_position) {
+        super.setBall(new Ball(super.getContext(), (float)super.getSizeX() / 2, (float) ball_position));
+        super.setPaddle(new Paddle(super.getContext(), (float)super.getSizeX() / 2, (float) (super.getSizeY() / 1.25)));
+        this.paddle2 = new Paddle(super.getContext(), (float)super.getSizeX() / 2, (float) super.getSizeY() / 20);
+        super.setWall(new CopyOnWriteArrayList<>());
     }
 
 
@@ -308,20 +279,20 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
                 float x = event.getX(i);
                 float y = event.getY(i);
 
-            if (y > (float) size.y / 2) { //if the tap comes from the lowest half part of the screen
-                if (x <= paddle.getXPosition() + 160 && x >= paddle.getXPosition() - 160) { //if the finger is on the paddle, in a range of +-160 from it
-                    paddle.setXPosition(x); //move the paddle
-                    if (paddle.getXPosition() > size.x - 240)   //if the paddle touches the right wall
-                        paddle.setXPosition(size.x - 240); //stop here
-                    else if (paddle.getXPosition() <= 20)   //if the paddle touches the left wall
-                        paddle.setXPosition(20);    //stop here
+            if (y > (float) super.getSizeY() / 2) { //if the tap comes from the lowest half part of the screen
+                if (x <= super.getPaddle().getXPosition() + 160 && x >= super.getPaddle().getXPosition() - 160) { //if the finger is on the paddle, in a range of +-160 from it
+                    super.getPaddle().setXPosition(x); //move the paddle
+                    if (super.getPaddle().getXPosition() > super.getSizeX() - 240)   //if the paddle touches the right wall
+                        super.getPaddle().setXPosition(super.getSizeX() - 240); //stop here
+                    else if (super.getPaddle().getXPosition() <= 20)   //if the paddle touches the left wall
+                        super.getPaddle().setXPosition(20);    //stop here
                 }
             }
             else {  //if the tap comes from the highest half part of the screen
                 if (x <= paddle2.getXPosition() + 160 && x >= paddle2.getXPosition() - 160) { //if the finger is on the paddle, in a range of +-160 from it
                     paddle2.setXPosition(x); //move the paddle
-                    if (paddle2.getXPosition() > size.x - 240) //if the paddle touches the right wall
-                        paddle2.setXPosition(size.x - 240);//stop here
+                    if (paddle2.getXPosition() > super.getSizeX() - 240) //if the paddle touches the right wall
+                        paddle2.setXPosition(super.getSizeX() - 240);//stop here
                     else if (paddle2.getXPosition() <= 20)//if the paddle touches the left wall
                         paddle2.setXPosition(20);//stop here
                 }
@@ -329,17 +300,17 @@ public class MultiPlayer extends View implements View.OnTouchListener, Game {
         }
     }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {//on tap
-            this.start = true;  //let's the match begin
-            this.gameOver = false; //set previous game over to false
+            super.setStart(true);  //let's the match begin
+            super.setGameOver(false); //set previous game over to false
         }
         return true;
     }
 
 
 
-
-    private void playbuttonsound() {
-        final MediaPlayer beepMP = MediaPlayer.create(context, R.raw.levelup);
+    @Override
+    protected void playButtonSound() {
+        final MediaPlayer beepMP = MediaPlayer.create(super.getContext(), R.raw.levelup);
         beepMP.setOnPreparedListener(MediaPlayer::start);
         beepMP.setOnCompletionListener(MediaPlayer::release);
     }

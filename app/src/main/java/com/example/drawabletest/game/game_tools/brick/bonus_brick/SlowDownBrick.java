@@ -3,6 +3,7 @@ package com.example.drawabletest.game.game_tools.brick.bonus_brick;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import com.example.drawabletest.game.play.AbstractGame;
 import com.example.drawabletest.game.play.EditedGame;
 import com.example.drawabletest.R;
 import com.example.drawabletest.game.game_tools.brick.Brick;
@@ -22,67 +23,27 @@ public class SlowDownBrick extends Brick {
     }
 
     @Override
-    public void setEffect(SinglePlayer singlePlayer) {
+    public void setEffect(AbstractGame abstractGame) {
         float directionX = 0, directionY = 0;
 
-        if (singlePlayer.getBall().getDirection().getX() > 0) {
-            directionX = singlePlayer.getBall().getMIN_X();
-        } else if (singlePlayer.getBall().getDirection().getX() < 0) {
-            directionX = -singlePlayer.getBall().getMIN_X();
+        if (abstractGame.getBall().getDirection().getX() > 0) {
+            directionX = abstractGame.getBall().getMIN_X();
+        } else if (abstractGame.getBall().getDirection().getX() < 0) {
+            directionX = -abstractGame.getBall().getMIN_X();
         }
-        if (singlePlayer.getBall().getDirection().getY() > 0) {
-            directionY = -singlePlayer.getBall().getMAX_Y();
-        } else if (singlePlayer.getBall().getDirection().getY() < 0) {
-            directionY = singlePlayer.getBall().getMAX_Y();
+        if (abstractGame.getBall().getDirection().getY() > 0) {
+            directionY = -abstractGame.getBall().getMAX_Y();
+        } else if (abstractGame.getBall().getDirection().getY() < 0) {
+            directionY = abstractGame.getBall().getMAX_Y();
         }
 
-        singlePlayer.getBall().resetPaddleHit();
+        abstractGame.getBall().resetPaddleHit();
 
         Position direction = new Position(directionX, directionY);
-        singlePlayer.setBallDirection(direction);
+        abstractGame.setBallDirection(direction);
     }
 
-    @Override
-    public void setEffect(EditedGame game) {
-        float directionX = 0, directionY = 0;
 
-        if (game.getBall().getDirection().getX() > 0) {
-            directionX = game.getBall().getMIN_X();
-        } else if (game.getBall().getDirection().getX() < 0) {
-            directionX = -game.getBall().getMIN_X();
-        }
-        if (game.getBall().getDirection().getY() > 0) {
-            directionY = -game.getBall().getMAX_Y();
-        } else if (game.getBall().getDirection().getY() < 0) {
-            directionY = game.getBall().getMAX_Y();
-        }
-
-        game.getBall().resetPaddleHit();
-
-        Position direction = new Position(directionX, directionY);
-        game.setBallDirection(direction);
-    }
-
-    @Override
-    public void setEffect(SinglePlayerLandscape singlePlayer) {
-        float directionX = 0, directionY = 0;
-
-        if (singlePlayer.getBall().getDirection().getX() > 0) {
-            directionX = singlePlayer.getBall().getMIN_X();
-        } else if (singlePlayer.getBall().getDirection().getX() < 0) {
-            directionX = -singlePlayer.getBall().getMIN_X();
-        }
-        if (singlePlayer.getBall().getDirection().getY() > 0) {
-            directionY = -singlePlayer.getBall().getMAX_Y();
-        } else if (singlePlayer.getBall().getDirection().getY() < 0) {
-            directionY = singlePlayer.getBall().getMAX_Y();
-        }
-
-        singlePlayer.getBall().resetPaddleHit();
-
-        Position direction = new Position(directionX, directionY);
-        singlePlayer.setBallDirection(direction);
-    }
 
     @Override
     public String getType() {

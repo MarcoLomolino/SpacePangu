@@ -12,19 +12,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.drawabletest.game.play.SinglePlayer;
-import com.example.drawabletest.game.play.SinglePlayerLandscape;
 
-public class PlayActivityLandscape extends AppCompatActivity {
+public class PlaySinglePlayerActivity extends AppCompatActivity {
 
-    private SinglePlayerLandscape game;
+    private SinglePlayer game;
     private Handler updateHandler;
-    UpdateThread myThread;
+    private UpdateThread myThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Impedisce allo schermo di spegnersi automaticamente durante la partita
 
         ActionBar ab = getSupportActionBar();
@@ -43,15 +42,17 @@ public class PlayActivityLandscape extends AppCompatActivity {
         };
     }
 
+    @Override
     protected void onPause() {
         super.onPause();
         game.stopScanning();
         myThread.setPlay(false);
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
-        game = new SinglePlayerLandscape(this);
+        game = new SinglePlayer(this);
         setContentView(game);
         game.runScanning();
         VytvorHandler();

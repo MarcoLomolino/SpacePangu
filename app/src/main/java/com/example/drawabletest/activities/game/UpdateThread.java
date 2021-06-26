@@ -3,8 +3,8 @@ package com.example.drawabletest.activities.game;
 import android.os.Handler;
 
 public class UpdateThread extends Thread {
-    Handler updatovaciHandler;
-    boolean play;
+    private Handler updatovaciHandler;
+    private boolean play;
 
     public boolean isPlay() {
         return play;

@@ -12,20 +12,23 @@ public class Statistic {
     private String username;
 
 
-
+    //in this method 'context' is passed to get the preferences saved in the settings activity
     public Statistic(Context context) {
         this.difficulty = context.getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE).getString("difficulty", "classic");
         this.controller = context.getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE).getString("controller", "accelerometer");
         this.username = context.getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE).getString("username", "");
-        if(difficulty.equals("classic"))
-            this.life = 3;
-        else
-            this.life = 1;
+        if(difficulty.equals("classic")) //if the selected difficulty mode is classic
+            this.life = 3; //the the gamer has 3 lives
+        else    //if the selected difficulty mode is hard
+            this.life = 1; //the the gamer has only 1 life
 
-        this.score = 0;
-        this.level = 1;
+        this.score = 0; //starting score
+        this.level = 1; //starting level
     }
 
+    /*
+        GET AND SET METHODS
+     */
     public int getLife() {
         return life;
     }
@@ -54,23 +57,15 @@ public class Statistic {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
 
     public String getController() {
         return controller;
     }
 
-    public void setController(String controller) {
-        this.controller = controller;
-    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+
 }

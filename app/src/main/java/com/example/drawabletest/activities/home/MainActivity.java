@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         //tempo durata del mio splashscreen in ms
-        int SPLASH_TIME_OUT = 1700;
+        final int SPLASH_TIME_OUT = 1700;
         new Handler(Looper.myLooper()).postDelayed(() -> {
             sp.playSound(startSound, 0.50f);
             Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
