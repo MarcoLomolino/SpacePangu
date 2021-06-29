@@ -190,14 +190,14 @@ public class EditedGame extends AbstractGame implements View.OnTouchListener, Se
     public void update() {
         Ball ball; //ball is initialize here as object to prevent lag in game
         if (super.isStart()) {//if the player touch the screen the first time
-           ball = super.getBall();
             checkVictory(); //check if the player has won
+           ball = super.getBall();
             checkWalls(); //check if the ball hits a wall
             if(ball.nearPaddle(super.getPaddle().getXPosition(), super.getPaddle().getYPosition())) {
                 super.getSp().playSound(paddleSound, 0.99f);
             }//check if the ball hits the paddle
             for (Brick b : super.getWall()) { //for each brick
-                if (ball.isCollisionBrick(b.getPosition())) { //check if the ball hits this brick
+                if (ball.isCollisionBrick(ball.getPosition())) { //check if the ball hits this brick
                     if(b.getLives() == 1) //if the hitted brick has only a life
                         super.getWall().remove(b);	//then remove it
 
