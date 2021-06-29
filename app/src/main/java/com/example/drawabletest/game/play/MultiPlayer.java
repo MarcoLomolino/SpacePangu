@@ -184,7 +184,6 @@ public class MultiPlayer extends AbstractGame implements View.OnTouchListener {
         else
             winner = 2;
 
-        playButtonSound();
         super.getSp().releaseSP();
         loadSounds(super.getSp());
         resetLevel(super.getSizeY() / 1.35);
@@ -217,7 +216,6 @@ public class MultiPlayer extends AbstractGame implements View.OnTouchListener {
                 this.resetLevel((float) (super.getSizeY() / 1.35));
 
             this.setScores(this.player_score1, this.player_score2);
-            playButtonSound();
             super.getSp().releaseSP();
             loadSounds(super.getSp());
             super.setStart(false);
