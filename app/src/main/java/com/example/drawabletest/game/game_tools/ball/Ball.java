@@ -12,7 +12,7 @@ import com.example.drawabletest.game.game_tools.position.Position;
 public class Ball extends View {
     private Position position; //x and y position of the ball
     private Position direction; //x and y position where the ball goes
-    private final Bitmap graphic_ball; //ball texture
+    private Bitmap graphic_ball; //ball texture
     private int paddlehit;
     Context context1;
 
@@ -77,9 +77,9 @@ public class Ball extends View {
         return graphic_ball;
     }
 
-    /*public void setGraphic_ball(Bitmap graphic_ball) {
+    public void setGraphic_ball(Bitmap graphic_ball) {
         this.graphic_ball = graphic_ball;
-    }*/
+    }
     public float getXPosition(){ return position.getX();}
 
     public float getYPosition(){ return position.getY();}

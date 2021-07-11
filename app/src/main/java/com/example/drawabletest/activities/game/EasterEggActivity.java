@@ -1,29 +1,29 @@
 package com.example.drawabletest.activities.game;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.drawabletest.activities.home.HomeActivity;
 import com.example.drawabletest.game.play.EasterEgg;
-import com.example.drawabletest.game.play.SinglePlayer;
 
-public class PlaySinglePlayerActivity extends AppCompatActivity {
 
-    private SinglePlayer game;
+public class EasterEggActivity extends AppCompatActivity {
+
+    private EasterEgg game;
     private Handler updateHandler;
     private UpdateThread myThread;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,25 +57,16 @@ public class PlaySinglePlayerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        game = new SinglePlayer(this);
-        setContentView(game);
-        VytvorHandler();
-        myThread = new UpdateThread(updateHandler);
-
-
         SharedPreferences mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
         mPreferences = getSharedPreferences("com.example.drawabletest", Context.MODE_PRIVATE);
         String name = mPreferences.getString("username","UtenteDemo");
-        if(name.equals("negroalbino"))
-        {
-            Intent intent = new Intent(this, EasterEggActivity.class);
-            startActivity(intent);
-        }
-        else
-        {
+
+            game = new EasterEgg(this);
+            setContentView(game);
             game.runScanning();
+            VytvorHandler();
+            myThread = new UpdateThread(updateHandler);
             myThread.start();
-        }
 
     }
 
@@ -91,10 +82,10 @@ public class PlaySinglePlayerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
-

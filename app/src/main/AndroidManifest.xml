@@ -2,22 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.drawabletest">
 
-    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-feature
-        android:name="android.hardware.sensor.accelerometer"
-        android:required="true" />
-
     <application
         android:icon="@mipmap/spacepang"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/spacepang_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrawableTest">
-        <activity android:name=".activities.game.SinglePlayerActivityLandscape"></activity>
+        <activity android:name=".activities.game.EasterEggActivity"></activity>
+        <activity android:name=".activities.game.SinglePlayerActivityLandscape" />
         <activity android:name=".activities.game.PlayMultyplayerActivity" />
         <activity
             android:name=".activities.editor.EditorActivity"
@@ -41,5 +33,14 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 
 </manifest>
